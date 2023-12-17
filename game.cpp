@@ -88,23 +88,12 @@ namespace Tmpl8
 
 		if (GetAsyncKeyState(VK_LEFT)) nx--;
 		if (GetAsyncKeyState(VK_RIGHT)) nx++;
-		
-		//Checking if any of the points of player hit the X
-		if (CheckPos(nx + 50, ny + 50) &&
+
+		if (CheckPos(nx, ny) && CheckPos(nx + 50, ny + 50) &&
 			CheckPos(nx + 50, ny) && CheckPos(nx, ny + 50))
 		{
 			ballPosition.x = nx, ballPosition.y = ny;
 		}
-
-
-		////Checking if the top points of player hit the X
-		//else if (CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny + 50))
-		//{
-		//	std::cout << "Set gravity to -" << std::endl;
-		//	ballVelocity.y = 0.0f;
-		//	gravity += 1.0f;
-		//	ballPosition.x = nx, ballPosition.y = ny;
-		//}
 
 		//Checking if the bottom points of player hit the X
 		else if (CheckPos(nx, ny) && CheckPos(nx + 50, ny))
@@ -115,12 +104,12 @@ namespace Tmpl8
 
 		}
 
-		
+
 		//Checking if the right points of player hit the X
 		else if (CheckPos(nx, ny) && CheckPos(nx, ny + 50))
 		{
 			std::cout << "Hit left side of obstacle" << std::endl;
-			
+
 			if (GetAsyncKeyState(VK_LEFT))
 			{
 				ballPosition.x = -1.0f;
@@ -132,12 +121,20 @@ namespace Tmpl8
 			ballPosition.y = ny;
 		}
 
-		
+		//Checking if the top points of player hit the X
+		else if (CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny + 50))
+		{
+			std::cout << "Set gravity to -" << std::endl;
+			ballVelocity.y = 0.0f;
+			gravity += 1.0f;
+			ballPosition.x = nx, ballPosition.y = ny;
+		}
+
 		//Checking if the left points of player hit the X
 		else if (CheckPos(nx + 50, ny) && CheckPos(nx + 50, ny + 50))
 		{
 			std::cout << "Hit right side of obstacle" << std::endl;
-		
+
 			if (GetAsyncKeyState(VK_LEFT))
 			{
 				ballVelocity.x = 0.0f;
@@ -148,8 +145,6 @@ namespace Tmpl8
 			}
 			ballPosition.y = ny;
 		}
-
-		
 
 		screen->Clear(0);
 
