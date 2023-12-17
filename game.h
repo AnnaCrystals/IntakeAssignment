@@ -15,7 +15,7 @@ public:
 	void MouseUp( int button ) { /* implement if you want to detect mouse button presses */ }
 	void MouseDown( int button ) { /* implement if you want to detect mouse button presses */ }
 	void MouseMove( int x, int y ) { /* implement if you want to detect mouse movement */ }
-	void KeyUp(int key);
+	void KeyUp(int key); 
 	void KeyDown(int key);
 private:
 	Surface* screen;
@@ -23,6 +23,10 @@ private:
 	vec2 ballPosition;
 	vec2 ballSize;
 	vec2 ballVelocity{ 0, 0 };
+	float gravity = 0.0f;
+	float ballSpeed = 100.0f;
+	bool isAllowed = true;
+
 };
 
 }; // namespace Tmpl8
