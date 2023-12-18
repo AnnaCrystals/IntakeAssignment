@@ -19,30 +19,30 @@ namespace Tmpl8
 		ballSize.y = ballSprite->GetHeight() / 2.0f;//IMPORTANT
 		ballPosition.x = ScreenWidth / 2.0f;//IMPORTANT
 		ballPosition.y = ScreenHeight; //IMPORTANT
-		
+
 
 	}
 	void Game::Shutdown() {}
 
 	//The tilemap
 	Surface tiles("assets/nc2tiles.png");
-	char map[16][75] = {
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfb",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfb",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc fbXfbXfbXfbXfbXkc kc kc kc lc kc kc kc kc",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc",
-		 "fbXfbXfbXfbXlc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfb",
-		 "fbXfbXfbXfbXlc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfb",
+	char map[16][76] = {
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfbX",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfbX",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc fbXfbXfbXfbXfbXkc kc kc kc lc kc kc kc kc ",
+		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
+		 "fbXfbXfbXfbXlc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfbX",
+		 "fbXfbXfbXfbXlc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfbX",
 	};
 
 
@@ -51,7 +51,7 @@ namespace Tmpl8
 	{
 		int tx = x / 32, ty = y / 32;
 		return map[ty][tx * 3 + 2] != 'X';
-		
+
 	}
 
 	void Game::KeyDown(int key) {
@@ -94,57 +94,101 @@ namespace Tmpl8
 		{
 			ballPosition.x = nx, ballPosition.y = ny;
 		}
+		else
+		{
+			if (!CheckPos(nx, ny + 50) && !CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && CheckPos(nx + 50, ny) ||
+				!CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && CheckPos(nx + 50, ny) ||
+				!CheckPos(nx, ny + 50) && CheckPos(nx, ny) && CheckPos(nx + 50, ny)
+				) {
+				std::cout << "Set gravity to 0" << std::endl;
+				gravity = 0.0f;
+				ballPosition.x = nx, ballPosition.y = ny;
+			}			
+			 
+			if (CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) && !CheckPos(nx + 50, ny) ||
+				CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx + 50, ny) ||
+				CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) 
+				)
+			{
+				std::cout << "Set gravity to -1" << std::endl;
+				ballVelocity.y = 0.0f;
+				gravity -= 1.0f;
+				ballPosition.x = nx, ballPosition.y = ny;
+			}
+
+			if (CheckPos(nx, ny + 50) && !CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && !CheckPos(nx + 50, ny) ||
+				CheckPos(nx, ny + 50) && CheckPos(nx, ny) && !CheckPos(nx + 50, ny) || 
+				CheckPos(nx, ny + 50) && !CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) 
+
+			) {
+				std::cout << "Set ballVelocity to 0" << std::endl;
+				ballVelocity = 0.0f;
+				ballPosition.x = nx, ballPosition.y = ny;
+			}
+
+			if (!CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) && CheckPos(nx + 50, ny) ||
+				CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) && CheckPos(nx + 50, ny) ||
+				!CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && CheckPos(nx + 50, ny)
+
+				) {
+				std::cout << "Set ballVelocity to 0" << std::endl;
+				ballVelocity = 0.0f;
+				ballPosition.x = nx, ballPosition.y = ny;
+			}
+			
+
+		}
 
 		//Checking if the bottom points of player hit the X
-		else if (CheckPos(nx, ny) && CheckPos(nx + 50, ny))
-		{
-			std::cout << "Set gravity to 0" << std::endl;
-			gravity = 0.0f;
-			ballPosition.x = nx, ballPosition.y = ny;
+		//else if (CheckPos(nx, ny) && CheckPos(nx + 50, ny))
+		//{
+		//	std::cout << "Set gravity to 0" << std::endl;
+		//	gravity = 0.0f;
+		//	ballPosition.x = nx, ballPosition.y = ny;
 
-		}
+		//}
 
 
-		//Checking if the right points of player hit the X
-		else if (CheckPos(nx, ny) && CheckPos(nx, ny + 50))
-		{
-			std::cout << "Hit left side of obstacle" << std::endl;
+		////Checking if the right points of player hit the X
+		//else if (CheckPos(nx, ny) && CheckPos(nx, ny + 50))
+		//{
+		//	std::cout << "Hit left side of obstacle" << std::endl;
 
-			if (GetAsyncKeyState(VK_LEFT))
-			{
-				ballPosition.x = -1.0f;
-			}
-			if (GetAsyncKeyState(VK_RIGHT))
-			{
-				ballVelocity.x = 0.0f;
-			}
-			ballPosition.y = ny;
-		}
+		//	if (GetAsyncKeyState(VK_LEFT))
+		//	{
+		//		ballPosition.x = -1.0f;
+		//	}
+		//	if (GetAsyncKeyState(VK_RIGHT))
+		//	{
+		//		ballVelocity.x = 0.0f;
+		//	}
+		//	ballPosition.y = ny;
+		//}
 
-		//Checking if the top points of player hit the X
-		else if (CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny + 50))
-		{
-			std::cout << "Set gravity to -" << std::endl;
-			ballVelocity.y = 0.0f;
-			gravity += 1.0f;
-			ballPosition.x = nx, ballPosition.y = ny;
-		}
+		////Checking if the top points of player hit the X
+		//else if (CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny + 50))
+		//{
+		//	std::cout << "Set gravity to -" << std::endl;
+		//	ballVelocity.y = 0.0f;
+		//	gravity += 1.0f;
+		//	ballPosition.x = nx, ballPosition.y = ny;
+		//}
 
-		//Checking if the left points of player hit the X
-		else if (CheckPos(nx + 50, ny) && CheckPos(nx + 50, ny + 50))
-		{
-			std::cout << "Hit right side of obstacle" << std::endl;
+		////Checking if the left points of player hit the X
+		//else if (CheckPos(nx + 50, ny) && CheckPos(nx + 50, ny + 50))
+		//{
+		//	std::cout << "Hit right side of obstacle" << std::endl;
 
-			if (GetAsyncKeyState(VK_LEFT))
-			{
-				ballVelocity.x = 0.0f;
-			}
-			if (GetAsyncKeyState(VK_RIGHT))
-			{
-				ballPosition.x = +1.0f;
-			}
-			ballPosition.y = ny;
-		}
+		//	if (GetAsyncKeyState(VK_LEFT))
+		//	{
+		//		ballVelocity.x = 0.0f;
+		//	}
+		//	if (GetAsyncKeyState(VK_RIGHT))
+		//	{
+		//		ballPosition.x = +1.0f;
+		//	}
+		//	ballPosition.y = ny;
+		//}
 
 		screen->Clear(0);
 
@@ -170,7 +214,7 @@ namespace Tmpl8
 
 
 		//Drawing the tilemap, a grid of 16x25 tiles 
-		for (int y = 0; y < 16; y++) 
+		for (int y = 0; y < 16; y++)
 		{
 			for (int x = 0; x < 25; x++)
 			{
@@ -181,6 +225,7 @@ namespace Tmpl8
 		}
 
 		ballSprite->Draw(screen, static_cast<int> (ballPosition.x), static_cast<int>(ballPosition.y));
+
 		screen->Box(ballPosition.x, ballPosition.y, ballPosition.x + ballSprite->GetWidth(), ballPosition.y + ballSprite->GetHeight(), 0xffff00);
 	}
 };
