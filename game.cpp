@@ -54,7 +54,7 @@ namespace Tmpl8
 
 	}
 
-	void Game::KeyDown(int key) {
+	/*void Game::KeyDown(int key) {
 		switch (key) {
 		case SDL_SCANCODE_SPACE:
 			ballVelocity.y = -10.0f;
@@ -68,7 +68,7 @@ namespace Tmpl8
 			ballVelocity.y = 0.0f;
 			break;
 		}
-	}
+	}*/
 
 	//Drawing of a singular tile
 	void DrawTile(int tx, int ty, Surface* screen, int x, int y)
@@ -86,8 +86,10 @@ namespace Tmpl8
 		deltaTime /= 1000.0f;
 		float nx = ballPosition.x, ny = ballPosition.y;
 
+		if (GetAsyncKeyState(VK_SPACE)) ny = ny - 10.0f;
 		if (GetAsyncKeyState(VK_LEFT)) nx--;
 		if (GetAsyncKeyState(VK_RIGHT)) nx++;
+	
 
 		if (CheckPos(nx, ny) && CheckPos(nx + 50, ny + 50) &&
 			CheckPos(nx + 50, ny) && CheckPos(nx, ny + 50))
@@ -106,34 +108,29 @@ namespace Tmpl8
 			}			
 			 
 			if (CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) && !CheckPos(nx + 50, ny) ||
-				CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx + 50, ny) ||
-				CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) 
+				CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && !CheckPos(nx + 50, ny) ||
+				CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) && CheckPos(nx + 50, ny)
 				)
 			{
 				std::cout << "Set gravity to -1" << std::endl;
-				ballVelocity.y = 0.0f;
-				gravity -= 1.0f;
-				ballPosition.x = nx, ballPosition.y = ny;
+			
 			}
 
-			if (CheckPos(nx, ny + 50) && !CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && !CheckPos(nx + 50, ny) ||
-				CheckPos(nx, ny + 50) && CheckPos(nx, ny) && !CheckPos(nx + 50, ny) || 
-				CheckPos(nx, ny + 50) && !CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) 
+			if (CheckPos(nx + 50, ny + 25) && CheckPos(nx, ny + 49) && !CheckPos(nx + 50, ny + 49) && CheckPos(nx, ny + 1) && !CheckPos(nx + 50, ny + 1) ||
+				CheckPos(nx + 50, ny + 25) && CheckPos(nx, ny + 49) && CheckPos(nx, ny + 1) && !CheckPos(nx + 50, ny + 1) && CheckPos(nx + 50, ny + 49) ||
+				CheckPos(nx + 50, ny + 25) && CheckPos(nx, ny + 49) && CheckPos(nx + 50, ny + 1) && !CheckPos(nx + 50, ny + 49) && CheckPos(nx, ny + 1)
 
 			) {
-				std::cout << "Set ballVelocity to 0" << std::endl;
-				ballVelocity = 0.0f;
-				ballPosition.x = nx, ballPosition.y = ny;
+				std::cout << "Hit left side of obstacle" << std::endl;
 			}
 
-			if (!CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) && CheckPos(nx + 50, ny) ||
-				CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) && CheckPos(nx + 50, ny) ||
-				!CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && CheckPos(nx + 50, ny)
+			if ( !CheckPos(nx, ny + 1) &&!CheckPos(nx, ny + 49) && CheckPos(nx + 50, ny + 49)  && CheckPos(nx + 50, ny + 1) ||
+				 !CheckPos(nx, ny + 1) && CheckPos(nx, ny + 49) && CheckPos(nx + 50, ny + 49)  && CheckPos(nx + 50, ny + 1) ||
+				CheckPos(nx, ny + 1) &&!CheckPos(nx, ny + 49) && CheckPos(nx + 50, ny + 49) && CheckPos(nx + 50, ny + 1)
 
 				) {
-				std::cout << "Set ballVelocity to 0" << std::endl;
-				ballVelocity = 0.0f;
-				ballPosition.x = nx, ballPosition.y = ny;
+				std::cout << "Hit right side of obstacle" << std::endl;
+				
 			}
 			
 
