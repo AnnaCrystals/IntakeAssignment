@@ -98,14 +98,23 @@ namespace Tmpl8
 		else
 		{
 			//Player bottom hits obstacle
-			if (!CheckPos(nx, ny + 50) && !CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && CheckPos(nx + 50, ny) ||
+			if (
+				//It also checks for bottom left and bottom right
+				//Checks if bottom points hit an obstacle
+				!CheckPos(nx, ny + 50) && !CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && CheckPos(nx + 50, ny)  ||
+
+				//Checks if bottom right hit an obstacle
 				!CheckPos(nx + 49, ny + 50) && CheckPos(nx + 1, ny) && CheckPos(nx + 49, ny) ||
-				!CheckPos(nx + 1, ny + 50) && CheckPos(nx + 1, ny) && CheckPos(nx + 49, ny)) 
+
+				//Checks if bottom left hit an obstacle
+				!CheckPos(nx + 1, ny + 50) && CheckPos(nx + 1, ny) && CheckPos(nx + 49, ny))
+				
 			{
 				std::cout << "Set gravity to 0" << std::endl;
 				gravity = 0.0f;
 				ballPosition.x = nx, ballPosition.y = ny;
-			}			
+			}
+			
 		}
 
 		
