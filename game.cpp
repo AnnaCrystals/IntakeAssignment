@@ -90,7 +90,6 @@ namespace Tmpl8
 		if (GetAsyncKeyState(VK_LEFT)) nx--;
 		if (GetAsyncKeyState(VK_RIGHT)) nx++;
 	
-
 		if (CheckPos(nx, ny) && CheckPos(nx + 50, ny + 50) &&
 			CheckPos(nx + 50, ny) && CheckPos(nx, ny + 50))
 		{
@@ -98,95 +97,18 @@ namespace Tmpl8
 		}
 		else
 		{
+			//Player bottom hits obstacle
 			if (!CheckPos(nx, ny + 50) && !CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && CheckPos(nx + 50, ny) ||
-				!CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && CheckPos(nx + 50, ny) ||
-				!CheckPos(nx, ny + 50) && CheckPos(nx, ny) && CheckPos(nx + 50, ny)
-				) {
+				!CheckPos(nx + 49, ny + 50) && CheckPos(nx + 1, ny) && CheckPos(nx + 49, ny) ||
+				!CheckPos(nx + 1, ny + 50) && CheckPos(nx + 1, ny) && CheckPos(nx + 49, ny)) 
+			{
 				std::cout << "Set gravity to 0" << std::endl;
 				gravity = 0.0f;
 				ballPosition.x = nx, ballPosition.y = ny;
 			}			
-			 
-			if (CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) && !CheckPos(nx + 50, ny) ||
-				CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && !CheckPos(nx + 50, ny) ||
-				CheckPos(nx, ny + 50) && CheckPos(nx + 50, ny + 50) && !CheckPos(nx, ny) && CheckPos(nx + 50, ny)
-				)
-			{
-				std::cout << "Set gravity to -1" << std::endl;
-			
-			}
-
-			if (CheckPos(nx + 50, ny + 25) && CheckPos(nx, ny + 49) && !CheckPos(nx + 50, ny + 49) && CheckPos(nx, ny + 1) && !CheckPos(nx + 50, ny + 1) ||
-				CheckPos(nx + 50, ny + 25) && CheckPos(nx, ny + 49) && CheckPos(nx, ny + 1) && !CheckPos(nx + 50, ny + 1) && CheckPos(nx + 50, ny + 49) ||
-				CheckPos(nx + 50, ny + 25) && CheckPos(nx, ny + 49) && CheckPos(nx + 50, ny + 1) && !CheckPos(nx + 50, ny + 49) && CheckPos(nx, ny + 1)
-
-			) {
-				std::cout << "Hit left side of obstacle" << std::endl;
-			}
-
-			if ( !CheckPos(nx, ny + 1) &&!CheckPos(nx, ny + 49) && CheckPos(nx + 50, ny + 49)  && CheckPos(nx + 50, ny + 1) ||
-				 !CheckPos(nx, ny + 1) && CheckPos(nx, ny + 49) && CheckPos(nx + 50, ny + 49)  && CheckPos(nx + 50, ny + 1) ||
-				CheckPos(nx, ny + 1) &&!CheckPos(nx, ny + 49) && CheckPos(nx + 50, ny + 49) && CheckPos(nx + 50, ny + 1)
-
-				) {
-				std::cout << "Hit right side of obstacle" << std::endl;
-				
-			}
-			
-
 		}
 
-		//Checking if the bottom points of player hit the X
-		//else if (CheckPos(nx, ny) && CheckPos(nx + 50, ny))
-		//{
-		//	std::cout << "Set gravity to 0" << std::endl;
-		//	gravity = 0.0f;
-		//	ballPosition.x = nx, ballPosition.y = ny;
-
-		//}
-
-
-		////Checking if the right points of player hit the X
-		//else if (CheckPos(nx, ny) && CheckPos(nx, ny + 50))
-		//{
-		//	std::cout << "Hit left side of obstacle" << std::endl;
-
-		//	if (GetAsyncKeyState(VK_LEFT))
-		//	{
-		//		ballPosition.x = -1.0f;
-		//	}
-		//	if (GetAsyncKeyState(VK_RIGHT))
-		//	{
-		//		ballVelocity.x = 0.0f;
-		//	}
-		//	ballPosition.y = ny;
-		//}
-
-		////Checking if the top points of player hit the X
-		//else if (CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny + 50))
-		//{
-		//	std::cout << "Set gravity to -" << std::endl;
-		//	ballVelocity.y = 0.0f;
-		//	gravity += 1.0f;
-		//	ballPosition.x = nx, ballPosition.y = ny;
-		//}
-
-		////Checking if the left points of player hit the X
-		//else if (CheckPos(nx + 50, ny) && CheckPos(nx + 50, ny + 50))
-		//{
-		//	std::cout << "Hit right side of obstacle" << std::endl;
-
-		//	if (GetAsyncKeyState(VK_LEFT))
-		//	{
-		//		ballVelocity.x = 0.0f;
-		//	}
-		//	if (GetAsyncKeyState(VK_RIGHT))
-		//	{
-		//		ballPosition.x = +1.0f;
-		//	}
-		//	ballPosition.y = ny;
-		//}
-
+		
 		screen->Clear(0);
 
 
