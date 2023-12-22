@@ -26,7 +26,10 @@ namespace Tmpl8
 
 	//The tilemap
 	Surface tiles("assets/nc2tiles.png");
-	char map[16][76] = {
+
+	const int numRows = 16;
+	const int numColums = 76;
+	char map[numRows][numColums] = {
 		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
 		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
 		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
@@ -54,22 +57,7 @@ namespace Tmpl8
 
 	}
 
-	/*void Game::KeyDown(int key) {
-		switch (key) {
-		case SDL_SCANCODE_SPACE:
-			ballVelocity.y = -10.0f;
-			break;
-		}
-	}
-
-	void Game::KeyUp(int key) {
-		switch (key) {
-		case SDL_SCANCODE_SPACE:
-			ballVelocity.y = 0.0f;
-			break;
-		}
-	}*/
-
+	
 	//Drawing of a singular tile
 	void DrawTile(int tx, int ty, Surface* screen, int x, int y)
 	{
@@ -80,65 +68,66 @@ namespace Tmpl8
 				dst[j] = src[j];
 	}
 
+	static bool AABB(int aX, int aY, int aWidth, int aHeight, int bX, int bY, int bWidth, int bHeight)
+	{
+		return aX < bX + bWidth - 1 &&
+			aX + aWidth - 1>= bX &&
+			aY <= bY + bHeight - 1 &&
+			aY + aHeight - 1 >= bY;
+	}
+
+	const int tileWidth = 32;
+	const int tileHeight = 32;
+
+	//Watch this video for explanation for collision
+//https://www.youtube.com/watch?v=SoSHVoIZYbY
+//I have to figure out how to get the coordinates of a tile
+
+//MAYBE this
+
+//for (int y = __; y < ___ + 2 * tile size;;;;)
+//	for (int x = ___; x < ___ + 2 * tile size;;;;)
+//		checkCollision(x, y, somethingsomethign)
 
 	void Game::Tick(float deltaTime)
 	{
-		deltaTime /= 1000.0f;
-		float nx = ballPosition.x, ny = ballPosition.y;
 
-		if (GetAsyncKeyState(VK_SPACE)) ny = ny - 10.0f;
-		if (GetAsyncKeyState(VK_LEFT)) nx--;
-		if (GetAsyncKeyState(VK_RIGHT)) nx++;
-	
-		if (CheckPos(nx, ny) && CheckPos(nx + 50, ny + 50) &&
-			CheckPos(nx + 50, ny) && CheckPos(nx, ny + 50))
-		{
-			ballPosition.x = nx, ballPosition.y = ny;
-		}
-		else
-		{
-			//Player bottom hits obstacle
-			if (
-				//It also checks for bottom left and bottom right
-				//Checks if bottom points hit an obstacle
-				!CheckPos(nx, ny + 50) && !CheckPos(nx + 50, ny + 50) && CheckPos(nx, ny) && CheckPos(nx + 50, ny)  ||
-
-				//Checks if bottom right hit an obstacle
-				!CheckPos(nx + 49, ny + 50) && CheckPos(nx + 1, ny) && CheckPos(nx + 49, ny) ||
-
-				//Checks if bottom left hit an obstacle
-				!CheckPos(nx + 1, ny + 50) && CheckPos(nx + 1, ny) && CheckPos(nx + 49, ny))
-				
-			{
-				std::cout << "Set gravity to 0" << std::endl;
-				gravity = 0.0f;
-				ballPosition.x = nx, ballPosition.y = ny;
-			}
-			
-		}
 
 		
+		deltaTime /= 1000.0f;
+
+		// ... (previous code)
+
+		int tileMinX = static_cast<int>(ballPosition.x / tileWidth);
+		int tileMinY = static_cast<int>(ballPosition.y / tileHeight);
+		int tileMaxX = static_cast<int>((ballPosition.x + 50) / tileWidth);
+		int tileMaxY = static_cast<int>((ballPosition.y + 50) / tileHeight);
+
+		prevBallPosition.y = ballPosition.y;
+		prevBallPosition.x = ballPosition.x;
+
+
+		if (GetAsyncKeyState(VK_SPACE)) ballPosition.y = ballPosition.y - 10.0f;
+		if (GetAsyncKeyState(VK_LEFT)) ballPosition.x--;
+		if (GetAsyncKeyState(VK_RIGHT)) ballPosition.x++;
+		if (GetAsyncKeyState(VK_DOWN)) ballPosition.y++;
+		if (GetAsyncKeyState(VK_UP)) ballPosition.y--;
+
+		ballPosition.y += ballVelocity.y * deltaTime;
+		ballPosition.x += ballVelocity.x * deltaTime;
+
+		// Check for collisions and reset position if necessary
+		if (map[tileMinY][tileMinX * 3 + 2] == 'X' || map[tileMinY][tileMaxX * 3 + 2] == 'X') {
+			ballPosition.x = prevBallPosition.x;
+			ballPosition.y = prevBallPosition.y;
+		}
+		
+		if (map[tileMaxY][tileMinX * 3 + 2] == 'X' || map[tileMaxY][tileMaxX * 3 + 2] == 'X') {
+			ballPosition.x = prevBallPosition.x;
+			ballPosition.y = prevBallPosition.y;
+		}
+
 		screen->Clear(0);
-
-
-		//Altering the ballposition
-		ballPosition += ballVelocity * ballSpeed * deltaTime;
-
-
-		//Checking if the ball is in the air
-		if (ballPosition.y + ballSprite->GetHeight() < screen->GetHeight())
-		{
-			ballPosition.y += gravity * deltaTime;
-			gravity += 1.0f;
-		}
-
-
-		//Checking if the ball is on ground level
-		if (ballPosition.y + ballSprite->GetHeight() > screen->GetHeight())
-		{
-			ballPosition.y = screen->GetHeight() - ballSprite->GetHeight();
-			gravity = 0.0f;
-		}
 
 
 		//Drawing the tilemap, a grid of 16x25 tiles 

@@ -21,6 +21,7 @@ private:
 	Surface* screen;
 	Sprite* ballSprite;
 	vec2 ballPosition;
+	vec2 prevBallPosition{ballPosition.x, ballPosition.y};
 	vec2 ballSize;
 	vec2 ballVelocity{ 0, 0 };
 	float gravity = 0.0f;
