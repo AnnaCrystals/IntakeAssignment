@@ -21,6 +21,8 @@ public:
 private:
 	Surface* screen;
 	Sprite* ballSprite;
+	Sprite* bottleSprite;
+	vec2 bottlePosition;
 	vec2 ballPosition;
 	vec2 prevBallPosition{ballPosition.x, ballPosition.y};
 	vec2 ballSize;

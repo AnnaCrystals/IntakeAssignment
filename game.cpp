@@ -19,37 +19,46 @@ namespace Tmpl8
 		ballSize.y = ballSprite->GetHeight() / 2.0f;
 		ballPosition.x = ScreenWidth / 2.0f;
 		ballPosition.y = ScreenHeight - ballSprite->GetHeight();
+
+		bottlePosition.x = ScreenWidth / 2.0f;
+		bottlePosition.y = ScreenHeight - 300.0f;
+		bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
 		
 	}
 	void Game::Shutdown() {}
 
 	//The tilemap
-	Surface tiles("assets/nc2tiles.png");
+	Surface tiles("assets/Tilemap.png");
 	const int numRows = 16;
 	const int numColums = 76;
 	char map[numRows][numColums] = {
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfbX",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfbX",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc fbXfbXfbXfbXfbXkc kc kc kc lc kc kc kc kc ",
-		 "kc kc kc lc lc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc kc kc kc kc ",
-		 "fbXfbXfbXfbXlc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfbX",
-		 "fbXfbXfbXfbXlc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfbX",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
 	};
+
+	
+
+
 
 	//Drawing of a singular tile
 	void DrawTile(int tx, int ty, Surface* screen, int x, int y)
 	{
 		Pixel* src = tiles.GetBuffer() + 1 + tx * 33 + (1 + ty * 33) * 595;
+		//Pixel* src = tiles.GetBuffer()  + tx * 33 + (ty * 33) * 595;
 		Pixel* dst = screen->GetBuffer() + x + y * 800;
 		for (int i = 0; i < 32; i++, src += 595, dst += 800)
 			for (int j = 0; j < 32; j++)
@@ -123,6 +132,8 @@ namespace Tmpl8
 			}
 		}
 
+
+		bottleSprite->Draw(screen, static_cast<int> (bottlePosition.x), static_cast<int>(bottlePosition.y));
 		ballSprite->Draw(screen, static_cast<int> (ballPosition.x), static_cast<int>(ballPosition.y));
 
 		screen->Box(ballPosition.x, ballPosition.y, ballPosition.x + ballSprite->GetWidth(), ballPosition.y + ballSprite->GetHeight(), 0xffff00);
