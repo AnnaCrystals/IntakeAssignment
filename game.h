@@ -17,6 +17,7 @@ public:
 	void MouseMove( int x, int y ) { /* implement if you want to detect mouse movement */ }
 	void KeyUp(int key) {}
 	void KeyDown(int key) {}
+
 private:
 	Surface* screen;
 	Sprite* ballSprite;
@@ -27,6 +28,9 @@ private:
 	float gravity = 0.0f;
 	float ballSpeed = 100.0f;
 	bool isAllowed = true;
+	const int tileWidth = 32;
+	const int tileHeight = 32;
+	
 
 };
 

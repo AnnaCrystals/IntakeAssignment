@@ -15,18 +15,16 @@ namespace Tmpl8
 	void Game::Init()
 	{
 		ballSprite = new Sprite(new Surface("assets/ball.png"), 1);
-		ballSize.x = ballSprite->GetWidth() / 2.0f;//IMPORTANT
-		ballSize.y = ballSprite->GetHeight() / 2.0f;//IMPORTANT
-		ballPosition.x = ScreenWidth / 2.0f;//IMPORTANT
-		ballPosition.y = ScreenHeight; //IMPORTANT
-
-
+		ballSize.x = ballSprite->GetWidth() / 2.0f;
+		ballSize.y = ballSprite->GetHeight() / 2.0f;
+		ballPosition.x = ScreenWidth / 2.0f;
+		ballPosition.y = ScreenHeight - ballSprite->GetHeight();
+		
 	}
 	void Game::Shutdown() {}
 
 	//The tilemap
 	Surface tiles("assets/nc2tiles.png");
-
 	const int numRows = 16;
 	const int numColums = 76;
 	char map[numRows][numColums] = {
@@ -48,16 +46,6 @@ namespace Tmpl8
 		 "fbXfbXfbXfbXlc lc kc kc kc kc kc kc kc lc lc lc kc kc kc kc lc fbXfbXfbXfbX",
 	};
 
-
-	//Check for an X in the tilemap
-	bool CheckPos(int x, int y)
-	{
-		int tx = x / 32, ty = y / 32;
-		return map[ty][tx * 3 + 2] != 'X';
-
-	}
-
-	
 	//Drawing of a singular tile
 	void DrawTile(int tx, int ty, Surface* screen, int x, int y)
 	{
@@ -68,44 +56,13 @@ namespace Tmpl8
 				dst[j] = src[j];
 	}
 
-	static bool AABB(int aX, int aY, int aWidth, int aHeight, int bX, int bY, int bWidth, int bHeight)
-	{
-		return aX < bX + bWidth - 1 &&
-			aX + aWidth - 1>= bX &&
-			aY <= bY + bHeight - 1 &&
-			aY + aHeight - 1 >= bY;
-	}
-
-	const int tileWidth = 32;
-	const int tileHeight = 32;
-
-	//Watch this video for explanation for collision
-//https://www.youtube.com/watch?v=SoSHVoIZYbY
-//I have to figure out how to get the coordinates of a tile
-
-//MAYBE this
-
-//for (int y = __; y < ___ + 2 * tile size;;;;)
-//	for (int x = ___; x < ___ + 2 * tile size;;;;)
-//		checkCollision(x, y, somethingsomethign)
 
 	void Game::Tick(float deltaTime)
 	{
-
-
-		
 		deltaTime /= 1000.0f;
-
-		// ... (previous code)
-
-		int tileMinX = static_cast<int>(ballPosition.x / tileWidth);
-		int tileMinY = static_cast<int>(ballPosition.y / tileHeight);
-		int tileMaxX = static_cast<int>((ballPosition.x + 50) / tileWidth);
-		int tileMaxY = static_cast<int>((ballPosition.y + 50) / tileHeight);
 
 		prevBallPosition.y = ballPosition.y;
 		prevBallPosition.x = ballPosition.x;
-
 
 		if (GetAsyncKeyState(VK_SPACE)) ballPosition.y = ballPosition.y - 10.0f;
 		if (GetAsyncKeyState(VK_LEFT)) ballPosition.x--;
@@ -116,15 +73,40 @@ namespace Tmpl8
 		ballPosition.y += ballVelocity.y * deltaTime;
 		ballPosition.x += ballVelocity.x * deltaTime;
 
-		// Check for collisions and reset position if necessary
-		if (map[tileMinY][tileMinX * 3 + 2] == 'X' || map[tileMinY][tileMaxX * 3 + 2] == 'X') {
-			ballPosition.x = prevBallPosition.x;
-			ballPosition.y = prevBallPosition.y;
+		// Apply gravity
+		if (ballPosition.y + ballSprite->GetHeight() < screen->GetHeight()) {
+			ballPosition.y += gravity * deltaTime;
+			gravity += 1.0f;
 		}
-		
-		if (map[tileMaxY][tileMinX * 3 + 2] == 'X' || map[tileMaxY][tileMaxX * 3 + 2] == 'X') {
+
+		int tileMinX = static_cast<int>(ballPosition.x / tileWidth);
+		int tileMinY = static_cast<int>(ballPosition.y / tileHeight);
+		int tileMaxX = static_cast<int>((ballPosition.x + 50) / tileWidth);
+		int tileMaxY = static_cast<int>((ballPosition.y + 50) / tileHeight);
+
+		// Check for collisions and reset position if necessary
+		if (map[tileMinY][tileMinX * 3 + 2] == 'X' && map[tileMaxY][tileMinX * 3 + 2] != 'X') {
 			ballPosition.x = prevBallPosition.x;
 			ballPosition.y = prevBallPosition.y;
+			gravity = 0.0f;
+		}
+
+		if (map[tileMinY][tileMaxX * 3 + 2] == 'X' && map[tileMaxY][tileMaxX * 3 + 2] != 'X') {
+			ballPosition.x = prevBallPosition.x;
+			ballPosition.y = prevBallPosition.y;
+			gravity = 0.0f;
+		}
+
+		if (map[tileMaxY][tileMaxX * 3 + 2] == 'X') {
+			ballPosition.x = prevBallPosition.x;
+			ballPosition.y = prevBallPosition.y;
+			gravity = 0.0f;
+		}
+
+		if (map[tileMaxY][tileMinX * 3 + 2] == 'X') {
+			ballPosition.x = prevBallPosition.x;
+			ballPosition.y = prevBallPosition.y;
+			gravity = 0.0f;
 		}
 
 		screen->Clear(0);

@@ -1,6 +1,7 @@
 ﻿  game.cpp
-C:\dev\IntakeAssignmentBuas\game.cpp(173,103): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(173,62): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(173,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(173,27): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(21,33): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(129,103): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(129,62): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(129,43): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(129,27): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   tmpl_2019-08.vcxproj -> C:\dev\IntakeAssignmentBuas\tmpl_2019-08_x64_debug.exe
