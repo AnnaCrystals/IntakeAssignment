@@ -28,26 +28,26 @@ namespace Tmpl8
 	void Game::Shutdown() {}
 
 	//The tilemap
-	Surface tiles("assets/Tilemap.png");
+	Surface tiles("assets/mediaval.png");
 	const int numRows = 16;
 	const int numColums = 76;
 	char map[numRows][numColums] = {
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
-		 "aaXaaXaaXaaXlc lc kc kc kc kc kc kc kc kc aaXaaXaaXaaXlc lc kc kc kc kc kc ",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXab",
+		 "lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXlc lc lc lc lc abXabXabXabXab",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
+		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXab",
+		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXab",
 	};
 
 	
@@ -57,10 +57,10 @@ namespace Tmpl8
 	//Drawing of a singular tile
 	void DrawTile(int tx, int ty, Surface* screen, int x, int y)
 	{
-		Pixel* src = tiles.GetBuffer() + 1 + tx * 33 + (1 + ty * 33) * 595;
-		//Pixel* src = tiles.GetBuffer()  + tx * 33 + (ty * 33) * 595;
+		//Pixel* src = tiles.GetBuffer() + 1 + tx * 33 + (1 + ty * 33) * 595;
+		Pixel* src = tiles.GetBuffer()  + tx * 33 + (ty * 33) * 595;
 		Pixel* dst = screen->GetBuffer() + x + y * 800;
-		for (int i = 0; i < 32; i++, src += 595, dst += 800)
+		for (int i = 0; i < 32; i++, src += tiles.GetWidth(), dst += 800)
 			for (int j = 0; j < 32; j++)
 				dst[j] = src[j];
 	}
