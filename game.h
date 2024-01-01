@@ -21,13 +21,14 @@ public:
 private:
 	Surface* screen;
 	Sprite* ballSprite;
-	Sprite* bottleSprite;
-	vec2 bottlePosition;
+	//Sprite* bottleSprite;
+	//vec2 bottlePosition;
 	vec2 ballPosition;
 	vec2 prevBallPosition{ballPosition.x, ballPosition.y};
 	vec2 ballSize;
 	vec2 ballVelocity{ 0, 0 };
 	float gravity = 0.0f;
+	float prevGravity;
 	float ballSpeed = 100.0f;
 	bool isAllowed = true;
 	const int tileWidth = 32;
