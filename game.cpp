@@ -28,7 +28,7 @@ namespace Tmpl8
 		const int bottleHeight = 50.0f;
 		const int bottleWidth = 50.0f;
 
-		void Bottle::Spawn(Surface* gameScreen, vec2& ballPosition, bool& hitSpawn)
+		void Bottle::Spawn(Surface* gameScreen, vec2& ballPosition, bool& hitObject, bool&disableSpawn)
 		{
 
 			int bottleMinX = static_cast<int>(ballPosition.x / bottleWidth);
@@ -36,7 +36,11 @@ namespace Tmpl8
 			int bottleMaxX = static_cast<int>((ballPosition.x + 50) / bottleWidth);
 			int bottleMaxY = static_cast<int>((ballPosition.y + 50) / bottleHeight);
 
-			if (hitSpawn) {
+
+
+
+			//if (hitSpawn && enabledSpawn) {
+			if (!hitObject && !disableSpawn) {
 				//if (map[bottleMinY][bottleMinX * 3 + 2] == 'S' && map[bottleMaxY][bottleMinX * 3 + 2] != 'S') {
 				bottleSprite->Draw(gameScreen, static_cast<int> (bottlePosition.x), static_cast<int>(bottlePosition.y));
 				//}
@@ -81,7 +85,7 @@ namespace Tmpl8
 		 "lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXlc lc lc lc lc abXabXabXabXab",
 		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
 		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "lc lcSlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lcSlc lc lc",
+		 "lc lcSlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lcSlc lc lc lc",
 		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXab",
 		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXab",
 	};
@@ -101,12 +105,15 @@ namespace Tmpl8
 				dst[j] = src[j];
 	}
 
-
+	int score = 0;
+	bool disableSpawn = false;
 	void Game::Tick(float deltaTime)
 	{
 		Bottle myBottle;
-		bool hitSpawn = true;
+		bool hitObject = false;
+		
 		deltaTime /= 1000.0f;
+		
 
 		prevBallPosition.y = ballPosition.y;
 		prevBallPosition.x = ballPosition.x;
@@ -118,14 +125,13 @@ namespace Tmpl8
 		if (GetAsyncKeyState(VK_DOWN)) ballPosition.y++;
 		if (GetAsyncKeyState(VK_UP)) ballPosition.y--;
 
-		ballPosition.y += ballVelocity.y * deltaTime;
-		ballPosition.x += ballVelocity.x * deltaTime;
+		ballPosition.y += ballVelocity.y * gravity *  deltaTime;
+		ballPosition.x += ballVelocity.x * gravity * deltaTime;
 
 		// Apply gravity
 		if (ballPosition.y + ballSprite->GetHeight() < screen->GetHeight()) {
 			ballPosition.y += gravity * deltaTime;
 			gravity += 1.5f;
-			std::cout << gravity << std::endl;
 		}
 
 		int tileMinX = static_cast<int>(ballPosition.x / tileWidth);
@@ -155,6 +161,7 @@ namespace Tmpl8
 			//gravity = prevGravity;
 		}
 
+
 		if (map[tileMaxY][tileMinX * 3 + 2] == 'X') {
 			ballPosition.x = prevBallPosition.x;
 			ballPosition.y = prevBallPosition.y;
@@ -168,9 +175,19 @@ namespace Tmpl8
 			gravity = 0.0f;
 		}
 
-		if (map[tileMinY][tileMinX * 3 + 2] == 'S' || map[tileMaxY][tileMinX * 3 + 2] != 'S') {
-			hitSpawn = false;
+
+
+
+		if (map[tileMinY][tileMinX * 3 + 2] == 'S' || 
+			map[tileMaxY][tileMinX * 3 + 2] == 'S' || 
+			map[tileMinY][tileMaxX * 3 + 2] == 'S' || 
+			map[tileMaxY][tileMaxX * 3 + 2] == 'S') {
+			hitObject = true;
+			disableSpawn = true;
+			//score++;
+			//std::cout << score << std::endl;
 		}
+
 
 		screen->Clear(0);
 
@@ -186,7 +203,7 @@ namespace Tmpl8
 			}
 		}
 
-		myBottle.Spawn(screen, ballPosition, hitSpawn);
+		myBottle.Spawn(screen, ballPosition, hitObject, disableSpawn);
 		//bottleSprite->Draw(screen, static_cast<int> (bottlePosition.x), static_cast<int>(bottlePosition.y));
 		ballSprite->Draw(screen, static_cast<int> (ballPosition.x), static_cast<int>(ballPosition.y));
 
