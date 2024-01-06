@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+# Ignore Git and Visual Studio directories
+.git/
+.vs/
