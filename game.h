@@ -1,13 +1,16 @@
 #pragma once
 #include "template.h"
 
+
 namespace Tmpl8 {
 
 class Surface;
 class Sprite;
+
 class Game
 {
 public:
+
 	void SetTarget( Surface* surface ) { screen = surface; }
 	void Init();
 	void Shutdown();
@@ -20,21 +23,8 @@ public:
 
 private:
 	Surface* screen;
-	//Sprite* ballSprite;
-	//Sprite* bottleSprite;
-	//vec2 bottlePosition;
-	//vec2 ballPosition;
-	/*vec2 prevBallPosition{ballPosition.x, ballPosition.y};*/
-	//vec2 ballSize;
-	//vec2 ballVelocity{ 0, 0 };
-	/*float gravity = 0.0f;*/
-	//float prevGravity;
-	//float ballSpeed = 100.0f;
-	//bool isAllowed = true;
-	/*const int tileWidth = 32;
-	const int tileHeight = 32;
-	*/
-
 };
+
+
 
 }; // namespace Tmpl8

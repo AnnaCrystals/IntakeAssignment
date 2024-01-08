@@ -1,19 +1,15 @@
 ﻿  game.cpp
-C:\dev\IntakeAssignmentBuas\game.cpp(28,28): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(29,27): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(76,19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(76,5): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(75,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(75,13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(29,28): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(30,27): warning C4244: 'initializing': conversion from 'float' to 'const int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(82,19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(82,5): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(81,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(81,13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(88,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(88,19): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(88,5): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(87,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(87,13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(94,20): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(94,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(94,5): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(93,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(93,13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
@@ -21,7 +17,15 @@ C:\dev\IntakeAssignmentBuas\game.cpp(100,20): warning C4244: 'argument': convers
 C:\dev\IntakeAssignmentBuas\game.cpp(100,5): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(99,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(99,13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(119,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(195,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(268,7): warning C4101: 'number': unreferenced local variable
+C:\dev\IntakeAssignmentBuas\game.cpp(106,20): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(106,5): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(105,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(105,13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(125,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(205,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(311,148): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(311,89): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(311,61): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(311,36): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(277,7): warning C4101: 'number': unreferenced local variable
   tmpl_2019-08.vcxproj -> C:\dev\IntakeAssignmentBuas\tmpl_2019-08_x64_debug.exe
