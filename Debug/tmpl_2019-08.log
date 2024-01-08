@@ -22,10 +22,6 @@ C:\dev\IntakeAssignmentBuas\game.cpp(106,5): warning C4244: 'argument': conversi
 C:\dev\IntakeAssignmentBuas\game.cpp(105,34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(105,13): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 C:\dev\IntakeAssignmentBuas\game.cpp(125,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(205,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(311,148): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(311,89): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(311,61): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(311,36): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(277,7): warning C4101: 'number': unreferenced local variable
+C:\dev\IntakeAssignmentBuas\game.cpp(172,45): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(292,7): warning C4101: 'number': unreferenced local variable
   tmpl_2019-08.vcxproj -> C:\dev\IntakeAssignmentBuas\tmpl_2019-08_x64_debug.exe

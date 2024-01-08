@@ -6,12 +6,15 @@ namespace Tmpl8 {
 
 class Surface;
 class Sprite;
+class Player;
+class Bottle;
 
 class Game
 {
 public:
+	Game();
 
-	void SetTarget( Surface* surface ) { screen = surface; }
+	void SetTarget(Surface* surface);
 	void Init();
 	void Shutdown();
 	void Tick( float deltaTime );
@@ -23,6 +26,8 @@ public:
 
 private:
 	Surface* screen;
+	Player* myPlayer;
+	Bottle* myBottle;
 };
 
 
