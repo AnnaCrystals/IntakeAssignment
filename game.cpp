@@ -25,6 +25,7 @@ namespace Tmpl8
 
 		Sprite* bottleSprite;
 		vec2 bottlePosition;
+		Bottle* newBottle;
 
 		const int bottleHeight = 50.0f;
 		const int bottleWidth = 50.0f;
@@ -38,25 +39,51 @@ namespace Tmpl8
 				aY + aHeight >= bY;
 		}
 
-		void Spawn(Surface* gameScreen, vec2& ballPosition)
+		void Spawn(Surface* gameScreen, vec2 bottlePosition)
 		{
 			if (bottleSprite) {
 				bottleSprite->Draw(gameScreen, static_cast<int>(bottlePosition.x), static_cast<int>(bottlePosition.y));
 			}
 		}
 
-		void DeSpawn(int number)
+		void DeSpawn(Surface* screen, int number)
 		{
 
 			if (number == 1) {
 				std::cout << "hit" << std::endl;
-				
-				delete bottleSprite;
-				bottleSprite = nullptr;
-			}		
+
+				//delete bottleSprite;
+				//bottleSprite = nullptr;
+
+				std::cout << bottlePosition.x << std::endl;
+				std::cout << bottlePosition.y << std::endl;
+				bottlePosition.x = 100.0f;
+				bottlePosition.y = 100.0f;
+
+				Spawn(screen, bottlePosition);
+				std::cout << bottlePosition.x << std::endl;
+				std::cout << bottlePosition.y << std::endl;
+			}
+
+			if (number == 2) {
+				std::cout << "hit" << std::endl;
+
+				//delete bottleSprite;
+				//bottleSprite = nullptr;
+
+				std::cout << bottlePosition.x << std::endl;
+				std::cout << bottlePosition.y << std::endl;
+				bottlePosition.x = 100.0f;
+				bottlePosition.y = 100.0f;
+
+				Spawn(screen, bottlePosition);
+				std::cout << bottlePosition.x << std::endl;
+				std::cout << bottlePosition.y << std::endl;
+			}
+
 		}
 
-		void HandleHit(vec2& ballPosition, vec2& ballSize){
+		void HandleHit(vec2& ballPosition, vec2& ballSize, Surface* screen, Bottle* myBottle){
 
 			int number;
 			float playerBallPositionX = ballPosition.x;
@@ -82,31 +109,31 @@ namespace Tmpl8
 				positionOneX, positionOneY, 50, 50))
 			{
 				number = 1;
-				DeSpawn(number);
+				DeSpawn(screen, number);
 			}
 			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
 				positionTwoX, positionTwoY, 50, 50))
 			{
 				number = 2;
-				DeSpawn(number);
+				DeSpawn(screen, number);
 			}
 			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
 				positionThreeX, positionThreeY, 50, 50))
 			{
 				number = 3;
-				DeSpawn(number);
+				DeSpawn(screen, number);
 			}
 			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
 				positionFourX, positionFourY, 50, 50))
 			{
 				number = 4;
-				DeSpawn(number);
+				DeSpawn(screen, number);
 			}
 			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
 				positionFiveX, positionFiveY, 50, 50))
 			{
 				number = 5;
-				DeSpawn(number);
+				DeSpawn(screen, number);
 			}
 
 		}
@@ -138,7 +165,7 @@ namespace Tmpl8
 			  
 			  const int tileWidth = 32;
 			  const int tileHeight = 32;
-			  float ballSpeed = 60.0f;
+			  float ballSpeed = 120.0f;
 			  
 
 			  void Player::UpdatePosition(float deltaTime)
@@ -289,7 +316,7 @@ namespace Tmpl8
 		myPlayer->screen = screen;
 
 		myPlayer->HandleCollision(deltaTime);
-		myBottle->HandleHit(myPlayer->ballPosition, myPlayer->ballSize);
+		myBottle->HandleHit(myPlayer->ballPosition, myPlayer->ballSize, myPlayer->screen, myBottle);
 		
 		screen->Clear(0);
 
@@ -304,7 +331,7 @@ namespace Tmpl8
 			}
 		}
 
-		myBottle->Spawn(screen, myPlayer->ballPosition);
+		myBottle->Spawn(screen, myBottle->bottlePosition);
 		myPlayer->ballSprite->Draw(screen, static_cast<int> (myPlayer->ballPosition.x), static_cast<int>(myPlayer->ballPosition.y));
 		//screen->Box(myPlayer.ballPosition.x, myPlayer.ballPosition.y, myPlayer.ballPosition.x + myPlayer.ballSprite->GetWidth(), myPlayer.ballPosition.y + myPlayer.ballSprite->GetHeight(), 0xffff00);
 	}

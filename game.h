@@ -28,6 +28,7 @@ private:
 	Surface* screen;
 	Player* myPlayer;
 	Bottle* myBottle;
+	Bottle* newBottle;
 };
 
 
