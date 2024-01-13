@@ -99,10 +99,8 @@ namespace Tmpl8
 			}
 		}
 
-		void Bottle::DeSpawn(Surface* screen, int number)
+		void Bottle::DeSpawn(Surface* screen)
 		{
-
-			if (number == 1) {
 				std::cout << "hit" << std::endl;
 
 				//delete bottleSprite;
@@ -114,21 +112,7 @@ namespace Tmpl8
 
 				std::cout << bottlePosition.x << std::endl;
 				std::cout << bottlePosition.y << std::endl;
-			}
-
-			if (number == 2) {
-				std::cout << "hit" << std::endl;
-
-				//delete bottleSprite;
-				//bottleSprite = nullptr;
-
-				bottlePosition = setSpawnPosition();
-
-				Spawn(screen, bottlePosition);
-				std::cout << bottlePosition.x << std::endl;
-				std::cout << bottlePosition.y << std::endl;
-			}
-
+			
 		}
 
 		void Bottle::HandleHit(vec2& ballPosition, vec2& ballSize, Surface* screen, Bottle* myBottle){
@@ -171,32 +155,28 @@ namespace Tmpl8
 			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
 				positionOneX, positionOneY, 50, 50)  && bottlePosition.x==positionOneX && bottlePosition.y==positionOneY)
 			{
-				number = 1;
-				DeSpawn(screen, number);
+				DeSpawn(screen);
 			}
 			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
 				positionTwoX, positionTwoY, 50, 50) && bottlePosition.x == positionTwoX && bottlePosition.y == positionTwoY)
 			{
-				number = 2;
-				DeSpawn(screen, number);
+				DeSpawn(screen);
 			}
 			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
 				positionThreeX, positionThreeY, 50, 50) && bottlePosition.x == positionThreeX && bottlePosition.y == positionThreeY)
 			{
-				number = 3;
-				DeSpawn(screen, number);
+
+				DeSpawn(screen);
 			}
 			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
 				positionFourX, positionFourY, 50, 50) && bottlePosition.x == positionFourX && bottlePosition.y == positionFourY)
 			{
-				number = 4;
-				DeSpawn(screen, number);
+				DeSpawn(screen);
 			}
 			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
 				positionFiveX, positionFiveY, 50, 50) && bottlePosition.x == positionFiveX && bottlePosition.y == positionFiveY)
 			{
-				number = 5;
-				DeSpawn(screen, number);
+				DeSpawn(screen);
 			}
 
 		}
