@@ -16,8 +16,11 @@ namespace Tmpl8
 	public:
 		Bottle()
 		{
-			bottlePosition.x = ScreenWidth / 2.0f + 100.0f;
-			bottlePosition.y = ScreenHeight - 50.0f;
+			/*bottlePosition.x = ScreenWidth / 2.0f + 100.0f;
+			bottlePosition.y = ScreenHeight - 50.0f;*/
+
+			bottlePosition.x = 200.0f;
+			bottlePosition.y = 100.0f;
 			bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
 
 		}
@@ -26,6 +29,8 @@ namespace Tmpl8
 		Sprite* bottleSprite;
 		vec2 bottlePosition;
 		Bottle* newBottle;
+
+	
 
 		const int bottleHeight = 50.0f;
 		const int bottleWidth = 50.0f;
@@ -39,14 +44,62 @@ namespace Tmpl8
 				aY + aHeight >= bY;
 		}
 
-		void Spawn(Surface* gameScreen, vec2 bottlePosition)
+		static int randomNumber ()
+		{
+			srand(static_cast<unsigned int>(time(0))); //seed random number generator
+
+			int randomNumber = rand();
+			int number = (randomNumber % 5) + 1;
+
+			return number;
+		}
+
+		static vec2 setSpawnPosition()
+		{
+			vec2 validSpawnPositions[5] = {
+				vec2(200.0f, 100.0f),
+				vec2(200.0f, 175.0f),
+				vec2(200.0f, 250.0f),
+				vec2(200.0f, 325.0f),
+				vec2(200.0f, 400.0f)
+			};
+
+			int number = randomNumber();
+
+			switch (number) 
+			{
+			case 1:
+				return validSpawnPositions[0];
+
+				break;
+			case 2:
+				return validSpawnPositions[1];
+
+				break;
+			case 3:
+				return validSpawnPositions[2];
+
+				break;
+			case 4:
+				return validSpawnPositions[3];
+
+				break;
+			case 5:
+				return validSpawnPositions[4];
+				break;
+
+			}
+			
+		}
+
+		void Bottle::Spawn(Surface* gameScreen, vec2 bottlePosition)
 		{
 			if (bottleSprite) {
 				bottleSprite->Draw(gameScreen, static_cast<int>(bottlePosition.x), static_cast<int>(bottlePosition.y));
 			}
 		}
 
-		void DeSpawn(Surface* screen, int number)
+		void Bottle::DeSpawn(Surface* screen, int number)
 		{
 
 			if (number == 1) {
@@ -54,13 +107,11 @@ namespace Tmpl8
 
 				//delete bottleSprite;
 				//bottleSprite = nullptr;
-
-				std::cout << bottlePosition.x << std::endl;
-				std::cout << bottlePosition.y << std::endl;
-				bottlePosition.x = 100.0f;
-				bottlePosition.y = 100.0f;
+		
+				bottlePosition = setSpawnPosition();
 
 				Spawn(screen, bottlePosition);
+
 				std::cout << bottlePosition.x << std::endl;
 				std::cout << bottlePosition.y << std::endl;
 			}
@@ -71,10 +122,7 @@ namespace Tmpl8
 				//delete bottleSprite;
 				//bottleSprite = nullptr;
 
-				std::cout << bottlePosition.x << std::endl;
-				std::cout << bottlePosition.y << std::endl;
-				bottlePosition.x = 100.0f;
-				bottlePosition.y = 100.0f;
+				bottlePosition = setSpawnPosition();
 
 				Spawn(screen, bottlePosition);
 				std::cout << bottlePosition.x << std::endl;
@@ -83,14 +131,14 @@ namespace Tmpl8
 
 		}
 
-		void HandleHit(vec2& ballPosition, vec2& ballSize, Surface* screen, Bottle* myBottle){
+		void Bottle::HandleHit(vec2& ballPosition, vec2& ballSize, Surface* screen, Bottle* myBottle){
 
 			int number;
 			float playerBallPositionX = ballPosition.x;
 			float playerBallPositionY = ballPosition.y;
 
 
-			float positionOneX = ScreenWidth / 2.0f + 100.0f;
+			/*float positionOneX = ScreenWidth / 2.0f + 100.0f;
 			float positionOneY = ScreenHeight - ballSize.y;
 
 			float positionTwoX = ScreenWidth / 2.0f - 100.0f;
@@ -103,34 +151,49 @@ namespace Tmpl8
 			float positionFourY = ScreenHeight - ballSize.y;
 
 			float positionFiveX = ScreenWidth / 2.0f + 300.0f;
-			float positionFiveY = ScreenHeight - ballSize.y;
+			float positionFiveY = ScreenHeight - ballSize.y;*/
+			///////////////////////////////////////////////////
+			float positionOneX = 200.0f;
+			float positionOneY = 100.0f;
+
+			float positionTwoX = 200.0f;
+			float positionTwoY = 175.0f;
+
+			float positionThreeX = 200.0f;
+			float positionThreeY = 250.0f;
+
+			float positionFourX = 200.0f;
+			float positionFourY = 325.0f;
+
+			float positionFiveX = 200.0f;
+			float positionFiveY = 400.0f;
 
 			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				positionOneX, positionOneY, 50, 50))
+				positionOneX, positionOneY, 50, 50)  && bottlePosition.x==positionOneX && bottlePosition.y==positionOneY)
 			{
 				number = 1;
 				DeSpawn(screen, number);
 			}
-			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				positionTwoX, positionTwoY, 50, 50))
+			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
+				positionTwoX, positionTwoY, 50, 50) && bottlePosition.x == positionTwoX && bottlePosition.y == positionTwoY)
 			{
 				number = 2;
 				DeSpawn(screen, number);
 			}
-			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				positionThreeX, positionThreeY, 50, 50))
+			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
+				positionThreeX, positionThreeY, 50, 50) && bottlePosition.x == positionThreeX && bottlePosition.y == positionThreeY)
 			{
 				number = 3;
 				DeSpawn(screen, number);
 			}
-			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				positionFourX, positionFourY, 50, 50))
+			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
+				positionFourX, positionFourY, 50, 50) && bottlePosition.x == positionFourX && bottlePosition.y == positionFourY)
 			{
 				number = 4;
 				DeSpawn(screen, number);
 			}
-			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				positionFiveX, positionFiveY, 50, 50))
+			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
+				positionFiveX, positionFiveY, 50, 50) && bottlePosition.x == positionFiveX && bottlePosition.y == positionFiveY)
 			{
 				number = 5;
 				DeSpawn(screen, number);
