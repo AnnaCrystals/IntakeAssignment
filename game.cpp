@@ -35,6 +35,7 @@ namespace Tmpl8
 		const int bottleHeight = 50.0f;
 		const int bottleWidth = 50.0f;
 		bool despawned = false;
+		int score = 0;
 
 		static bool AABB(int aX, int aY, int aWidth, int aHeight, int bX, int bY, int bWidth, int bHeight)
 		{
@@ -46,12 +47,21 @@ namespace Tmpl8
 
 		static int randomNumber ()
 		{
+			static int previousNumber = 0;
+
 			srand(static_cast<unsigned int>(time(0))); //seed random number generator
 
-			int randomNumber = rand();
-			int number = (randomNumber % 5) + 1;
+			int newNumber;
 
-			return number;
+			do
+			{
+				int randomNumber = rand();
+				newNumber = (randomNumber % 5) + 1;
+			} while (newNumber == previousNumber);
+
+			std::cout << previousNumber << std::endl;
+			previousNumber = newNumber;
+			return newNumber;
 		}
 
 		static vec2 setSpawnPosition()
@@ -94,87 +104,80 @@ namespace Tmpl8
 
 		void Bottle::Spawn(Surface* gameScreen, vec2 bottlePosition)
 		{
+			//score++;
+			//std::cout << score << std::endl;
+			bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
 			if (bottleSprite) {
 				bottleSprite->Draw(gameScreen, static_cast<int>(bottlePosition.x), static_cast<int>(bottlePosition.y));
 			}
 		}
 
 		void Bottle::DeSpawn(Surface* screen)
-		{
-				std::cout << "hit" << std::endl;
+      		{
+				delete bottleSprite;
+				bottleSprite = nullptr;
 
-				//delete bottleSprite;
-				//bottleSprite = nullptr;
-		
+
+				//score++;
+				//std::cout << "score" << std::endl;
+				//std::cout << score << std::endl;
+				
 				bottlePosition = setSpawnPosition();
 
-				Spawn(screen, bottlePosition);
-
-				std::cout << bottlePosition.x << std::endl;
-				std::cout << bottlePosition.y << std::endl;
-			
+				Spawn(screen, bottlePosition);	
 		}
 
-		void Bottle::HandleHit(vec2& ballPosition, vec2& ballSize, Surface* screen, Bottle* myBottle){
+		void Bottle::HandleHit(vec2& ballPosition, vec2& ballSize, Surface* screen, Bottle* myBottle)
+		{
 
-			int number;
 			float playerBallPositionX = ballPosition.x;
 			float playerBallPositionY = ballPosition.y;
 
+			vec2 validSpawnPositions[5] = {
+				vec2(200.0f, 100.0f),
+				vec2(200.0f, 175.0f),
+				vec2(200.0f, 250.0f),
+				vec2(200.0f, 325.0f),
+				vec2(200.0f, 400.0f)
+			};
 
-			/*float positionOneX = ScreenWidth / 2.0f + 100.0f;
-			float positionOneY = ScreenHeight - ballSize.y;
-
-			float positionTwoX = ScreenWidth / 2.0f - 100.0f;
-			float positionTwoY = ScreenHeight - ballSize.y;
-
-			float positionThreeX = ScreenWidth / 2.0f + 200.0f;
-			float positionThreeY = ScreenHeight - ballSize.y;
-
-			float positionFourX = ScreenWidth / 2.0f - 200.0f;
-			float positionFourY = ScreenHeight - ballSize.y;
-
-			float positionFiveX = ScreenWidth / 2.0f + 300.0f;
-			float positionFiveY = ScreenHeight - ballSize.y;*/
-			///////////////////////////////////////////////////
-			float positionOneX = 200.0f;
-			float positionOneY = 100.0f;
-
-			float positionTwoX = 200.0f;
-			float positionTwoY = 175.0f;
-
-			float positionThreeX = 200.0f;
-			float positionThreeY = 250.0f;
-
-			float positionFourX = 200.0f;
-			float positionFourY = 325.0f;
-
-			float positionFiveX = 200.0f;
-			float positionFiveY = 400.0f;
 
 			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				positionOneX, positionOneY, 50, 50)  && bottlePosition.x==positionOneX && bottlePosition.y==positionOneY)
+				validSpawnPositions[0].x, validSpawnPositions[0].y, 50, 50)  
+				&& bottlePosition.x== validSpawnPositions[0].x 
+				&& bottlePosition.y== validSpawnPositions[0].y)
 			{
 				DeSpawn(screen);
 			}
-			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				positionTwoX, positionTwoY, 50, 50) && bottlePosition.x == positionTwoX && bottlePosition.y == positionTwoY)
-			{
-				DeSpawn(screen);
-			}
-			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				positionThreeX, positionThreeY, 50, 50) && bottlePosition.x == positionThreeX && bottlePosition.y == positionThreeY)
-			{
 
-				DeSpawn(screen);
-			}
-			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				positionFourX, positionFourY, 50, 50) && bottlePosition.x == positionFourX && bottlePosition.y == positionFourY)
+			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
+				validSpawnPositions[1].x, validSpawnPositions[1].y, 50, 50) 
+				&& bottlePosition.x == validSpawnPositions[1].x 
+				&& bottlePosition.y == validSpawnPositions[1].y)
 			{
 				DeSpawn(screen);
 			}
-			else if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				positionFiveX, positionFiveY, 50, 50) && bottlePosition.x == positionFiveX && bottlePosition.y == positionFiveY)
+
+			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
+				validSpawnPositions[2].x, validSpawnPositions[2].y, 50, 50) 
+				&& bottlePosition.x == validSpawnPositions[2].x 
+				&& bottlePosition.y == validSpawnPositions[2].y)
+			{
+				DeSpawn(screen);
+			}
+
+			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
+				validSpawnPositions[3].x, validSpawnPositions[3].y, 50, 50) 
+				&& bottlePosition.x == validSpawnPositions[3].x 
+				&& bottlePosition.y == validSpawnPositions[3].y)
+			{
+				DeSpawn(screen);
+			}
+
+			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
+				validSpawnPositions[4].x, validSpawnPositions[4].y, 50, 50) 
+				&& bottlePosition.x == validSpawnPositions[4].x 
+				&& bottlePosition.y == validSpawnPositions[4].y)
 			{
 				DeSpawn(screen);
 			}
@@ -242,34 +245,41 @@ namespace Tmpl8
 					  ballPosition.y = screen->GetHeight() - ballSprite->GetHeight();
 					  gravity = 0.0f;
 				  }
+
 				  // Check for collisions and reset position if necessary
-				  if (map[tileMinY][tileMinX * 3 + 2] == 'X' && map[tileMaxY][tileMinX * 3 + 2] != 'X') {
+				  if (map[tileMinY][tileMinX * 3 + 2] == 'X'
+					  && map[tileMaxY][tileMinX * 3 + 2] != 'X') {
 					  ballPosition.x = prevBallPosition.x;
 					  ballPosition.y = prevBallPosition.y;
 				  }
-				  if (map[tileMinY][tileMaxX * 3 + 2] == 'X' && map[tileMaxY][tileMaxX * 3 + 2] != 'X') {
+				  if (map[tileMinY][tileMaxX * 3 + 2] == 'X' 
+					  && map[tileMaxY][tileMaxX * 3 + 2] != 'X') {
 					  ballPosition.x = prevBallPosition.x;
 					  ballPosition.y = prevBallPosition.y;
 				  }
 
 
-				  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X' && map[tileNew][tileMaxX * 3 + 2] != 'X') {
+				  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X' 
+					  && map[tileNew][tileMaxX * 3 + 2] != 'X') {
 					  ballPosition.x = prevBallPosition.x;
 					  ballPosition.y = prevBallPosition.y - 0.1f;
 					  gravity = 0.0f;
 				  }
-				  if (map[tileMaxY][tileMinX * 3 + 2] == 'X' && map[tileNew][tileMinX * 3 + 2] != 'X') {
+				  if (map[tileMaxY][tileMinX * 3 + 2] == 'X' 
+					  && map[tileNew][tileMinX * 3 + 2] != 'X') {
 					  ballPosition.x = prevBallPosition.x;
 					  ballPosition.y = prevBallPosition.y - 0.1f;
 					  gravity = 0.0f;
 
 				  }
-				  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X' && map[tileNew][tileMaxX * 3 + 2] == 'X') {
+				  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X' 
+					  && map[tileNew][tileMaxX * 3 + 2] == 'X') {
 					  ballPosition.x = prevBallPosition.x;
 					  ballPosition.y = prevBallPosition.y;
 					  gravity = 0.0f;
 				  }
-				  if (map[tileMaxY][tileMinX * 3 + 2] == 'X' && map[tileNew][tileMinX * 3 + 2] == 'X') {
+				  if (map[tileMaxY][tileMinX * 3 + 2] == 'X' 
+					  && map[tileNew][tileMinX * 3 + 2] == 'X') {
 					  ballPosition.x = prevBallPosition.x;
 					  ballPosition.y = prevBallPosition.y;
 					  gravity = 0.0f;
@@ -296,6 +306,7 @@ namespace Tmpl8
 	Game::Game()
 	{
 		myBottle = new Bottle;
+		
 	}
 
 	Surface tiles("assets/mediaval.png");
@@ -325,6 +336,8 @@ namespace Tmpl8
 
 		screen = surface; 
 		myPlayer = new Player(map, screen);
+		//myBottle->Spawn(screen, myBottle->bottlePosition);
+		
 	}
 
 	void Game::Init(){}
@@ -351,9 +364,6 @@ namespace Tmpl8
 
 	void Game::Tick(float deltaTime)
 	{
-		int number;
-		bool hitObject = false;
-
 		deltaTime /= 1000.0f;
 
 		myPlayer->screen = screen;
