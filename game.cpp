@@ -32,8 +32,8 @@ namespace Tmpl8
 
 	
 
-		const int bottleHeight = 50.0f;
-		const int bottleWidth = 50.0f;
+		const float bottleHeight = 50.0f;
+		const float bottleWidth = 50.0f;
 		bool despawned = false;
 		int score = 0;
 
@@ -49,7 +49,7 @@ namespace Tmpl8
 		{
 			static int previousNumber = 0;
 
-			srand(static_cast<unsigned int>(time(0))); //seed random number generator
+			srand(static_cast<unsigned int>(time(0))); 
 
 			int newNumber;
 
@@ -64,9 +64,9 @@ namespace Tmpl8
 			return newNumber;
 		}
 
-		static vec2 setSpawnPosition()
+		static vec2 setDrawPosition()
 		{
-			vec2 validSpawnPositions[5] = {
+			vec2 validDrawPositions[5] = {
 				vec2(200.0f, 100.0f),
 				vec2(200.0f, 175.0f),
 				vec2(200.0f, 250.0f),
@@ -79,61 +79,60 @@ namespace Tmpl8
 			switch (number) 
 			{
 			case 1:
-				return validSpawnPositions[0];
+				return validDrawPositions[0];
 
 				break;
 			case 2:
-				return validSpawnPositions[1];
+				return validDrawPositions[1];
 
 				break;
 			case 3:
-				return validSpawnPositions[2];
+				return validDrawPositions[2];
 
 				break;
 			case 4:
-				return validSpawnPositions[3];
+				return validDrawPositions[3];
 
 				break;
 			case 5:
-				return validSpawnPositions[4];
+				return validDrawPositions[4];
 				break;
 
 			}
 			
 		}
 
-		void Bottle::Spawn(Surface* gameScreen, vec2 bottlePosition)
+		void Bottle::Draw(Surface* gameScreen, vec2 bottlePosition)
 		{
 			//score++;
 			//std::cout << score << std::endl;
-			bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
+
+			//bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
+
+
 			if (bottleSprite) {
 				bottleSprite->Draw(gameScreen, static_cast<int>(bottlePosition.x), static_cast<int>(bottlePosition.y));
 			}
 		}
 
-		void Bottle::DeSpawn(Surface* screen)
+		void Bottle::ReDraw(Surface* screen)
       		{
-				delete bottleSprite;
-				bottleSprite = nullptr;
-
-
 				//score++;
 				//std::cout << "score" << std::endl;
 				//std::cout << score << std::endl;
 				
-				bottlePosition = setSpawnPosition();
+				bottlePosition = setDrawPosition();
 
-				Spawn(screen, bottlePosition);	
+				Draw(screen, bottlePosition);	
 		}
 
-		void Bottle::HandleHit(vec2& ballPosition, vec2& ballSize, Surface* screen, Bottle* myBottle)
+		void Bottle::HandleHit(vec2& ballPosition, Surface* screen, Bottle* myBottle)
 		{
 
 			float playerBallPositionX = ballPosition.x;
 			float playerBallPositionY = ballPosition.y;
 
-			vec2 validSpawnPositions[5] = {
+			vec2 validDrawPositions[5] = {
 				vec2(200.0f, 100.0f),
 				vec2(200.0f, 175.0f),
 				vec2(200.0f, 250.0f),
@@ -142,44 +141,44 @@ namespace Tmpl8
 			};
 
 
-			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				validSpawnPositions[0].x, validSpawnPositions[0].y, 50, 50)  
-				&& bottlePosition.x== validSpawnPositions[0].x 
-				&& bottlePosition.y== validSpawnPositions[0].y)
+			if (AABB(static_cast<int>(playerBallPositionX), static_cast<int>(playerBallPositionY), 50, 50,
+				static_cast<int>(validDrawPositions[0].x), static_cast<int>(validDrawPositions[0].y), 50, 50)
+				&& bottlePosition.x== validDrawPositions[0].x
+				&& bottlePosition.y== validDrawPositions[0].y)
 			{
-				DeSpawn(screen);
+				ReDraw(screen);
 			}
 
-			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				validSpawnPositions[1].x, validSpawnPositions[1].y, 50, 50) 
-				&& bottlePosition.x == validSpawnPositions[1].x 
-				&& bottlePosition.y == validSpawnPositions[1].y)
+			if (AABB(static_cast<int>(playerBallPositionX), static_cast<int>(playerBallPositionY), 50, 50,
+				static_cast<int>(validDrawPositions[1].x), static_cast<int>(validDrawPositions[1].y), 50, 50)
+				&& bottlePosition.x == validDrawPositions[1].x
+				&& bottlePosition.y == validDrawPositions[1].y)
 			{
-				DeSpawn(screen);
+				ReDraw(screen);
 			}
 
-			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				validSpawnPositions[2].x, validSpawnPositions[2].y, 50, 50) 
-				&& bottlePosition.x == validSpawnPositions[2].x 
-				&& bottlePosition.y == validSpawnPositions[2].y)
+			if (AABB(static_cast<int>(playerBallPositionX), static_cast<int>(playerBallPositionY), 50, 50,
+				static_cast<int>(validDrawPositions[2].x), static_cast<int>(validDrawPositions[2].y), 50, 50)
+				&& bottlePosition.x == validDrawPositions[2].x
+				&& bottlePosition.y == validDrawPositions[2].y)
 			{
-				DeSpawn(screen);
+				ReDraw(screen);
 			}
 
-			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				validSpawnPositions[3].x, validSpawnPositions[3].y, 50, 50) 
-				&& bottlePosition.x == validSpawnPositions[3].x 
-				&& bottlePosition.y == validSpawnPositions[3].y)
+			if (AABB(static_cast<int>(playerBallPositionX), static_cast<int>(playerBallPositionY), 50, 50,
+				static_cast<int>(validDrawPositions[3].x), static_cast<int>(validDrawPositions[3].y), 50, 50)
+				&& bottlePosition.x == validDrawPositions[3].x
+				&& bottlePosition.y == validDrawPositions[3].y)
 			{
-				DeSpawn(screen);
+				ReDraw(screen);
 			}
 
-			if (AABB(playerBallPositionX, playerBallPositionY, 50, 50,
-				validSpawnPositions[4].x, validSpawnPositions[4].y, 50, 50) 
-				&& bottlePosition.x == validSpawnPositions[4].x 
-				&& bottlePosition.y == validSpawnPositions[4].y)
+			if (AABB(static_cast<int>(playerBallPositionX), static_cast<int>(playerBallPositionY), 50, 50,
+				static_cast<int>(validDrawPositions[4].x), static_cast<int>(validDrawPositions[4].y), 50, 50)
+				&& bottlePosition.x == validDrawPositions[4].x
+				&& bottlePosition.y == validDrawPositions[4].y)
 			{
-				DeSpawn(screen);
+				ReDraw(screen);
 			}
 
 		}
@@ -242,7 +241,7 @@ namespace Tmpl8
 
 				  if (ballPosition.y + ballSprite->GetHeight() > screen->GetHeight())
 				  {
-					  ballPosition.y = screen->GetHeight() - ballSprite->GetHeight();
+					  ballPosition.y = screen->GetHeight() - static_cast<float>(ballSprite->GetHeight());
 					  gravity = 0.0f;
 				  }
 
@@ -352,7 +351,6 @@ namespace Tmpl8
 	//Drawing of a singular tile
 	void DrawTile(int tx, int ty, Surface* screen, int x, int y)
 	{
-		//Pixel* src = tiles.GetBuffer() + 1 + tx * 33 + (1 + ty * 33) * 595;
 		Pixel* src = tiles.GetBuffer() + tx * 33 + (ty * 33) * 595;
 		Pixel* dst = screen->GetBuffer() + x + y * 800;
 		for (int i = 0; i < 32; i++, src += tiles.GetWidth(), dst += 800)
@@ -369,7 +367,7 @@ namespace Tmpl8
 		myPlayer->screen = screen;
 
 		myPlayer->HandleCollision(deltaTime);
-		myBottle->HandleHit(myPlayer->ballPosition, myPlayer->ballSize, myPlayer->screen, myBottle);
+		myBottle->HandleHit(myPlayer->ballPosition, myPlayer->screen, myBottle);
 		
 		screen->Clear(0);
 
@@ -384,8 +382,9 @@ namespace Tmpl8
 			}
 		}
 
-		myBottle->Spawn(screen, myBottle->bottlePosition);
+		myBottle->Draw(screen, myBottle->bottlePosition);
+		//screen->Box(myBottle->bottlePosition.x, myBottle->bottlePosition.y, myBottle->bottlePosition.x + myBottle->bottleSprite->GetWidth(), myBottle->bottlePosition.y + myBottle->bottleSprite->GetHeight(), 0xffff00);
 		myPlayer->ballSprite->Draw(screen, static_cast<int> (myPlayer->ballPosition.x), static_cast<int>(myPlayer->ballPosition.y));
-		//screen->Box(myPlayer.ballPosition.x, myPlayer.ballPosition.y, myPlayer.ballPosition.x + myPlayer.ballSprite->GetWidth(), myPlayer.ballPosition.y + myPlayer.ballSprite->GetHeight(), 0xffff00);
+		screen->Box(myPlayer->ballPosition.x, myPlayer->ballPosition.y, myPlayer->ballPosition.x + myPlayer->ballSprite->GetWidth(), myPlayer->ballPosition.y + myPlayer->ballSprite->GetHeight(), 0xffff00);
 	}
 };
