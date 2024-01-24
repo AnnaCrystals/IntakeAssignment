@@ -98,7 +98,9 @@ namespace Tmpl8
 				return validDrawPositions[4];
 				break;
 
+	
 			}
+			
 			
 		}
 
@@ -140,41 +142,52 @@ namespace Tmpl8
 				vec2(200.0f, 400.0f)
 			};
 
+			int aX = static_cast<int>(playerBallPositionX);
+			int aY = static_cast<int>(playerBallPositionY);
+			int aWidth = 50;
+			int aHeight = 50;
 
-			if (AABB(static_cast<int>(playerBallPositionX), static_cast<int>(playerBallPositionY), 50, 50,
-				static_cast<int>(validDrawPositions[0].x), static_cast<int>(validDrawPositions[0].y), 50, 50)
+			int bX = 0;
+			int bY = 0;
+			int bWidth = 50;
+			int bHeight = 50;
+
+
+
+			if (AABB(aX, aY, aWidth, aHeight,
+				static_cast<int>(validDrawPositions[0].x), static_cast<int>(validDrawPositions[0].y), bWidth, bHeight)
 				&& bottlePosition.x== validDrawPositions[0].x
 				&& bottlePosition.y== validDrawPositions[0].y)
 			{
 				ReDraw(screen);
 			}
 
-			if (AABB(static_cast<int>(playerBallPositionX), static_cast<int>(playerBallPositionY), 50, 50,
-				static_cast<int>(validDrawPositions[1].x), static_cast<int>(validDrawPositions[1].y), 50, 50)
+			if (AABB(aX, aY, aWidth, aHeight,
+				static_cast<int>(validDrawPositions[1].x), static_cast<int>(validDrawPositions[1].y), bWidth, bHeight)
 				&& bottlePosition.x == validDrawPositions[1].x
 				&& bottlePosition.y == validDrawPositions[1].y)
 			{
 				ReDraw(screen);
 			}
 
-			if (AABB(static_cast<int>(playerBallPositionX), static_cast<int>(playerBallPositionY), 50, 50,
-				static_cast<int>(validDrawPositions[2].x), static_cast<int>(validDrawPositions[2].y), 50, 50)
+			if (AABB(aX, aY, aWidth, aHeight,
+				static_cast<int>(validDrawPositions[2].x), static_cast<int>(validDrawPositions[2].y), bWidth, bHeight)
 				&& bottlePosition.x == validDrawPositions[2].x
 				&& bottlePosition.y == validDrawPositions[2].y)
 			{
 				ReDraw(screen);
 			}
 
-			if (AABB(static_cast<int>(playerBallPositionX), static_cast<int>(playerBallPositionY), 50, 50,
-				static_cast<int>(validDrawPositions[3].x), static_cast<int>(validDrawPositions[3].y), 50, 50)
+			if (AABB(aX, aY, aWidth, aHeight,
+				static_cast<int>(validDrawPositions[3].x), static_cast<int>(validDrawPositions[3].y), bWidth, bHeight)
 				&& bottlePosition.x == validDrawPositions[3].x
 				&& bottlePosition.y == validDrawPositions[3].y)
 			{
 				ReDraw(screen);
 			}
 
-			if (AABB(static_cast<int>(playerBallPositionX), static_cast<int>(playerBallPositionY), 50, 50,
-				static_cast<int>(validDrawPositions[4].x), static_cast<int>(validDrawPositions[4].y), 50, 50)
+			if (AABB(aX, aY, aWidth, aHeight,
+				static_cast<int>(validDrawPositions[4].x), static_cast<int>(validDrawPositions[4].y), bWidth, bHeight)
 				&& bottlePosition.x == validDrawPositions[4].x
 				&& bottlePosition.y == validDrawPositions[4].y)
 			{
@@ -194,7 +207,7 @@ namespace Tmpl8
 			ballSize.x = ballSprite->GetWidth() / 2.0f;
 			ballSize.y = ballSprite->GetHeight() / 2.0f;
 			ballPosition.x = ScreenWidth / 2.0f;
-			ballPosition.y = ScreenHeight - ballSprite->GetHeight();
+			ballPosition.y = ScreenHeight - static_cast<float>(ballSprite->GetHeight());
 		}
 
 			  Sprite* ballSprite;
@@ -213,9 +226,17 @@ namespace Tmpl8
 			  float ballSpeed = 120.0f;
 			  
 
+
 			  void Player::UpdatePosition(float deltaTime)
 			  {
-				  if (GetAsyncKeyState(VK_SPACE)) ballPosition.y -= 10.0f;
+				  std::cout << gravity << std::endl;
+				  if (gravity == 0.0f) 
+				  {
+					  std::cout << "reach" << std::endl;
+					  if (GetAsyncKeyState(VK_SPACE)) ballPosition.y -= 40.0f;
+				  }
+
+				  //if (GetAsyncKeyState(VK_SPACE)) ballPosition.y -= 10.0f;
 				  if (GetAsyncKeyState(VK_LEFT)) ballPosition.x-= ballSpeed * deltaTime;
 				  if (GetAsyncKeyState(VK_RIGHT)) ballPosition.x+= ballSpeed * deltaTime;
 				  if (GetAsyncKeyState(VK_DOWN)) ballPosition.y+= ballSpeed * deltaTime;
@@ -275,13 +296,13 @@ namespace Tmpl8
 					  && map[tileNew][tileMaxX * 3 + 2] == 'X') {
 					  ballPosition.x = prevBallPosition.x;
 					  ballPosition.y = prevBallPosition.y;
-					  gravity = 0.0f;
+					  //gravity = 0.0f;
 				  }
 				  if (map[tileMaxY][tileMinX * 3 + 2] == 'X' 
 					  && map[tileNew][tileMinX * 3 + 2] == 'X') {
 					  ballPosition.x = prevBallPosition.x;
 					  ballPosition.y = prevBallPosition.y;
-					  gravity = 0.0f;
+					  //gravity = 0.0f;
 				  }
 
 
@@ -307,6 +328,9 @@ namespace Tmpl8
 		myBottle = new Bottle;
 		
 	}
+
+
+
 
 	Surface tiles("assets/mediaval.png");
 	const int numRows = 16;
@@ -385,6 +409,6 @@ namespace Tmpl8
 		myBottle->Draw(screen, myBottle->bottlePosition);
 		//screen->Box(myBottle->bottlePosition.x, myBottle->bottlePosition.y, myBottle->bottlePosition.x + myBottle->bottleSprite->GetWidth(), myBottle->bottlePosition.y + myBottle->bottleSprite->GetHeight(), 0xffff00);
 		myPlayer->ballSprite->Draw(screen, static_cast<int> (myPlayer->ballPosition.x), static_cast<int>(myPlayer->ballPosition.y));
-		screen->Box(myPlayer->ballPosition.x, myPlayer->ballPosition.y, myPlayer->ballPosition.x + myPlayer->ballSprite->GetWidth(), myPlayer->ballPosition.y + myPlayer->ballSprite->GetHeight(), 0xffff00);
+		//screen->Box(myPlayer->ballPosition.x, myPlayer->ballPosition.y, myPlayer->ballPosition.x + myPlayer->ballSprite->GetWidth(), myPlayer->ballPosition.y + static_cast<float> (myPlayer->ballSprite->GetHeight()), 0xffff00);
 	}
 };

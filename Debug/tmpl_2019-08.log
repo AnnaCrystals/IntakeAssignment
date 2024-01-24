@@ -1,8 +1,3 @@
 ﻿  game.cpp
-C:\dev\IntakeAssignmentBuas\game.cpp(197,34): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(388,153): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(388,92): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(388,63): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(388,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\dev\IntakeAssignmentBuas\game.cpp(103): warning C4715: 'Tmpl8::Bottle::setDrawPosition': not all control paths return a value
+C:\dev\IntakeAssignmentBuas\game.cpp(105): warning C4715: 'Tmpl8::Bottle::setDrawPosition': not all control paths return a value
   tmpl_2019-08.vcxproj -> C:\dev\IntakeAssignmentBuas\tmpl_2019-08_x64_debug.exe
