@@ -9,7 +9,7 @@
 
 namespace Tmpl8
 {
-	
+
 
 	class Bottle
 	{
@@ -24,13 +24,13 @@ namespace Tmpl8
 			bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
 
 		}
-		
+
 
 		Sprite* bottleSprite;
 		vec2 bottlePosition;
 		Bottle* newBottle;
 
-	
+
 
 		const float bottleHeight = 50.0f;
 		const float bottleWidth = 50.0f;
@@ -45,11 +45,11 @@ namespace Tmpl8
 				aY + aHeight >= bY;
 		}
 
-		static int randomNumber ()
+		static int randomNumber()
 		{
 			static int previousNumber = 0;
 
-			srand(static_cast<unsigned int>(time(0))); 
+			srand(static_cast<unsigned int>(time(0)));
 
 			int newNumber;
 
@@ -76,7 +76,7 @@ namespace Tmpl8
 
 			int number = randomNumber();
 
-			switch (number) 
+			switch (number)
 			{
 			case 1:
 				return validDrawPositions[0];
@@ -98,10 +98,10 @@ namespace Tmpl8
 				return validDrawPositions[4];
 				break;
 
-	
+
 			}
-			
-			
+
+
 		}
 
 		void Bottle::Draw(Surface* gameScreen, vec2 bottlePosition)
@@ -118,14 +118,14 @@ namespace Tmpl8
 		}
 
 		void Bottle::ReDraw(Surface* screen)
-      		{
-				//score++;
-				//std::cout << "score" << std::endl;
-				//std::cout << score << std::endl;
-				
-				bottlePosition = setDrawPosition();
+		{
+			//score++;
+			//std::cout << "score" << std::endl;
+			//std::cout << score << std::endl;
 
-				Draw(screen, bottlePosition);	
+			bottlePosition = setDrawPosition();
+
+			Draw(screen, bottlePosition);
 		}
 
 		void Bottle::HandleHit(vec2& ballPosition, Surface* screen, Bottle* myBottle)
@@ -156,8 +156,8 @@ namespace Tmpl8
 
 			if (AABB(aX, aY, aWidth, aHeight,
 				static_cast<int>(validDrawPositions[0].x), static_cast<int>(validDrawPositions[0].y), bWidth, bHeight)
-				&& bottlePosition.x== validDrawPositions[0].x
-				&& bottlePosition.y== validDrawPositions[0].y)
+				&& bottlePosition.x == validDrawPositions[0].x
+				&& bottlePosition.y == validDrawPositions[0].y)
 			{
 				ReDraw(screen);
 			}
@@ -201,123 +201,123 @@ namespace Tmpl8
 
 	class Player
 	{
-		public:Player(char(*gameMap)[76], Surface* screen) : screen(screen), map(gameMap)
-		{
-			ballSprite = new Sprite(new Surface("assets/ball.png"), 1);
-			ballSize.x = ballSprite->GetWidth() / 2.0f;
-			ballSize.y = ballSprite->GetHeight() / 2.0f;
-			ballPosition.x = ScreenWidth / 2.0f;
-			ballPosition.y = ScreenHeight - static_cast<float>(ballSprite->GetHeight());
-		}
+	public:Player(char(*gameMap)[76], Surface* screen) : screen(screen), map(gameMap)
+	{
+		ballSprite = new Sprite(new Surface("assets/ball.png"), 1);
+		ballSize.x = ballSprite->GetWidth() / 2.0f;
+		ballSize.y = ballSprite->GetHeight() / 2.0f;
+		ballPosition.x = ScreenWidth / 2.0f;
+		ballPosition.y = ScreenHeight - static_cast<float>(ballSprite->GetHeight());
+	}
 
-			  Sprite* ballSprite;
-			  Surface* screen;
+		  Sprite* ballSprite;
+		  Surface* screen;
 
-			  vec2 ballPosition;
-			  vec2 prevBallPosition{ ballPosition.x, ballPosition.y };
-			  vec2 ballSize;
-			  vec2 ballVelocity{ 0, 0 };
+		  vec2 ballPosition;
+		  vec2 prevBallPosition{ ballPosition.x, ballPosition.y };
+		  vec2 ballSize;
+		  vec2 ballVelocity{ 0, 0 };
 
-			  float gravity = 0.0f;
-			  float prevGravity;
-			  
-			  const int tileWidth = 32;
-			  const int tileHeight = 32;
-			  float ballSpeed = 120.0f;
-			  
+		  float gravity = 0.0f;
+		  float prevGravity;
+
+		  const int tileWidth = 32;
+		  const int tileHeight = 32;
+		  float ballSpeed = 120.0f;
 
 
-			  void Player::UpdatePosition(float deltaTime)
+
+		  void Player::UpdatePosition(float deltaTime)
+		  {
+			  std::cout << gravity << std::endl;
+			  if (gravity == 0.0f)
 			  {
-				  std::cout << gravity << std::endl;
-				  if (gravity == 0.0f) 
-				  {
-					  std::cout << "reach" << std::endl;
-					  if (GetAsyncKeyState(VK_SPACE)) ballPosition.y -= 40.0f;
-				  }
+				  std::cout << "reach" << std::endl;
+				  if (GetAsyncKeyState(VK_SPACE)) ballPosition.y -= 40.0f;
+			  }
 
-				  //if (GetAsyncKeyState(VK_SPACE)) ballPosition.y -= 10.0f;
-				  if (GetAsyncKeyState(VK_LEFT)) ballPosition.x-= ballSpeed * deltaTime;
-				  if (GetAsyncKeyState(VK_RIGHT)) ballPosition.x+= ballSpeed * deltaTime;
-				  if (GetAsyncKeyState(VK_DOWN)) ballPosition.y+= ballSpeed * deltaTime;
-				  if (GetAsyncKeyState(VK_UP)) ballPosition.y-= ballSpeed * deltaTime;
+			  //if (GetAsyncKeyState(VK_SPACE)) ballPosition.y -= 10.0f;
+			  if (GetAsyncKeyState(VK_LEFT)) ballPosition.x -= ballSpeed * deltaTime;
+			  if (GetAsyncKeyState(VK_RIGHT)) ballPosition.x += ballSpeed * deltaTime;
+			  if (GetAsyncKeyState(VK_DOWN)) ballPosition.y += ballSpeed * deltaTime;
+			  if (GetAsyncKeyState(VK_UP)) ballPosition.y -= ballSpeed * deltaTime;
 
-				  ballPosition.y += ballVelocity.y * gravity * deltaTime;
-				  ballPosition.x += ballVelocity.x * gravity * deltaTime;
+			  ballPosition.y += ballVelocity.y * gravity * deltaTime;
+			  ballPosition.x += ballVelocity.x * gravity * deltaTime;
 
-				  if (ballPosition.y + ballSprite->GetHeight() < screen->GetHeight()) {
-					  ballPosition.y += gravity * deltaTime;
-					  gravity += 1.5f;
-				  }
+			  if (ballPosition.y + ballSprite->GetHeight() < screen->GetHeight()) {
+				  ballPosition.y += gravity * deltaTime;
+				  gravity += 1.5f;
+			  }
+		  }
+
+
+		  void Player::CheckCollision()
+		  {
+			  int tileMinX = static_cast<int>(ballPosition.x / tileWidth);
+			  int tileMinY = static_cast<int>(ballPosition.y / tileHeight);
+			  int tileMaxX = static_cast<int>((ballPosition.x + 50) / tileWidth);
+			  int tileMaxY = static_cast<int>((ballPosition.y + 50) / tileHeight);
+			  int tileNew = static_cast<int>((ballPosition.y + 49) / tileHeight);
+
+			  if (ballPosition.y + ballSprite->GetHeight() > screen->GetHeight())
+			  {
+				  ballPosition.y = screen->GetHeight() - static_cast<float>(ballSprite->GetHeight());
+				  gravity = 0.0f;
+			  }
+
+			  // Check for collisions and reset position if necessary
+			  if (map[tileMinY][tileMinX * 3 + 2] == 'X'
+				  && map[tileMaxY][tileMinX * 3 + 2] != 'X') {
+				  ballPosition.x = prevBallPosition.x;
+				  ballPosition.y = prevBallPosition.y;
+			  }
+			  if (map[tileMinY][tileMaxX * 3 + 2] == 'X'
+				  && map[tileMaxY][tileMaxX * 3 + 2] != 'X') {
+				  ballPosition.x = prevBallPosition.x;
+				  ballPosition.y = prevBallPosition.y;
 			  }
 
 
-			  void Player ::CheckCollision()
-			  {
-				  int tileMinX = static_cast<int>(ballPosition.x / tileWidth);
-				  int tileMinY = static_cast<int>(ballPosition.y / tileHeight);
-				  int tileMaxX = static_cast<int>((ballPosition.x + 50) / tileWidth);
-				  int tileMaxY = static_cast<int>((ballPosition.y + 50) / tileHeight);
-				  int tileNew = static_cast<int>((ballPosition.y + 49) / tileHeight);
-
-				  if (ballPosition.y + ballSprite->GetHeight() > screen->GetHeight())
-				  {
-					  ballPosition.y = screen->GetHeight() - static_cast<float>(ballSprite->GetHeight());
-					  gravity = 0.0f;
-				  }
-
-				  // Check for collisions and reset position if necessary
-				  if (map[tileMinY][tileMinX * 3 + 2] == 'X'
-					  && map[tileMaxY][tileMinX * 3 + 2] != 'X') {
-					  ballPosition.x = prevBallPosition.x;
-					  ballPosition.y = prevBallPosition.y;
-				  }
-				  if (map[tileMinY][tileMaxX * 3 + 2] == 'X' 
-					  && map[tileMaxY][tileMaxX * 3 + 2] != 'X') {
-					  ballPosition.x = prevBallPosition.x;
-					  ballPosition.y = prevBallPosition.y;
-				  }
-
-
-				  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X' 
-					  && map[tileNew][tileMaxX * 3 + 2] != 'X') {
-					  ballPosition.x = prevBallPosition.x;
-					  ballPosition.y = prevBallPosition.y - 0.1f;
-					  gravity = 0.0f;
-				  }
-				  if (map[tileMaxY][tileMinX * 3 + 2] == 'X' 
-					  && map[tileNew][tileMinX * 3 + 2] != 'X') {
-					  ballPosition.x = prevBallPosition.x;
-					  ballPosition.y = prevBallPosition.y - 0.1f;
-					  gravity = 0.0f;
-
-				  }
-				  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X' 
-					  && map[tileNew][tileMaxX * 3 + 2] == 'X') {
-					  ballPosition.x = prevBallPosition.x;
-					  ballPosition.y = prevBallPosition.y;
-					  //gravity = 0.0f;
-				  }
-				  if (map[tileMaxY][tileMinX * 3 + 2] == 'X' 
-					  && map[tileNew][tileMinX * 3 + 2] == 'X') {
-					  ballPosition.x = prevBallPosition.x;
-					  ballPosition.y = prevBallPosition.y;
-					  //gravity = 0.0f;
-				  }
-
-
+			  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X'
+				  && map[tileNew][tileMaxX * 3 + 2] != 'X') {
+				  ballPosition.x = prevBallPosition.x;
+				  ballPosition.y = prevBallPosition.y - 0.1f;
+				  gravity = 0.0f;
+			  }
+			  if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
+				  && map[tileNew][tileMinX * 3 + 2] != 'X') {
+				  ballPosition.x = prevBallPosition.x;
+				  ballPosition.y = prevBallPosition.y - 0.1f;
+				  gravity = 0.0f;
 
 			  }
-
-			  void Player::HandleCollision(float deltaTime)
-			  {
-				  prevBallPosition.y = ballPosition.y;
-				  prevBallPosition.x = ballPosition.x;
-				  prevGravity = gravity;
-
-				  UpdatePosition(deltaTime);
-				  CheckCollision();
+			  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X'
+				  && map[tileNew][tileMaxX * 3 + 2] == 'X') {
+				  ballPosition.x = prevBallPosition.x;
+				  ballPosition.y = prevBallPosition.y;
+				  //gravity = 0.0f;
 			  }
+			  if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
+				  && map[tileNew][tileMinX * 3 + 2] == 'X') {
+				  ballPosition.x = prevBallPosition.x;
+				  ballPosition.y = prevBallPosition.y;
+				  //gravity = 0.0f;
+			  }
+
+
+
+		  }
+
+		  void Player::HandleCollision(float deltaTime)
+		  {
+			  prevBallPosition.y = ballPosition.y;
+			  prevBallPosition.x = ballPosition.x;
+			  prevGravity = gravity;
+
+			  UpdatePosition(deltaTime);
+			  CheckCollision();
+		  }
 	private:
 		char(*map)[76];
 	};
@@ -326,7 +326,7 @@ namespace Tmpl8
 	Game::Game()
 	{
 		myBottle = new Bottle;
-		
+
 	}
 
 
@@ -357,16 +357,16 @@ namespace Tmpl8
 	void Game::SetTarget(Surface* surface)
 	{
 
-		screen = surface; 
+		screen = surface;
 		myPlayer = new Player(map, screen);
 		//myBottle->Spawn(screen, myBottle->bottlePosition);
-		
+
 	}
 
-	void Game::Init(){}
+	void Game::Init() {}
 
 
-	void Game::Shutdown() 
+	void Game::Shutdown()
 	{
 		delete myBottle;
 		delete myPlayer;
@@ -382,7 +382,7 @@ namespace Tmpl8
 				dst[j] = src[j];
 	}
 
-	
+
 
 	void Game::Tick(float deltaTime)
 	{
@@ -392,7 +392,7 @@ namespace Tmpl8
 
 		myPlayer->HandleCollision(deltaTime);
 		myBottle->HandleHit(myPlayer->ballPosition, myPlayer->screen, myBottle);
-		
+
 		screen->Clear(0);
 
 		//Drawing the tilemap, a grid of 16x25 tiles 
