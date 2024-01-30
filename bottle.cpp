@@ -1,40 +1,15 @@
-#include "game.h"
 #include "surface.h"
 #include <cstdio> //printf
 #include <iostream>
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <SDL_scancode.h>
+#include "bottle.h"
 
 namespace Tmpl8
 {
-	class Bottle
-	{
-	public:
-		Bottle()
-		{
-			/*bottlePosition.x = ScreenWidth / 2.0f + 100.0f;
-			bottlePosition.y = ScreenHeight - 50.0f;*/
 
-			bottlePosition.x = 200.0f;
-			bottlePosition.y = 100.0f;
-			bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
-
-		}
-
-
-		Sprite* bottleSprite;
-		vec2 bottlePosition;
-		Bottle* newBottle;
-
-
-
-		const float bottleHeight = 50.0f;
-		const float bottleWidth = 50.0f;
-		bool despawned = false;
-		int score = 0;
-
-		static bool AABB(int aX, int aY, int aWidth, int aHeight, int bX, int bY, int bWidth, int bHeight)
+		bool Bottle::AABB(int aX, int aY, int aWidth, int aHeight, int bX, int bY, int bWidth, int bHeight)
 		{
 			return aX < bX + bWidth &&
 				aX + aWidth >= bX &&
@@ -42,7 +17,7 @@ namespace Tmpl8
 				aY + aHeight >= bY;
 		}
 
-		static int randomNumber()
+		int Bottle::RandomNumber()
 		{
 			static int previousNumber = 0;
 
@@ -61,7 +36,7 @@ namespace Tmpl8
 			return newNumber;
 		}
 
-		static vec2 setDrawPosition()
+		vec2 Bottle::SetDrawPosition()
 		{
 			vec2 validDrawPositions[5] = {
 				vec2(200.0f, 100.0f),
@@ -71,7 +46,7 @@ namespace Tmpl8
 				vec2(200.0f, 400.0f)
 			};
 
-			int number = randomNumber();
+			int number = RandomNumber();
 
 			switch (number)
 			{
@@ -101,6 +76,8 @@ namespace Tmpl8
 
 		}
 
+
+
 		void Bottle::Draw(Surface* gameScreen, vec2 bottlePosition)
 		{
 			//score++;
@@ -120,7 +97,7 @@ namespace Tmpl8
 			//std::cout << "score" << std::endl;
 			//std::cout << score << std::endl;
 
-			bottlePosition = setDrawPosition();
+			bottlePosition = SetDrawPosition();
 
 			Draw(screen, bottlePosition);
 		}
@@ -192,5 +169,5 @@ namespace Tmpl8
 			}
 
 		}
-	};
+	
 };

@@ -5,8 +5,8 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <SDL_scancode.h>
-#include "bottle.cpp"
-#include "player.cpp"
+#include "bottle.h"
+#include "player.h"
 
 
 namespace Tmpl8

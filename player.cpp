@@ -1,4 +1,4 @@
-#include "game.h"
+#include "player.h"
 #include "surface.h"
 #include <cstdio> //printf
 #include <iostream>
@@ -11,36 +11,8 @@
 
 namespace Tmpl8
 {
-	class Player
-	{
-	public:Player(char(*gameMap)[76], Surface* screen) : screen(screen), map(gameMap)
-	{
-		ballSprite = new Sprite(new Surface("assets/ball.png"), 1);
-		ballSize.x = ballSprite->GetWidth() / 2.0f;
-		ballSize.y = ballSprite->GetHeight() / 2.0f;
-		ballPosition.x = ScreenWidth / 2.0f;
-		ballPosition.y = ScreenHeight - static_cast<float>(ballSprite->GetHeight());
-	}
-
-		  Sprite* ballSprite;
-		  Surface* screen;
-
-		  vec2 ballPosition;
-		  vec2 prevBallPosition{ ballPosition.x, ballPosition.y };
-		  vec2 ballSize;
-		  vec2 ballVelocity{ 0, 0 };
-
-		  float gravity = 0.0f;
-		  float prevGravity;
-
-		  const int tileWidth = 32;
-		  const int tileHeight = 32;
-		  float ballSpeed = 120.0f;
-
-
-
-		  void Player::UpdatePosition(float deltaTime)
-		  {
+		void Player::UpdatePosition(float deltaTime)
+		{
 			  std::cout << gravity << std::endl;
 			  if (gravity == 0.0f)
 			  {
@@ -129,8 +101,5 @@ namespace Tmpl8
 
 			  UpdatePosition(deltaTime);
 			  CheckCollision();
-		  }
-	private:
-		char(*map)[76];
-	};
+		  }	
 };

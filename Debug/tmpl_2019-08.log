@@ -1,5 +1,6 @@
-﻿  game.cpp
+﻿  bottle.cpp
+  game.cpp
   player.cpp
   Generating Code...
-C:\dev\IntakeAssignmentBuas\bottle.cpp(102): warning C4715: 'Tmpl8::Bottle::setDrawPosition': not all control paths return a value
+C:\dev\IntakeAssignmentBuas\bottle.cpp(77): warning C4715: 'Tmpl8::Bottle::SetDrawPosition': not all control paths return a value
   tmpl_2019-08.vcxproj -> C:\dev\IntakeAssignmentBuas\tmpl_2019-08_x64_debug.exe
