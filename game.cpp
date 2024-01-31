@@ -76,7 +76,7 @@ namespace Tmpl8
 		myPlayer->screen = screen;
 
 		myPlayer->HandleCollision(deltaTime);
-		myBottle->HandleHit(myPlayer->ballPosition, myPlayer->screen, myBottle);
+		myBottle->HandleHit(myPlayer->playerPosition, myPlayer->screen, myBottle);
 
 		screen->Clear(0);
 
@@ -93,7 +93,7 @@ namespace Tmpl8
 
 		myBottle->Draw(screen, myBottle->bottlePosition);
 		//screen->Box(myBottle->bottlePosition.x, myBottle->bottlePosition.y, myBottle->bottlePosition.x + myBottle->bottleSprite->GetWidth(), myBottle->bottlePosition.y + myBottle->bottleSprite->GetHeight(), 0xffff00);
-		myPlayer->ballSprite->Draw(screen, static_cast<int> (myPlayer->ballPosition.x), static_cast<int>(myPlayer->ballPosition.y));
+		myPlayer->playerSprite->Draw(screen, static_cast<int> (myPlayer->playerPosition.x), static_cast<int>(myPlayer->playerPosition.y));
 		//screen->Box(myPlayer->ballPosition.x, myPlayer->ballPosition.y, myPlayer->ballPosition.x + myPlayer->ballSprite->GetWidth(), myPlayer->ballPosition.y + static_cast<float> (myPlayer->ballSprite->GetHeight()), 0xffff00);
 	}
 };

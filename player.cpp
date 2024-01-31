@@ -13,24 +13,23 @@ namespace Tmpl8
 {
 		void Player::UpdatePosition(float deltaTime)
 		{
-			  std::cout << gravity << std::endl;
-			  if (gravity == 0.0f)
+			  /*if (gravity == 0.0f)
 			  {
-				  std::cout << "reach" << std::endl;
-				  if (GetAsyncKeyState(VK_SPACE)) ballPosition.y -= 40.0f;
-			  }
+				  if (GetAsyncKeyState(VK_SPACE)) playerPosition.y -= 40.0f;
+			  }*/
 
-			  //if (GetAsyncKeyState(VK_SPACE)) ballPosition.y -= 10.0f;
-			  if (GetAsyncKeyState(VK_LEFT)) ballPosition.x -= ballSpeed * deltaTime;
-			  if (GetAsyncKeyState(VK_RIGHT)) ballPosition.x += ballSpeed * deltaTime;
-			  if (GetAsyncKeyState(VK_DOWN)) ballPosition.y += ballSpeed * deltaTime;
-			  if (GetAsyncKeyState(VK_UP)) ballPosition.y -= ballSpeed * deltaTime;
+			  if (GetAsyncKeyState(VK_SPACE)) playerPosition.y -= 10.0f;
+			  if (GetAsyncKeyState(VK_LEFT)) playerPosition.x -= playerSpeed * deltaTime;
+			  if (GetAsyncKeyState(VK_RIGHT)) playerPosition.x += playerSpeed * deltaTime;
+			  if (GetAsyncKeyState(VK_DOWN)) playerPosition.y += playerSpeed * deltaTime;
+			  if (GetAsyncKeyState(VK_UP)) playerPosition.y -= playerSpeed * deltaTime;
 
-			  ballPosition.y += ballVelocity.y * gravity * deltaTime;
-			  ballPosition.x += ballVelocity.x * gravity * deltaTime;
+			  playerPosition.y += playerVelocity.y * gravity * deltaTime;
+			  playerPosition.x += playerVelocity.x * gravity * deltaTime;
 
-			  if (ballPosition.y + ballSprite->GetHeight() < screen->GetHeight()) {
-				  ballPosition.y += gravity * deltaTime;
+			  if (playerPosition.y + playerSprite->GetHeight() < screen->GetHeight()) 
+			  {
+				  playerPosition.y += gravity * deltaTime;
 				  gravity += 1.5f;
 			  }
 		  }
@@ -38,54 +37,64 @@ namespace Tmpl8
 
 		  void Player::CheckCollision()
 		  {
-			  int tileMinX = static_cast<int>(ballPosition.x / tileWidth);
-			  int tileMinY = static_cast<int>(ballPosition.y / tileHeight);
-			  int tileMaxX = static_cast<int>((ballPosition.x + 50) / tileWidth);
-			  int tileMaxY = static_cast<int>((ballPosition.y + 50) / tileHeight);
-			  int tileNew = static_cast<int>((ballPosition.y + 49) / tileHeight);
+			  int tileMinX = static_cast<int>(playerPosition.x / tileWidth);
+			  int tileMinY = static_cast<int>(playerPosition.y / tileHeight);
+			  int tileMaxX = static_cast<int>((playerPosition.x + 50) / tileWidth);
+			  int tileMaxY = static_cast<int>((playerPosition.y + 50) / tileHeight);
+			  int tileNew = static_cast<int>((playerPosition.y + 49) / tileHeight);
 
-			  if (ballPosition.y + ballSprite->GetHeight() > screen->GetHeight())
+			  if (playerPosition.y + playerSprite->GetHeight() > screen->GetHeight())
 			  {
-				  ballPosition.y = screen->GetHeight() - static_cast<float>(ballSprite->GetHeight());
+				  playerPosition.y = screen->GetHeight() - static_cast<float>(playerSprite->GetHeight());
 				  gravity = 0.0f;
 			  }
 
 			  // Check for collisions and reset position if necessary
 			  if (map[tileMinY][tileMinX * 3 + 2] == 'X'
-				  && map[tileMaxY][tileMinX * 3 + 2] != 'X') {
-				  ballPosition.x = prevBallPosition.x;
-				  ballPosition.y = prevBallPosition.y;
+				  && map[tileMaxY][tileMinX * 3 + 2] != 'X') 
+			  {
+				  playerPosition.x = prevPlayerPosition.x;
+				  playerPosition.y = prevPlayerPosition.y;
 			  }
+
 			  if (map[tileMinY][tileMaxX * 3 + 2] == 'X'
-				  && map[tileMaxY][tileMaxX * 3 + 2] != 'X') {
-				  ballPosition.x = prevBallPosition.x;
-				  ballPosition.y = prevBallPosition.y;
+				  && map[tileMaxY][tileMaxX * 3 + 2] != 'X') 
+			  {
+				  playerPosition.x = prevPlayerPosition.x;
+				  playerPosition.y = prevPlayerPosition.y;
 			  }
 
 
 			  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X'
-				  && map[tileNew][tileMaxX * 3 + 2] != 'X') {
-				  ballPosition.x = prevBallPosition.x;
-				  ballPosition.y = prevBallPosition.y - 0.1f;
+				  && map[tileNew][tileMaxX * 3 + 2] != 'X') 
+			  {
+				  playerPosition.x = prevPlayerPosition.x;
+				  playerPosition.y = prevPlayerPosition.y - 0.1f;
 				  gravity = 0.0f;
 			  }
+
 			  if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
-				  && map[tileNew][tileMinX * 3 + 2] != 'X') {
-				  ballPosition.x = prevBallPosition.x;
-				  ballPosition.y = prevBallPosition.y - 0.1f;
+				  && map[tileNew][tileMinX * 3 + 2] != 'X') 
+			  {
+				  playerPosition.x = prevPlayerPosition.x;
+				  playerPosition.y = prevPlayerPosition.y - 0.1f;
 				  gravity = 0.0f;
 
 			  }
+
 			  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X'
-				  && map[tileNew][tileMaxX * 3 + 2] == 'X') {
-				  ballPosition.x = prevBallPosition.x;
-				  ballPosition.y = prevBallPosition.y;
+				  && map[tileNew][tileMaxX * 3 + 2] == 'X') 
+			  {
+				  playerPosition.x = prevPlayerPosition.x;
+				  playerPosition.y = prevPlayerPosition.y;
 				  //gravity = 0.0f;
 			  }
+
 			  if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
-				  && map[tileNew][tileMinX * 3 + 2] == 'X') {
-				  ballPosition.x = prevBallPosition.x;
-				  ballPosition.y = prevBallPosition.y;
+				  && map[tileNew][tileMinX * 3 + 2] == 'X') 
+			  {
+				  playerPosition.x = prevPlayerPosition.x;
+				  playerPosition.y = prevPlayerPosition.y;
 				  //gravity = 0.0f;
 			  }
 
@@ -95,8 +104,8 @@ namespace Tmpl8
 
 		  void Player::HandleCollision(float deltaTime)
 		  {
-			  prevBallPosition.y = ballPosition.y;
-			  prevBallPosition.x = ballPosition.x;
+			  prevPlayerPosition.y = playerPosition.y;
+			  prevPlayerPosition.x = playerPosition.x;
 			  prevGravity = gravity;
 
 			  UpdatePosition(deltaTime);

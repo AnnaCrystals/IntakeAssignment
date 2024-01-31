@@ -16,37 +16,32 @@ namespace Tmpl8 {
 	public:
 		Player(char(*gameMap)[76], Surface* screen) : screen(screen), map(gameMap)
 		{
-			ballSprite = new Sprite(new Surface("assets/ball.png"), 1);
-			ballSize.x = ballSprite->GetWidth() / 2.0f;
-			ballSize.y = ballSprite->GetHeight() / 2.0f;
-			ballPosition.x = ScreenWidth / 2.0f;
-			ballPosition.y = ScreenHeight - static_cast<float>(ballSprite->GetHeight());
+			playerSprite = new Sprite(new Surface("assets/ball.png"), 1);
+			playerSize.x = playerSprite->GetWidth() / 2.0f;
+			playerSize.y = playerSprite->GetHeight() / 2.0f;
+			playerPosition.x = ScreenWidth / 2.0f;
+			playerPosition.y = ScreenHeight - static_cast<float>(playerSprite->GetHeight());
 		}
+
+		Sprite* playerSprite;
+		vec2 playerPosition;
+		vec2 prevPlayerPosition{ playerPosition.x, playerPosition.y };
+		vec2 playerSize;
+		vec2 playerVelocity{ 0, 0 };
+		float gravity = 0.0f;
+		float prevGravity;
+		const int tileWidth = 32;
+		const int tileHeight = 32;
+		float playerSpeed = 120.0f;
+		Surface* screen;
+
+
 
 		void Player::UpdatePosition(float deltaTime);
 		void Player::CheckCollision();
 		void Player::HandleCollision(float deltaTime);
 
 
-
-
-		Sprite* ballSprite;
-		//Surface* screen;
-
-		vec2 ballPosition;
-		vec2 prevBallPosition{ ballPosition.x, ballPosition.y };
-		vec2 ballSize;
-		vec2 ballVelocity{ 0, 0 };
-
-		float gravity = 0.0f;
-		float prevGravity;
-
-		const int tileWidth = 32;
-		const int tileHeight = 32;
-		float ballSpeed = 120.0f;
-
-
-		Surface* screen;
 
 	private:
 		

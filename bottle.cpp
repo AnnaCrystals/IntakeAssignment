@@ -32,19 +32,21 @@ namespace Tmpl8
 			} while (newNumber == previousNumber);
 
 			std::cout << previousNumber << std::endl;
+
 			previousNumber = newNumber;
 			return newNumber;
 		}
 
 		vec2 Bottle::SetDrawPosition()
 		{
-			vec2 validDrawPositions[5] = {
+			/*vec2 validDrawPositions[5] = 
+			{
 				vec2(200.0f, 100.0f),
 				vec2(200.0f, 175.0f),
 				vec2(200.0f, 250.0f),
 				vec2(200.0f, 325.0f),
 				vec2(200.0f, 400.0f)
-			};
+			};*/
 
 			int number = RandomNumber();
 
@@ -69,11 +71,7 @@ namespace Tmpl8
 			case 5:
 				return validDrawPositions[4];
 				break;
-
-
 			}
-
-
 		}
 
 
@@ -86,7 +84,8 @@ namespace Tmpl8
 			//bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
 
 
-			if (bottleSprite) {
+			if (bottleSprite) 
+			{
 				bottleSprite->Draw(gameScreen, static_cast<int>(bottlePosition.x), static_cast<int>(bottlePosition.y));
 			}
 		}
@@ -102,22 +101,23 @@ namespace Tmpl8
 			Draw(screen, bottlePosition);
 		}
 
-		void Bottle::HandleHit(vec2& ballPosition, Surface* screen, Bottle* myBottle)
+		void Bottle::HandleHit(vec2& playerPosition, Surface* screen, Bottle* myBottle)
 		{
 
-			float playerBallPositionX = ballPosition.x;
-			float playerBallPositionY = ballPosition.y;
+			float playerPositionX = playerPosition.x;
+			float playerPositionY = playerPosition.y;
 
-			vec2 validDrawPositions[5] = {
+			/*vec2 validDrawPositions[5] = 
+			{
 				vec2(200.0f, 100.0f),
 				vec2(200.0f, 175.0f),
 				vec2(200.0f, 250.0f),
 				vec2(200.0f, 325.0f),
 				vec2(200.0f, 400.0f)
-			};
+			};*/
 
-			int aX = static_cast<int>(playerBallPositionX);
-			int aY = static_cast<int>(playerBallPositionY);
+			int aX = static_cast<int>(playerPositionX);
+			int aY = static_cast<int>(playerPositionY);
 			int aWidth = 50;
 			int aHeight = 50;
 
