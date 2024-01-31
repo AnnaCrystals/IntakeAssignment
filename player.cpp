@@ -70,7 +70,6 @@ namespace Tmpl8
 			  if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
 				  && map[tileNew][tileMinX * 3 + 2] != 'X')
 			  {
-				  std::cout << "bottom" << std::endl;
 				  playerPosition.x = prevPlayerPosition.x;
 				  playerPosition.y = prevPlayerPosition.y - 0.1f;
 				  gravity = 0.0f;
@@ -80,7 +79,6 @@ namespace Tmpl8
 			  else if (map[tileMaxY][tileMaxX * 3 + 2] == 'X'
 				  && map[tileNew][tileMaxX * 3 + 2] != 'X') 
 			  {
-				  std::cout << "other" << std::endl;
 				  playerPosition.x = prevPlayerPosition.x;
 				  playerPosition.y = prevPlayerPosition.y -0.1f;
 				  gravity = 0.0f;

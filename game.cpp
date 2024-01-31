@@ -41,11 +41,9 @@ namespace Tmpl8
 
 	void Game::SetTarget(Surface* surface)
 	{
-
 		screen = surface;
 		myPlayer = new Player(map, screen);
-		//myBottle->Spawn(screen, myBottle->bottlePosition);
-
+		myBottle->SetPlayer(myPlayer);
 	}
 
 	void Game::Init() {}

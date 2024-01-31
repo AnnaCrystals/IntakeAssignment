@@ -5,9 +5,13 @@
 #include <windows.h>
 #include <SDL_scancode.h>
 #include "bottle.h"
+#include "player.h"
 
 namespace Tmpl8
 {
+		void Bottle::SetPlayer(Player* myPlayer) {
+			this->myPlayer = myPlayer;
+		}
 
 		bool Bottle::AABB(int aX, int aY, int aWidth, int aHeight, int bX, int bY, int bWidth, int bHeight)
 		{
@@ -75,11 +79,6 @@ namespace Tmpl8
 
 		void Bottle::Draw(Surface* gameScreen, vec2 bottlePosition)
 		{
-			//score++;
-			//std::cout << score << std::endl;
-
-			//bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
-
 			//If bottleSprite is true draw the bottleSprite
 			if (bottleSprite) 
 			{
@@ -88,12 +87,7 @@ namespace Tmpl8
 		}
 
 		void Bottle::ReDraw(Surface* screen)
-		{
-			//score++;
-			//std::cout << "score" << std::endl;
-			//std::cout << score << std::endl;
-			
-			 
+		{		 
 			//Returns the new drawPositions for the bottleSprite
 			bottlePosition = SetDrawPosition();
 
@@ -103,18 +97,23 @@ namespace Tmpl8
 		void Bottle::HandleHit(vec2& playerPosition, Surface* screen, Bottle* myBottle)
 		{
 
+			//A IS PLAYER COORDINATES UPDATE THIS STUFF
 			float playerPositionX = playerPosition.x;
 			float playerPositionY = playerPosition.y;
 
 			int aX = static_cast<int>(playerPositionX);
 			int aY = static_cast<int>(playerPositionY);
-			int aWidth = 50;
-			int aHeight = 50;
 
+
+			int aWidth = myPlayer->playerSprite->GetWidth();
+			int aHeight = myPlayer->playerSprite->GetHeight();
+
+
+			//B IS BOTTLE COORDINATES
 			int bX = 0;
 			int bY = 0;
-			int bWidth = 50;
-			int bHeight = 50;
+			int bWidth = bottleSprite->GetWidth();
+			int bHeight = bottleSprite->GetHeight();
 
 
 			//If hit at 0 do a ReDraw

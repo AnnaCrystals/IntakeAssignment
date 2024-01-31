@@ -47,6 +47,7 @@ namespace Tmpl8 {
 		void Bottle::Draw(Surface* gameScreen, vec2 bottlePosition);
 		void Bottle::ReDraw(Surface* screen);
 		void Bottle::HandleHit(vec2& ballPosition, Surface* screen, Bottle* myBottle);
+		void Bottle::SetPlayer(Player* player);
 
 	private:
 		Surface* screen;
@@ -56,4 +57,4 @@ namespace Tmpl8 {
 	};
 
 
-}
+};
