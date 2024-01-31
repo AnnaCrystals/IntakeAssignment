@@ -11,6 +11,7 @@ namespace Tmpl8
 
 		bool Bottle::AABB(int aX, int aY, int aWidth, int aHeight, int bX, int bY, int bWidth, int bHeight)
 		{
+			//Check if object A collides with object B by checking if both axes cross with each other 
 			return aX < bX + bWidth &&
 				aX + aWidth >= bX &&
 				aY <= bY + bHeight &&
@@ -21,10 +22,14 @@ namespace Tmpl8
 		{
 			static int previousNumber = 0;
 
+			//Seeding the RandomNumber function so it gets more 'random' by using time
 			srand(static_cast<unsigned int>(time(0)));
 
 			int newNumber;
 
+			//While loop gets executed once since newNumber won't be equal to 0 
+			//Every time the newNumber IS equal to the previousNumber it repeats until it's not equal
+			//Doing this there are no repititions being used
 			do
 			{
 				int randomNumber = rand();
@@ -39,17 +44,9 @@ namespace Tmpl8
 
 		vec2 Bottle::SetDrawPosition()
 		{
-			/*vec2 validDrawPositions[5] = 
-			{
-				vec2(200.0f, 100.0f),
-				vec2(200.0f, 175.0f),
-				vec2(200.0f, 250.0f),
-				vec2(200.0f, 325.0f),
-				vec2(200.0f, 400.0f)
-			};*/
-
 			int number = RandomNumber();
 
+			//Returns are drawPositions for the bottlesprite based on the random number
 			switch (number)
 			{
 			case 1:
@@ -83,7 +80,7 @@ namespace Tmpl8
 
 			//bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
 
-
+			//If bottleSprite is true draw the bottleSprite
 			if (bottleSprite) 
 			{
 				bottleSprite->Draw(gameScreen, static_cast<int>(bottlePosition.x), static_cast<int>(bottlePosition.y));
@@ -95,7 +92,9 @@ namespace Tmpl8
 			//score++;
 			//std::cout << "score" << std::endl;
 			//std::cout << score << std::endl;
-
+			
+			 
+			//Returns the new drawPositions for the bottleSprite
 			bottlePosition = SetDrawPosition();
 
 			Draw(screen, bottlePosition);
@@ -106,15 +105,6 @@ namespace Tmpl8
 
 			float playerPositionX = playerPosition.x;
 			float playerPositionY = playerPosition.y;
-
-			/*vec2 validDrawPositions[5] = 
-			{
-				vec2(200.0f, 100.0f),
-				vec2(200.0f, 175.0f),
-				vec2(200.0f, 250.0f),
-				vec2(200.0f, 325.0f),
-				vec2(200.0f, 400.0f)
-			};*/
 
 			int aX = static_cast<int>(playerPositionX);
 			int aY = static_cast<int>(playerPositionY);
@@ -127,7 +117,7 @@ namespace Tmpl8
 			int bHeight = 50;
 
 
-
+			//If hit at 0 do a ReDraw
 			if (AABB(aX, aY, aWidth, aHeight,
 				static_cast<int>(validDrawPositions[0].x), static_cast<int>(validDrawPositions[0].y), bWidth, bHeight)
 				&& bottlePosition.x == validDrawPositions[0].x
@@ -136,6 +126,7 @@ namespace Tmpl8
 				ReDraw(screen);
 			}
 
+			//If hit at 1 do a ReDraw
 			if (AABB(aX, aY, aWidth, aHeight,
 				static_cast<int>(validDrawPositions[1].x), static_cast<int>(validDrawPositions[1].y), bWidth, bHeight)
 				&& bottlePosition.x == validDrawPositions[1].x
@@ -144,6 +135,7 @@ namespace Tmpl8
 				ReDraw(screen);
 			}
 
+			//If hit at 2 do a ReDraw
 			if (AABB(aX, aY, aWidth, aHeight,
 				static_cast<int>(validDrawPositions[2].x), static_cast<int>(validDrawPositions[2].y), bWidth, bHeight)
 				&& bottlePosition.x == validDrawPositions[2].x
@@ -152,6 +144,7 @@ namespace Tmpl8
 				ReDraw(screen);
 			}
 
+			//If hit at 3 do a ReDraw
 			if (AABB(aX, aY, aWidth, aHeight,
 				static_cast<int>(validDrawPositions[3].x), static_cast<int>(validDrawPositions[3].y), bWidth, bHeight)
 				&& bottlePosition.x == validDrawPositions[3].x
@@ -160,6 +153,7 @@ namespace Tmpl8
 				ReDraw(screen);
 			}
 
+			//If hit at 4 do a ReDraw
 			if (AABB(aX, aY, aWidth, aHeight,
 				static_cast<int>(validDrawPositions[4].x), static_cast<int>(validDrawPositions[4].y), bWidth, bHeight)
 				&& bottlePosition.x == validDrawPositions[4].x
