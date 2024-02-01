@@ -92,7 +92,8 @@ namespace Tmpl8
 
 		myBottle->Draw(screen, myBottle->bottlePosition);
 		screen->Box(myBottle->bottlePosition.x, myBottle->bottlePosition.y, myBottle->bottlePosition.x + myBottle->bottleSprite->GetWidth(), myBottle->bottlePosition.y + myBottle->bottleSprite->GetHeight(), 0xffff00);
+		
 		myPlayer->playerSprite->Draw(screen, static_cast<int> (myPlayer->playerPosition.x), static_cast<int>(myPlayer->playerPosition.y));
-		screen->Box(myPlayer->playerPosition.x, myPlayer->playerPosition.y, myPlayer->playerPosition.x + myPlayer->playerSprite->GetWidth(), myPlayer->playerPosition.y + static_cast<float> (myPlayer->playerSprite->GetHeight()), 0xffff00);
+		screen->Box(myPlayer->playerVelocity.x + myPlayer->playerPosition.x, myPlayer->playerVelocity.y + myPlayer->playerPosition.y, myPlayer->playerVelocity.x + myPlayer->playerSprite->GetWidth() + myPlayer->playerPosition.x, myPlayer->playerVelocity.y + static_cast<float> (myPlayer->playerSprite->GetHeight()) + myPlayer->playerPosition.y, 0xffff00);
 	}
 };

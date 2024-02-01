@@ -17,14 +17,15 @@ namespace Tmpl8
 			 static bool spacePressed = false;
 
 			 //SPACE can only be pressed if gravity = 0.0f
-			 if (gravity == 0.0f)
+			 if (playerVelocity.y == 0.0f)
 			 {
 				 if (GetAsyncKeyState(VK_SPACE))
 				 {
 					 //!spacePressed makes sure that the player isn't holding the key
 					 if (!spacePressed)
 					 {
-						 playerPosition.y -= 70.0f;
+						 
+						 playerVelocity.y -= 300.0f;
 						 spacePressed = true;
 					 }
 				 }
@@ -41,13 +42,13 @@ namespace Tmpl8
 			  //if (GetAsyncKeyState(VK_DOWN)) playerPosition.y += playerSpeed * deltaTime;
 			  //if (GetAsyncKeyState(VK_UP)) playerPosition.y -= playerSpeed * deltaTime;
 
-			  playerPosition.y += playerVelocity.y * gravity * deltaTime;
-			  playerPosition.x += playerVelocity.x * gravity * deltaTime;
+			  playerPosition.y += playerVelocity.y * deltaTime;
+			  playerPosition.x += playerVelocity.x * deltaTime;
 
 			  if (playerPosition.y + playerSprite->GetHeight() < screen->GetHeight()) 
 			  {
-				  playerPosition.y += gravity * deltaTime;
-				  gravity += 1.5f;
+				  playerVelocity.y += gravity * deltaTime;
+				  playerVelocity.y += 9.81f;
 			  }
 		  }
 
@@ -64,7 +65,7 @@ namespace Tmpl8
 			  if (playerPosition.y + playerSprite->GetHeight() > screen->GetHeight())
 			  {
 				  playerPosition.y = screen->GetHeight() - static_cast<float>(playerSprite->GetHeight());
-				  gravity = 0.0f;
+				  playerVelocity.y = 0.0f;
 			  }
 
 			  // Check if object player TOP SIDE LEFT has hit an 'X'
