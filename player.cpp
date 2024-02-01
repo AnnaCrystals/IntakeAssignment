@@ -13,16 +13,18 @@ namespace Tmpl8
 {
 		 void Player::UpdatePosition(float deltaTime)
 		 {
-
-			 //Input for SPACE, SPACE can only be pressed if gravity is 0.0f en cannot be held down
+			 
 			 static bool spacePressed = false;
+
+			 //SPACE can only be pressed if gravity = 0.0f
 			 if (gravity == 0.0f)
 			 {
 				 if (GetAsyncKeyState(VK_SPACE))
 				 {
+					 //!spacePressed makes sure that the player isn't holding the key
 					 if (!spacePressed)
 					 {
-						 playerPosition.y -= 40.0f;
+						 playerPosition.y -= 70.0f;
 						 spacePressed = true;
 					 }
 				 }
@@ -56,7 +58,6 @@ namespace Tmpl8
 			  int tileMaxX = static_cast<int>((playerPosition.x + playerSprite->GetWidth()) / tileWidth);
 			  int tileMaxY = static_cast<int>((playerPosition.y + playerSprite->GetHeight()) / tileHeight);
 
-
 			  int tileNew = static_cast<int>((playerPosition.y + playerSprite->GetHeight() - 2.0f )  / tileHeight);
 
 			  //Check if object player has hit bottom screen
@@ -87,7 +88,7 @@ namespace Tmpl8
 				  && map[tileNew][tileMinX * 3 + 2] != 'X')
 			  {
 				  playerPosition.x = prevPlayerPosition.x;
-				  playerPosition.y = prevPlayerPosition.y - 0.1f;
+				  playerPosition.y = prevPlayerPosition.y - 0.2f;
 				  gravity = 0.0f;
 
 			  }
@@ -96,7 +97,7 @@ namespace Tmpl8
 				  && map[tileNew][tileMaxX * 3 + 2] != 'X') 
 			  {
 				  playerPosition.x = prevPlayerPosition.x;
-				  playerPosition.y = prevPlayerPosition.y -0.1f;
+				  playerPosition.y = prevPlayerPosition.y -0.2f;
 				  gravity = 0.0f;
 			  }
 
@@ -105,7 +106,7 @@ namespace Tmpl8
 			  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X'
 				  && map[tileNew][tileMaxX * 3 + 2] == 'X') 
 			  {
-				  playerPosition.x = prevPlayerPosition.x - 0.1f;
+				  playerPosition.x = prevPlayerPosition.x;
 				  playerPosition.y = prevPlayerPosition.y;
 			  }
 
@@ -113,7 +114,7 @@ namespace Tmpl8
 			  else if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
 				  && map[tileNew][tileMinX * 3 + 2] == 'X') 
 			  {
-				  playerPosition.x = prevPlayerPosition.x + 0.1f;
+				  playerPosition.x = prevPlayerPosition.x;
 				  playerPosition.y = prevPlayerPosition.y;
 			  }
 		  }
