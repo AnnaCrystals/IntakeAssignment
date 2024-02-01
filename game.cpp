@@ -15,6 +15,7 @@ namespace Tmpl8
 	{
 		myBottle = new Bottle;
 
+
 	}
 
 	Surface tiles("assets/mediaval.png");
@@ -35,8 +36,8 @@ namespace Tmpl8
 		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
 		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
 		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXabX",
-		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXabX",
+		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc abXabXabXabXabXabXabXabXabXabX",
+		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc abXabXabXabXabXabXabXabXabXabX",
 	};
 
 	void Game::SetTarget(Surface* surface)
@@ -90,8 +91,8 @@ namespace Tmpl8
 		}
 
 		myBottle->Draw(screen, myBottle->bottlePosition);
-		//screen->Box(myBottle->bottlePosition.x, myBottle->bottlePosition.y, myBottle->bottlePosition.x + myBottle->bottleSprite->GetWidth(), myBottle->bottlePosition.y + myBottle->bottleSprite->GetHeight(), 0xffff00);
+		screen->Box(myBottle->bottlePosition.x, myBottle->bottlePosition.y, myBottle->bottlePosition.x + myBottle->bottleSprite->GetWidth(), myBottle->bottlePosition.y + myBottle->bottleSprite->GetHeight(), 0xffff00);
 		myPlayer->playerSprite->Draw(screen, static_cast<int> (myPlayer->playerPosition.x), static_cast<int>(myPlayer->playerPosition.y));
-		//screen->Box(myPlayer->ballPosition.x, myPlayer->ballPosition.y, myPlayer->ballPosition.x + myPlayer->ballSprite->GetWidth(), myPlayer->ballPosition.y + static_cast<float> (myPlayer->ballSprite->GetHeight()), 0xffff00);
+		screen->Box(myPlayer->playerPosition.x, myPlayer->playerPosition.y, myPlayer->playerPosition.x + myPlayer->playerSprite->GetWidth(), myPlayer->playerPosition.y + static_cast<float> (myPlayer->playerSprite->GetHeight()), 0xffff00);
 	}
 };

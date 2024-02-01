@@ -10,7 +10,7 @@
     </ClCompile>
     <ClCompile Include="bottle.cpp" />
     <ClCompile Include="player.cpp" />
-    <ClCompile Include="damage.cpp" />
+    <ClCompile Include="enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -22,7 +22,7 @@
     </ClInclude>
     <ClInclude Include="bottle.h" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="damage.h" />
+    <ClInclude Include="enemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="template code">

@@ -14,19 +14,21 @@ namespace Tmpl8 {
 	public:
 		Bottle()
 		{
+			//Initial bottle position
 			bottlePosition.x = 200.0f;
 			bottlePosition.y = 100.0f;
-			bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
-			score = 0;
-			bottleHeight = 50.0f;
-			bottleWidth = 50.0f;
 
+			bottleSprite = new Sprite(new Surface("assets/Pot21.png"), 1);
+			
+			bottleHeight = bottleSprite->GetHeight();
+			bottleWidth = bottleSprite->GetWidth();
+
+			score = 0;
 		}
 
 		Sprite* bottleSprite;
 
 		vec2 bottlePosition;
-
 		vec2 validDrawPositions[5] =
 		{
 			vec2(200.0f, 100.0f),
@@ -38,6 +40,7 @@ namespace Tmpl8 {
 
 		float bottleHeight;
 		float bottleWidth;
+
 		int score;
 
 

@@ -11,19 +11,33 @@
 
 namespace Tmpl8
 {
-		void Player::UpdatePosition(float deltaTime)
-		{
-			  /*if (gravity == 0.0f)
-			  {
-				  if (GetAsyncKeyState(VK_SPACE)) playerPosition.y -= 40.0f;
-			  }*/
+		 void Player::UpdatePosition(float deltaTime)
+		 {
 
-			  //Handle input from the user using different keys
-			  if (GetAsyncKeyState(VK_SPACE)) playerPosition.y -= 10.0f;
+			 //Input for SPACE, SPACE can only be pressed if gravity is 0.0f en cannot be held down
+			 static bool spacePressed = false;
+			 if (gravity == 0.0f)
+			 {
+				 if (GetAsyncKeyState(VK_SPACE))
+				 {
+					 if (!spacePressed)
+					 {
+						 playerPosition.y -= 40.0f;
+						 spacePressed = true;
+					 }
+				 }
+				 else
+				 {
+					 spacePressed = false;
+				 }
+			 }
+
+
 			  if (GetAsyncKeyState(VK_LEFT)) playerPosition.x -= playerSpeed * deltaTime;
 			  if (GetAsyncKeyState(VK_RIGHT)) playerPosition.x += playerSpeed * deltaTime;
-			  if (GetAsyncKeyState(VK_DOWN)) playerPosition.y += playerSpeed * deltaTime;
-			  if (GetAsyncKeyState(VK_UP)) playerPosition.y -= playerSpeed * deltaTime;
+
+			  //if (GetAsyncKeyState(VK_DOWN)) playerPosition.y += playerSpeed * deltaTime;
+			  //if (GetAsyncKeyState(VK_UP)) playerPosition.y -= playerSpeed * deltaTime;
 
 			  playerPosition.y += playerVelocity.y * gravity * deltaTime;
 			  playerPosition.x += playerVelocity.x * gravity * deltaTime;
@@ -39,9 +53,11 @@ namespace Tmpl8
 		  {
 			  int tileMinX = static_cast<int>(playerPosition.x / tileWidth);
 			  int tileMinY = static_cast<int>(playerPosition.y / tileHeight);
-			  int tileMaxX = static_cast<int>((playerPosition.x + 50) / tileWidth);
-			  int tileMaxY = static_cast<int>((playerPosition.y + 50) / tileHeight);
-			  int tileNew = static_cast<int>((playerPosition.y + 49) / tileHeight);
+			  int tileMaxX = static_cast<int>((playerPosition.x + playerSprite->GetWidth()) / tileWidth);
+			  int tileMaxY = static_cast<int>((playerPosition.y + playerSprite->GetHeight()) / tileHeight);
+
+
+			  int tileNew = static_cast<int>((playerPosition.y + playerSprite->GetHeight() - 2.0f )  / tileHeight);
 
 			  //Check if object player has hit bottom screen
 			  if (playerPosition.y + playerSprite->GetHeight() > screen->GetHeight())
@@ -111,4 +127,5 @@ namespace Tmpl8
 			  UpdatePosition(deltaTime);
 			  CheckCollision();
 		  }	
+
 };
