@@ -13,7 +13,6 @@ namespace Tmpl8
 {
 		 void Player::UpdatePosition(float deltaTime)
 		 {
-			 
 			 static bool spacePressed = false;
 
 			 //SPACE can only be pressed if gravity = 0.0f
@@ -50,7 +49,9 @@ namespace Tmpl8
 				  playerVelocity.y += gravity * deltaTime;
 				  playerVelocity.y += 9.81f;
 			  }
+
 		  }
+
 
 		  void Player::CheckCollision()
 		  {

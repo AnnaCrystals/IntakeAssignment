@@ -45,8 +45,8 @@ namespace Tmpl8 {
 		void Player::UpdatePosition(float deltaTime);
 		void Player::CheckCollision();
 		void Player::HandleCollision(float deltaTime);
-		void Player::KeyUp(int key, float deltaTime);
-		void Player::KeyDown(int key, float deltaTime);
+		bool Player::IsValidMove(int newX, int newY);
+		void Player::MovePlayer(int deltaX, int deltaY);
 
 
 

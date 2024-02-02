@@ -11,6 +11,7 @@
     <ClCompile Include="bottle.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h" />
@@ -23,6 +24,7 @@
     <ClInclude Include="bottle.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="map.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="template code">
