@@ -75,6 +75,7 @@ namespace Tmpl8
 			  {
 				  playerPosition.x = prevPlayerPosition.x;
 				  playerPosition.y = prevPlayerPosition.y;
+				  playerVelocity.y = 0.0f;
 			  }
 
 			  // Check if object player TOP SIDE RIGHT has hit an 'X'
@@ -83,6 +84,7 @@ namespace Tmpl8
 			  {
 				  playerPosition.x = prevPlayerPosition.x;
 				  playerPosition.y = prevPlayerPosition.y;
+				  playerVelocity.y = 0.0f;
 			  }
 
 			  //Check if object player BOTTOM SIDE LEFT has hit an 'X'
@@ -90,8 +92,8 @@ namespace Tmpl8
 				  && map[tileNew][tileMinX * 3 + 2] != 'X')
 			  {
 				  playerPosition.x = prevPlayerPosition.x;
-				  playerPosition.y = prevPlayerPosition.y - 0.2f;
-				  gravity = 0.0f;
+				  playerPosition.y = prevPlayerPosition.y - 0.1f;
+				  playerVelocity.y = 0.0f;
 
 			  }
 			  //Check if object player BOTTOM SIDE RIGHT has hit an 'X'
@@ -99,8 +101,8 @@ namespace Tmpl8
 				  && map[tileNew][tileMaxX * 3 + 2] != 'X') 
 			  {
 				  playerPosition.x = prevPlayerPosition.x;
-				  playerPosition.y = prevPlayerPosition.y -0.2f;
-				  gravity = 0.0f;
+				  playerPosition.y = prevPlayerPosition.y -0.1f;
+				  playerVelocity.y = 0.0f;
 			  }
 
 			  
@@ -110,6 +112,7 @@ namespace Tmpl8
 			  {
 				  playerPosition.x = prevPlayerPosition.x;
 				  playerPosition.y = prevPlayerPosition.y;
+				  playerVelocity.y = 0.0f;
 			  }
 
 			  //Check if object player LEFT SIDE BOTTOM has hit an 'X'
@@ -118,6 +121,7 @@ namespace Tmpl8
 			  {
 				  playerPosition.x = prevPlayerPosition.x;
 				  playerPosition.y = prevPlayerPosition.y;
+				  playerVelocity.y = 0.0f;
 			  }
 		  }
 

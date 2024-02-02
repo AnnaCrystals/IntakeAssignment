@@ -1,9 +1,10 @@
 #include "map.h"
 #include "template.h"
-#include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <experimental/filesystem>
+
 using namespace std;
 
 
@@ -11,20 +12,23 @@ using namespace std;
 namespace Tmpl8
 {
 
-    string TextFileRead(const char* _File) {
-        ifstream file(_File);
-        if (file.is_open()) {
-            stringstream buffer;
-            buffer << file.rdbuf();
-            return buffer.str();
-        }
-        else {
-            return "";
+
+    void Map::FolderRead() 
+    {
+        for (auto& file : experimental::filesystem::directory_iterator( "./assets/tile" ))  
+        {
+            std::string foo("tilemap_");
+
+            int result = strcmp(foo.c_str(), file.path().filename().string().substr(0,foo.length()).c_str());
+            if (result != 0) { continue; }
+            
+            int i = 0;
+            ifstream fs{ file.path() };
+
         }
     }
 
-
-    void Map::LoadMap(const char* loadFile, const int layer) {
+    void Map::LoadMap(const char* nameFile, const int layer) {
         int x = 0;
         int y = 0;
 
@@ -33,7 +37,7 @@ namespace Tmpl8
         bool isNegative = false;
         
         
-       string mapData = TextFileRead(loadFile);
+       string mapData = TextFileRead(nameFile);
 
         for (int i = 0; i < mapData.size(); i++) {
             char c = mapData[i];
@@ -76,4 +80,19 @@ namespace Tmpl8
 
         loadedLayers++;
     }
+
+   string Map::TextFileRead(const char* nameFile)
+   {
+        ifstream file(nameFile);
+        if (file.is_open()) {
+            stringstream buffer;
+            buffer << file.rdbuf();
+            return buffer.str();
+        }
+        else {
+            return "";
+        }
+    }
+
+   
 };

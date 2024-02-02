@@ -1,8 +1,47 @@
-﻿  player.cpp
+﻿  bottle.cpp
+C:\dev\IntakeAssignmentBuas\bottle.h(23,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'bottle.cpp')
+  
+C:\dev\IntakeAssignmentBuas\bottle.h(24,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'bottle.cpp')
+  
+  enemy.cpp
+C:\dev\IntakeAssignmentBuas\bottle.h(23,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'enemy.cpp')
+  
+C:\dev\IntakeAssignmentBuas\bottle.h(24,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'enemy.cpp')
+  
+  game.cpp
+C:\dev\IntakeAssignmentBuas\bottle.h(23,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'game.cpp')
+  
+C:\dev\IntakeAssignmentBuas\bottle.h(24,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'game.cpp')
+  
+C:\dev\IntakeAssignmentBuas\game.cpp(101,163): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(101,98): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(101,67): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(101,39): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(104,309): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(104,193): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(104,99): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\dev\IntakeAssignmentBuas\game.cpp(104,42): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  map.cpp
+C:\dev\IntakeAssignmentBuas\bottle.h(23,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'map.cpp')
+  
+C:\dev\IntakeAssignmentBuas\bottle.h(24,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  (compiling source file 'map.cpp')
+  
+  player.cpp
 C:\dev\IntakeAssignmentBuas\bottle.h(23,42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   (compiling source file 'player.cpp')
   
 C:\dev\IntakeAssignmentBuas\bottle.h(24,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   (compiling source file 'player.cpp')
   
+  template.cpp
+  Generating Code...
+C:\dev\IntakeAssignmentBuas\bottle.cpp(76): warning C4715: 'Tmpl8::Bottle::SetDrawPosition': not all control paths return a value
   tmpl_2019-08.vcxproj -> C:\dev\IntakeAssignmentBuas\tmpl_2019-08_x64_debug.exe

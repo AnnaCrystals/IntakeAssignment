@@ -7,6 +7,7 @@
 #include <SDL_scancode.h>
 #include "bottle.h"
 #include "player.h"
+#include "map.h"
 
 
 namespace Tmpl8
@@ -47,7 +48,10 @@ namespace Tmpl8
 		myBottle->SetPlayer(myPlayer);
 	}
 
-	void Game::Init() {}
+	void Game::Init() 
+	{
+		Map::FolderRead();
+	}
 
 
 	void Game::Shutdown()
@@ -89,6 +93,9 @@ namespace Tmpl8
 				DrawTile(tx, ty, screen, x * 32, y * 32);
 			}
 		}
+
+
+		
 
 		myBottle->Draw(screen, myBottle->bottlePosition);
 		screen->Box(myBottle->bottlePosition.x, myBottle->bottlePosition.y, myBottle->bottlePosition.x + myBottle->bottleSprite->GetWidth(), myBottle->bottlePosition.y + myBottle->bottleSprite->GetHeight(), 0xffff00);
