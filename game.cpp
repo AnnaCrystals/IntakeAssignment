@@ -50,7 +50,8 @@ namespace Tmpl8
 
 	void Game::Init() 
 	{
-		Map::FolderRead();
+		/*Map::FolderRead();*/
+		myMap.LoadMap("assets/tile/tilemap_Tilelaag_1.csv", 0);
 	}
 
 
@@ -72,10 +73,11 @@ namespace Tmpl8
 
 
 
+
 	void Game::Tick(float deltaTime)
 	{
 		deltaTime /= 1000.0f;
-
+		
 		myPlayer->screen = screen;
 
 		myPlayer->HandleCollision(deltaTime);
@@ -84,7 +86,7 @@ namespace Tmpl8
 		screen->Clear(0);
 
 		//Drawing the tilemap, a grid of 16x25 tiles 
-		for (int y = 0; y < 16; y++)
+		/*for (int y = 0; y < 16; y++)
 		{
 			for (int x = 0; x < 25; x++)
 			{
@@ -92,7 +94,27 @@ namespace Tmpl8
 				int ty = map[y][x * 3 + 1] - 'a';
 				DrawTile(tx, ty, screen, x * 32, y * 32);
 			}
+		}*/
+
+		/*for (int y = 0; y < 16; y++)
+		{
+			for (int x = 0; x < 25; x++)
+			{
+				int tx = myMap.map[0][y][x] - 'a';
+				int ty = myMap.map[0][y + 1][x] - 'a';
+				DrawTile(tx, ty, screen, x * 32, y * 32);
+			}
+		}*/
+		for (int y = 0; y < 16; y++)
+		{
+			for (int x = 0; x < 25; x++)
+			{
+				int value = myMap.map[0][x * 3][y];
+				DrawTile(value, 0, screen, x * 32, y * 32); // Assuming DrawTile accepts value directly
+			}
 		}
+
+
 
 
 		

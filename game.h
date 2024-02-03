@@ -1,5 +1,10 @@
 #pragma once
 #include "template.h"
+#include "map.h" // Include Map.h where needed, but not here
+#include "surface.h"
+#include "bottle.h"
+#include <string>
+#include <vector>
 
 
 namespace Tmpl8 {
@@ -8,6 +13,7 @@ namespace Tmpl8 {
 	class Sprite;
 	class Player;
 	class Bottle;
+	class Map;
 
 	class Game
 	{
@@ -29,6 +35,7 @@ namespace Tmpl8 {
 		Player* myPlayer;
 		Bottle* myBottle;
 		Bottle* newBottle;
+		Map myMap;
 	};
 
 

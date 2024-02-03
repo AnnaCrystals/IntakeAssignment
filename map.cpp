@@ -11,9 +11,11 @@ using namespace std;
 
 namespace Tmpl8
 {
+    Map::Map() {
+        
+    }
 
-
-    void Map::FolderRead() 
+    /*void Map::FolderRead() 
     {
         for (auto& file : experimental::filesystem::directory_iterator( "./assets/tile" ))  
         {
@@ -26,7 +28,7 @@ namespace Tmpl8
             ifstream fs{ file.path() };
 
         }
-    }
+    }*/
 
     void Map::LoadMap(const char* nameFile, const int layer) {
         int x = 0;

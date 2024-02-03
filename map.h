@@ -2,47 +2,34 @@
 #include "template.h"
 #include "surface.h"
 #include "bottle.h"
-#include "game.h"
 #include <string>
 #include <vector>
 
-
-
 namespace Tmpl8 {
+    class Surface;
+    class Bottle;
 
-	class Surface;
-	class Sprite;
-	class Bottle;
-	class Screen;
+    class Map
+    {
+    public:
+        Map();
+        void LoadMap(const char* nameFile, const int layer);
 
-	class Map
-	{
-	public:
-		Map();
+        int map[1][16][25] = {};
+        int loadedLayers = 0;
 
-		void Map::LoadMap(const char* nameFile, const int layer);
+        struct MapLayer {
+            vec2 map[16][25];
+        };
 
+        struct MapData {
+            std::vector<MapLayer> layers;
+            MapLayer collisionLayer;
+        };
 
-		int map[1][16][25] = {};
-		int loadedLayers = 0;
+        static void FolderRead();
 
-
-		struct MapLayer {
-			vec2 map[16][25];
-		};
-
-		struct MapData {
-			std::vector<MapLayer> layers;
-			MapLayer collisionLayer;
-		};
-
-		static void FolderRead();
-
-		Sprite tileMap = Sprite(new Surface("assets/.....tilemap hier toevoegen"), 1);
-
-	private:
-		std::string TextFileRead(const char* nameFile);
-
-	};
-
-};
+    private:
+        std::string TextFileRead(const char* nameFile);
+    };
+}
