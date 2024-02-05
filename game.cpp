@@ -62,17 +62,27 @@ namespace Tmpl8
 	}
 
 	//Drawing of a singular tile
-	void DrawTile(int tx, int ty, Surface* screen, int x, int y)
+	void DrawTile(int value, Surface* screen, int x, int y)
 	{
-		Pixel* src = tiles.GetBuffer() + tx * 33 + (ty * 33) * 595;
+		int tilesetWidth = tiles.GetWidth() / 32;
+		int tileWidth = 32;
+		int tileHeight = 32;
+
+
+		int srcX = (value % tilesetWidth) * tileWidth;
+		int srcY = (value / tilesetWidth) * tileHeight;
+
+		Pixel* src = tiles.GetBuffer() + srcX + srcY * tiles.GetWidth();
 		Pixel* dst = screen->GetBuffer() + x + y * 800;
-		for (int i = 0; i < 32; i++, src += tiles.GetWidth(), dst += 800)
-			for (int j = 0; j < 32; j++)
+
+		for (int i = 0; i < tileHeight; i++, src += tiles.GetWidth(), dst += 800)
+		{
+			for (int j = 0; j < tileWidth; j++)
+			{
 				dst[j] = src[j];
-	}
-
-
-
+			}
+		}
+	 }
 
 	void Game::Tick(float deltaTime)
 	{
@@ -85,39 +95,16 @@ namespace Tmpl8
 
 		screen->Clear(0);
 
-		//Drawing the tilemap, a grid of 16x25 tiles 
-		/*for (int y = 0; y < 16; y++)
-		{
-			for (int x = 0; x < 25; x++)
-			{
-				int tx = map[y][x * 3] - 'a';
-				int ty = map[y][x * 3 + 1] - 'a';
-				DrawTile(tx, ty, screen, x * 32, y * 32);
-			}
-		}*/
 
-		/*for (int y = 0; y < 16; y++)
-		{
-			for (int x = 0; x < 25; x++)
-			{
-				int tx = myMap.map[0][y][x] - 'a';
-				int ty = myMap.map[0][y + 1][x] - 'a';
-				DrawTile(tx, ty, screen, x * 32, y * 32);
-			}
-		}*/
 		for (int y = 0; y < 16; y++)
 		{
 			for (int x = 0; x < 25; x++)
 			{
-				int value = myMap.map[0][x * 3][y];
-				DrawTile(value, 0, screen, x * 32, y * 32); // Assuming DrawTile accepts value directly
+				int value = myMap.map[0][y][x];
+				DrawTile(value, screen, x * 32, y * 32);
 			}
 		}
 
-
-
-
-		
 
 		myBottle->Draw(screen, myBottle->bottlePosition);
 		screen->Box(myBottle->bottlePosition.x, myBottle->bottlePosition.y, myBottle->bottlePosition.x + myBottle->bottleSprite->GetWidth(), myBottle->bottlePosition.y + myBottle->bottleSprite->GetHeight(), 0xffff00);

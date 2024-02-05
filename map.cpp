@@ -44,14 +44,15 @@ namespace Tmpl8
         for (int i = 0; i < mapData.size(); i++) {
             char c = mapData[i];
             if (c == '\n') {
-                y++;
-                x = 0;
+                
                 if (isNegative) {
-                    map[layer][x][y] = -number;
+                    map[layer][y][x] = -number;
                 }
                 else {
-                    map[layer][x][y] = number;
+                    map[layer][y][x] = number;
                 }
+                y++;
+                x = 0;
                 number = 0;
                 numCounter = 0;
                 isNegative = false;
@@ -59,10 +60,10 @@ namespace Tmpl8
             else if (c == ',') {
 
                 if (isNegative) {
-                    map[layer][x][y] = -number;
+                    map[layer][y][x] = -number;
                 }
                 else {
-                    map[layer][x][y] = number;
+                    map[layer][y][x] = number;
                 }
 
                 number = 0;
@@ -80,7 +81,6 @@ namespace Tmpl8
             }
         }
 
-        loadedLayers++;
     }
 
    string Map::TextFileRead(const char* nameFile)

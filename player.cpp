@@ -53,83 +53,103 @@ namespace Tmpl8
 		  }
 
 
-		  void Player::CheckCollision()
-		  {
-			  int tileMinX = static_cast<int>(playerPosition.x / tileWidth);
-			  int tileMinY = static_cast<int>(playerPosition.y / tileHeight);
-			  int tileMaxX = static_cast<int>((playerPosition.x + playerSprite->GetWidth()) / tileWidth);
-			  int tileMaxY = static_cast<int>((playerPosition.y + playerSprite->GetHeight()) / tileHeight);
+		 void Player::CheckCollision()
+		 {
+			 int tileMinX = static_cast<int>(playerPosition.x / tileWidth);
+			 int tileMinY = static_cast<int>(playerPosition.y / tileHeight);
+			 int tileMaxX = static_cast<int>((playerPosition.x + playerSprite->GetWidth()) / tileWidth);
+			 int tileMaxY = static_cast<int>((playerPosition.y + playerSprite->GetHeight()) / tileHeight);
 
-			  int tileNew = static_cast<int>((playerPosition.y + playerSprite->GetHeight() - 2.0f )  / tileHeight);
+			 int tileNew = static_cast<int>((playerPosition.y + playerSprite->GetHeight() / 2.0f) / tileHeight);
 
-			  //Check if object player has hit bottom screen
-			  if (playerPosition.y + playerSprite->GetHeight() > screen->GetHeight())
-			  {
-				  playerPosition.y = screen->GetHeight() - static_cast<float>(playerSprite->GetHeight());
-				  playerVelocity.y = 0.0f;
-			  }
+			 //Check if object player has hit bottom screen
+			 if (playerPosition.y + playerSprite->GetHeight() > screen->GetHeight())
+			 {
+				 playerPosition.y = screen->GetHeight() - static_cast<float>(playerSprite->GetHeight());
+				 playerVelocity.y = 0.0f;
+			 }
 
-			  // Check if object player TOP SIDE LEFT has hit an 'X'
-			  if (map[tileMinY][tileMinX * 3 + 2] == 'X'
-				  && map[tileMaxY][tileMinX * 3 + 2] != 'X') 
-			  {
-				  playerPosition.x = prevPlayerPosition.x;
-				  playerPosition.y = prevPlayerPosition.y;
-				  playerVelocity.y = 0.0f;
-			  }
 
-			  // Check if object player TOP SIDE RIGHT has hit an 'X'
-			  else if (map[tileMinY][tileMaxX * 3 + 2] == 'X'
-				  && map[tileMaxY][tileMaxX * 3 + 2] != 'X') 
+			 if (map[tileMinY][tileMinX * 3 + 2] == 'X'
+				 || map[tileMaxY][tileMinX * 3 + 2] == 'X'
+				 || map[tileMaxY][tileMaxX * 3 + 2] == 'X'
+		         || map[tileMinY][tileMaxX * 3 + 2] == 'X'
+				 || map[tileNew][tileMinX * 3 + 2] == 'X'
+				 || map[tileNew][tileMaxX * 3 + 2] == 'X')
 			  {
 				  playerPosition.x = prevPlayerPosition.x;
-				  playerPosition.y = prevPlayerPosition.y;
+				  if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
+					  && map[tileMaxY][tileMaxX * 3 + 2] == 'X')
+				  {
+					  playerPosition.y = prevPlayerPosition.y - 0.1f;
+				  }
+				  else 
+				  {
+					  playerPosition.y = prevPlayerPosition.y;
+				  }
 				  playerVelocity.y = 0.0f;
 			  }
 
-			  //Check if object player BOTTOM SIDE LEFT has hit an 'X'
-			  if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
-				  && map[tileNew][tileMinX * 3 + 2] != 'X')
-			  {
-				  playerPosition.x = prevPlayerPosition.x;
-				  playerPosition.y = prevPlayerPosition.y - 0.1f;
-				  playerVelocity.y = 0.0f;
+			  //// Check if object player TOP SIDE LEFT has hit an 'X'
+			  //if (map[tileMinY][tileMinX * 3 + 2] == 'X'
+				 // && map[tileMaxY][tileMinX * 3 + 2] != 'X') 
+			  //{
+				 // playerPosition.x = prevPlayerPosition.x;
+				 // playerPosition.y = prevPlayerPosition.y;
+				 // playerVelocity.y = 0.0f;
+			  //}
 
-			  }
-			  //Check if object player BOTTOM SIDE RIGHT has hit an 'X'
-			  else if (map[tileMaxY][tileMaxX * 3 + 2] == 'X'
-				  && map[tileNew][tileMaxX * 3 + 2] != 'X') 
-			  {
-				  playerPosition.x = prevPlayerPosition.x;
-				  playerPosition.y = prevPlayerPosition.y -0.1f;
-				  playerVelocity.y = 0.0f;
-			  }
+			  //// Check if object player TOP SIDE RIGHT has hit an 'X'
+			  //else if (map[tileMinY][tileMaxX * 3 + 2] == 'X'
+				 // && map[tileMaxY][tileMaxX * 3 + 2] != 'X') 
+			  //{
+				 // playerPosition.x = prevPlayerPosition.x;
+				 // playerPosition.y = prevPlayerPosition.y;
+				 // playerVelocity.y = 0.0f;
+			  //}
 
-			  
-			  //Check if object player RIGHT SIDE BOTTOM has hit an 'X'
-			  if (map[tileMaxY][tileMaxX * 3 + 2] == 'X'
-				  && map[tileNew][tileMaxX * 3 + 2] == 'X') 
-			  {
-				  playerPosition.x = prevPlayerPosition.x;
-				  playerPosition.y = prevPlayerPosition.y;
-				  playerVelocity.y = 0.0f;
-			  }
+			  ////Check if object player BOTTOM SIDE LEFT has hit an 'X'
+			  //if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
+				 // && map[tileNew][tileMinX * 3 + 2] != 'X')
+			  //{
+				 // playerPosition.x = prevPlayerPosition.x;
+				 // playerPosition.y = prevPlayerPosition.y - 0.1f;
+				 // playerVelocity.y = 0.0f;
 
-			  //Check if object player LEFT SIDE BOTTOM has hit an 'X'
-			  else if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
-				  && map[tileNew][tileMinX * 3 + 2] == 'X') 
-			  {
-				  playerPosition.x = prevPlayerPosition.x;
-				  playerPosition.y = prevPlayerPosition.y;
-				  playerVelocity.y = 0.0f;
-			  }
+			  //}
+			  ////Check if object player BOTTOM SIDE RIGHT has hit an 'X'
+			  //else if (map[tileMaxY][tileMaxX * 3 + 2] == 'X'
+				 // && map[tileNew][tileMaxX * 3 + 2] != 'X') 
+			  //{
+				 // playerPosition.x = prevPlayerPosition.x;
+				 // playerPosition.y = prevPlayerPosition.y -0.1f;
+				 // playerVelocity.y = 0.0f;
+			  //}
+
+			  //
+			  ////Check if object player RIGHT SIDE BOTTOM has hit an 'X'
+			  //if (map[tileMaxY][tileMaxX * 3 + 2] == 'X'
+				 // && map[tileNew][tileMaxX * 3 + 2] == 'X') 
+			  //{
+				 // playerPosition.x = prevPlayerPosition.x;
+				 // playerPosition.y = prevPlayerPosition.y;
+				 // playerVelocity.y = 0.0f;
+			  //}
+
+			  ////Check if object player LEFT SIDE BOTTOM has hit an 'X'
+			  //else if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
+				 // && map[tileNew][tileMinX * 3 + 2] == 'X') 
+			  //{
+				 // playerPosition.x = prevPlayerPosition.x;
+				 // playerPosition.y = prevPlayerPosition.y;
+				 // playerVelocity.y = 0.0f;
+			  //}
 		  }
 
 		  void Player::HandleCollision(float deltaTime)
 		  {
 			  prevPlayerPosition.y = playerPosition.y;
 			  prevPlayerPosition.x = playerPosition.x;
-			  prevGravity = gravity;
 
 			  UpdatePosition(deltaTime);
 			  CheckCollision();
