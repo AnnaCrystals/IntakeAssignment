@@ -36,7 +36,7 @@ namespace Tmpl8 {
 
 		float gravity = 0.0f;
 		float prevGravity;
-		float playerSpeed = 120.0f;
+		float playerSpeed = 150.0f;
 
 		const int tileWidth = 32;
 		const int tileHeight = 32;
@@ -45,8 +45,6 @@ namespace Tmpl8 {
 		void Player::UpdatePosition(float deltaTime);
 		void Player::CheckCollision();
 		void Player::HandleCollision(float deltaTime);
-		bool Player::IsValidMove(int newX, int newY);
-		void Player::MovePlayer(int deltaX, int deltaY);
 
 
 
