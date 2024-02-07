@@ -86,6 +86,7 @@ namespace Tmpl8
 				 playerPosition.y = prevPlayerPosition.y;
 				 playerVelocity.y = 0.0f;
 			 } 
+			 
 
 			 //Either one of the top sides
 			 else if (collisionMap->map[0][tileMinY][tileMinX] == 88
@@ -106,10 +107,7 @@ namespace Tmpl8
 
 				 
 			 }
-			 else if (collisionMap->map[0][tileMaxY][tileMinX] == 88)
-			 {
-				 std::cout << "hit left" << std::endl;
-			 }
+			 
 			 
 			 
 
@@ -123,8 +121,12 @@ namespace Tmpl8
 				 
 			 }		
 
-
 			 
+			 else if (collisionMap->map[0][tileMaxY][tileMinX] == 88
+				 ^ collisionMap->map[0][tileMaxY][tileMaxX] == 88)
+			 {
+				 playerPosition.x = prevPlayerPosition.x;
+			 }
 
 			 
 			 

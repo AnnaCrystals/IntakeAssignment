@@ -5,4 +5,5 @@ C:\dev\IntakeAssignmentBuas\bottle.h(23,42): warning C4244: '=': conversion from
 C:\dev\IntakeAssignmentBuas\bottle.h(24,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   (compiling source file 'player.cpp')
   
+C:\dev\IntakeAssignmentBuas\player.cpp(90,54): warning C4554: '^': check operator precedence for possible error; use parentheses to clarify precedence
   tmpl_2019-08.vcxproj -> C:\dev\IntakeAssignmentBuas\tmpl_2019-08_x64_debug.exe
