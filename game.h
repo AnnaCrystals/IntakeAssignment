@@ -36,6 +36,7 @@ namespace Tmpl8 {
 		Bottle* myBottle;
 		Bottle* newBottle;
 		Map myMap;
+		Map collisionMap;
 	};
 
 

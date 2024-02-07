@@ -14,7 +14,7 @@ namespace Tmpl8 {
 	class Player
 	{
 	public:
-		Player(char(*gameMap)[76], Surface* screen) : screen(screen), map(gameMap)
+		Player(Map* collisionMap, Surface* screen) : screen(screen), collisionMap(collisionMap)
 		{
 			playerSprite = new Sprite(new Surface("assets/ball.png"), 1);
 
@@ -23,7 +23,7 @@ namespace Tmpl8 {
 
 			//Initial player position
 			playerPosition.x = ScreenWidth / 2.0f;
-			playerPosition.y = ScreenHeight - static_cast<float>(playerSprite->GetHeight());
+			playerPosition.y = ScreenHeight - static_cast<float>(playerSprite->GetHeight()) - 100.0f;
 		}
 
 		Surface* screen;
@@ -55,7 +55,8 @@ namespace Tmpl8 {
 		Player* myPlayer;
 		Bottle* myBottle;
 		Bottle* newBottle;
-		char(*map)[76];
+		Map* collisionMap;
+		//char(*map)[76];
 	};
 
 

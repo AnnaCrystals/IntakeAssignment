@@ -41,18 +41,22 @@ namespace Tmpl8
 		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc abXabXabXabXabXabXabXabXabXabX",
 	};
 
-	void Game::SetTarget(Surface* surface)
-	{
-		screen = surface;
-		myPlayer = new Player(map, screen);
-		myBottle->SetPlayer(myPlayer);
-	}
 
-	void Game::Init() 
+	void Game::Init()
 	{
 		/*Map::FolderRead();*/
 		myMap.LoadMap("assets/tile/tilemap_Tilelaag_1.csv", 0);
+		collisionMap.LoadMap("assets/tile/tilemap_CollisionLaag.csv", 0);
 	}
+
+	void Game::SetTarget(Surface* surface)
+	{
+		screen = surface;
+		myPlayer = new Player(&collisionMap, screen);
+		myBottle->SetPlayer(myPlayer);
+	}
+
+	
 
 
 	void Game::Shutdown()

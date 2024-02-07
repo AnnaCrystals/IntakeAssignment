@@ -70,16 +70,39 @@ namespace Tmpl8
 			 }
 
 
-			 if (map[tileMinY][tileMinX * 3 + 2] == 'X'
-				 || map[tileMaxY][tileMinX * 3 + 2] == 'X'
-				 || map[tileMaxY][tileMaxX * 3 + 2] == 'X'
-		         || map[tileMinY][tileMaxX * 3 + 2] == 'X'
-				 || map[tileNew][tileMinX * 3 + 2] == 'X'
-				 || map[tileNew][tileMaxX * 3 + 2] == 'X')
+			 if (collisionMap->map[0][tileMinY][tileMinX] == 88
+				 || collisionMap->map[0][tileMaxY][tileMinX] == 88
+				 || collisionMap->map[0][tileMaxY][tileMaxX] == 88
+				 || collisionMap->map[0][tileMinY][tileMaxX] == 88
+				 || collisionMap->map[0][tileNew][tileMinX] == 88
+				 || collisionMap->map[0][tileNew][tileMaxX] == 88
+				 )
+			 {
+				 playerPosition.x = prevPlayerPosition.x;
+
+				 if (collisionMap->map[0][tileMaxY][tileMinX] == 88
+					 && collisionMap->map[0][tileMaxY][tileMaxX] == 88)
+				 {
+					 playerPosition.y = prevPlayerPosition.y - 0.1f;
+				 }
+				 else
+				 {
+					 playerPosition.y = prevPlayerPosition.y;
+				 }
+				 playerVelocity.y = 0.0f;
+			 }
+
+
+			 /*if (collisionMap.map[tileMinY][tileMinX * 3 + 2] == 88
+				 || collisionMap[tileMaxY][tileMinX * 3 + 2] == 88
+				 || collisionMap[tileMaxY][tileMaxX * 3 + 2] == 88
+		         || collisionMap[tileMinY][tileMaxX * 3 + 2] == 88
+				 || collisionMap[tileNew][tileMinX * 3 + 2] == 88
+				 || collisionMap[tileNew][tileMaxX * 3 + 2] == 88)
 			  {
 				  playerPosition.x = prevPlayerPosition.x;
-				  if (map[tileMaxY][tileMinX * 3 + 2] == 'X'
-					  && map[tileMaxY][tileMaxX * 3 + 2] == 'X')
+				  if (collisionMap[tileMaxY][tileMinX * 3 + 2] == 88
+					  && collisionMap[tileMaxY][tileMaxX * 3 + 2] == 88)
 				  {
 					  playerPosition.y = prevPlayerPosition.y - 0.1f;
 				  }
@@ -88,7 +111,7 @@ namespace Tmpl8
 					  playerPosition.y = prevPlayerPosition.y;
 				  }
 				  playerVelocity.y = 0.0f;
-			  }
+			  }*/
 
 			  //// Check if object player TOP SIDE LEFT has hit an 'X'
 			  //if (map[tileMinY][tileMinX * 3 + 2] == 'X'

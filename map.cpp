@@ -15,21 +15,6 @@ namespace Tmpl8
         
     }
 
-    /*void Map::FolderRead() 
-    {
-        for (auto& file : experimental::filesystem::directory_iterator( "./assets/tile" ))  
-        {
-            std::string foo("tilemap_");
-
-            int result = strcmp(foo.c_str(), file.path().filename().string().substr(0,foo.length()).c_str());
-            if (result != 0) { continue; }
-            
-            int i = 0;
-            ifstream fs{ file.path() };
-
-        }
-    }*/
-
     void Map::LoadMap(const char* nameFile, const int layer) {
         int x = 0;
         int y = 0;
