@@ -23,7 +23,7 @@ namespace Tmpl8 {
 
 			//Initial player position
 			playerPosition.x = ScreenWidth / 2.0f;
-			playerPosition.y = ScreenHeight - static_cast<float>(playerSprite->GetHeight()) - 100.0f;
+			playerPosition.y = ScreenHeight - static_cast<float>(playerSprite->GetHeight()) - 40.0f;
 		}
 
 		Surface* screen;
@@ -37,6 +37,8 @@ namespace Tmpl8 {
 		float gravity = 0.0f;
 		float prevGravity;
 		float playerSpeed = 150.0f;
+
+		const int solidTile = 88;
 
 		const int tileWidth = 32;
 		const int tileHeight = 32;

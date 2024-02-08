@@ -50,89 +50,101 @@ namespace Tmpl8
 		  }
 
 
-		 void Player::CheckCollision()
-		 {
-			 int tileMinX = static_cast<int>(playerPosition.x / tileWidth);
-			 int tileMinY = static_cast<int>(playerPosition.y / tileHeight);
-			 int tileMaxX = static_cast<int>((playerPosition.x + playerSprite->GetWidth()) / tileWidth);
-			 int tileMaxY = static_cast<int>((playerPosition.y + playerSprite->GetHeight()) / tileHeight);
+         void Player::CheckCollision()
+         {
+             int tileMinX = static_cast<int>(playerPosition.x / tileWidth);
+             int tileMinY = static_cast<int>(playerPosition.y / tileHeight);
+             int tileMaxX = static_cast<int>((playerPosition.x + playerSprite->GetWidth()) / tileWidth);
+             int tileMaxY = static_cast<int>((playerPosition.y + playerSprite->GetHeight()) / tileHeight);
 
-			 int tileNew = static_cast<int>((playerPosition.y + playerSprite->GetHeight() / 2.0f) / tileHeight);
+             int tileNew = static_cast<int>((playerPosition.y + playerSprite->GetHeight() / 2.0f) / tileHeight);
 
-			 int tileMaxYNew = tileMaxY -1;
+             int tileMinXNew = static_cast<int>(playerPosition.x / tileWidth) + 1;
+             int tileMaxXNew = static_cast<int>((playerPosition.x + playerSprite->GetWidth()) / tileWidth) + 1;
 
-			 //Both bottom sides
-			 if (collisionMap->map[0][tileMaxY][tileMinX] == 88
-				 && collisionMap->map[0][tileMaxY][tileMaxX] == 88)
-			 {
-				 playerPosition.y = prevPlayerPosition.y;
-				 playerVelocity.y = 0.0f;
-			 } 
-
-			 //Either one of the bottom sides
-			 else if (collisionMap->map[0][tileMaxY][tileMinX] == 88 
-				 || collisionMap->map[0][tileMaxY][tileMaxX] == 88)
-			 {
-				 playerPosition.y = prevPlayerPosition.y;
-				 playerVelocity.y = 0.0f;
-			 }
+             int tileMaxYNew = static_cast<int>((playerPosition.y + playerSprite->GetHeight()) / tileHeight) - 1;
+             int tileMinYNew = static_cast<int>(playerPosition.y / tileHeight) + 1;
 
 
-
-			 //Both top sides
-			 if (collisionMap->map[0][tileMinY][tileMinX] == 88
-				 && collisionMap->map[0][tileMinY][tileMaxX] == 88)
-			 {
-				 playerPosition.y = prevPlayerPosition.y;
-				 playerVelocity.y = 0.0f;
-			 } 
-			 
-
-			 //Either one of the top sides
-			 else if (collisionMap->map[0][tileMinY][tileMinX] == 88
-				 || collisionMap->map[0][tileMinY][tileMaxX] == 88)
-			 {
-				 playerPosition.y = prevPlayerPosition.y;
-				 playerVelocity.y = 0.0f;
-			 }
+             // Check collision on left side
+             if ((collisionMap->map[0][tileMaxY][tileMinX] == solidTile
+                 && collisionMap->map[0][tileNew][tileMinX] == solidTile)
+                 ||(collisionMap->map[0][tileMinY][tileMinX] == solidTile
+                 && collisionMap->map[0][tileNew][tileMinX] == solidTile))
+             {
+                 std::cout << "hit left" << std::endl;
+                 playerPosition.x = prevPlayerPosition.x;
+             }
 
 
-			 //Left side
-			 if (collisionMap->map[0][tileMaxY][tileMinX] == 88
-				 && collisionMap->map[0][tileNew][tileMinX] == 88
-				 || collisionMap->map[0][tileMinY][tileMinX] == 88
-				 && collisionMap->map[0][tileNew][tileMinX] == 88)
-			 {
-				 playerPosition.x = prevPlayerPosition.x;
-
-				 
-			 }
-			 
-			 
-			 
-
-			 //Right side
-			 if (collisionMap->map[0][tileMaxY][tileMaxX] == 88
-				 && collisionMap->map[0][tileNew][tileMaxX] == 88
-				 || collisionMap->map[0][tileMinY][tileMaxX] == 88
-				 && collisionMap->map[0][tileNew][tileMaxX] == 88)
-			 {
-				 playerPosition.x = prevPlayerPosition.x;
-				 
-			 }		
-
-			 
-			 else if (collisionMap->map[0][tileMaxY][tileMinX] == 88
-				 ^ collisionMap->map[0][tileMaxY][tileMaxX] == 88)
-			 {
-				 playerPosition.x = prevPlayerPosition.x;
-			 }
-
-			 
-			 
+             // Check collision on right side
+             if ((collisionMap->map[0][tileMaxY][tileMaxX] == solidTile
+                 && collisionMap->map[0][tileNew][tileMaxX] == solidTile)
+                 ||(collisionMap->map[0][tileMinY][tileMaxX] == solidTile
+                 && collisionMap->map[0][tileNew][tileMaxX] == solidTile))
+             {
+                 std::cout << "hit right" << std::endl;
+                 playerPosition.x = prevPlayerPosition.x - 1.0f;
+             }
 
 
-		 }
+             // Check collision on both bottom sides
+             if (collisionMap->map[0][tileMaxY][tileMinX] == solidTile
+                 && collisionMap->map[0][tileMaxY][tileMaxX] == solidTile)
+             {
+                 std::cout << "hit both bottom" << std::endl;
+                 playerPosition.y = prevPlayerPosition.y;
+                 playerVelocity.y = 0.0f;
+             }
+
+
+             // Check collision on either bottom side
+             else if (collisionMap->map[0][tileMaxY][tileMinX] == solidTile
+                 || collisionMap->map[0][tileMaxY][tileMaxX] == solidTile)
+             {
+                 if (collisionMap->map[0][tileMaxYNew][tileMinX] == solidTile)
+                 {
+                     playerPosition.x = prevPlayerPosition.x - 1.0f;
+                     std::cout << "update" << std::endl;
+                 }
+                 if (collisionMap->map[0][tileMaxYNew][tileMinX] == solidTile)
+                 {
+                     playerPosition.x = prevPlayerPosition.x + 1.0f;
+                     std::cout << "update" << std::endl;
+                 }
+                 std::cout << "hit either bottom" << std::endl;
+                 playerPosition.y = prevPlayerPosition.y;
+                 playerVelocity.y = 0.0f;
+             }
+
+
+
+
+             // Check collision on both top sides
+             if (collisionMap->map[0][tileMinY][tileMinX] == solidTile
+                 && collisionMap->map[0][tileMinY][tileMaxX] == solidTile)
+             {
+                 std::cout << "hit both top" << std::endl;
+                 playerPosition.y = prevPlayerPosition.y;
+                 playerVelocity.y = 0.0f;
+             }
+
+
+
+
+             // Check collision on either top side
+             else if ((collisionMap->map[0][tileMinY][tileMinX] == solidTile
+                 || collisionMap->map[0][tileMinY][tileMaxX] == solidTile)
+                 && collisionMap->map[0][tileMinYNew][tileMinX] != solidTile
+                 && collisionMap->map[0][tileMinYNew][tileMaxX] != solidTile)
+             {
+                 std::cout << "hit either top" << std::endl;
+                 playerPosition.y = prevPlayerPosition.y;
+                 playerVelocity.y = 0.0f;
+             }
+         }
+
+
 
 		  void Player::HandleCollision(float deltaTime)
 		  {
