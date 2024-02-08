@@ -26,6 +26,25 @@ namespace Tmpl8 {
 			playerPosition.y = ScreenHeight - static_cast<float>(playerSprite->GetHeight()) - 40.0f;
 		}
 
+		struct Rect
+		{
+			float left;
+			float width;
+			float top;
+			float height;
+		};
+		struct Location
+		{
+			Rect rectangle;
+			int x;
+			int y;
+		};
+
+
+		static bool Player::intersects(Rect& rectangle1, Rect& rectangle2);
+
+		
+
 		Surface* screen;
 		Sprite* playerSprite;
 

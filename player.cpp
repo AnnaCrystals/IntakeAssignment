@@ -52,96 +52,45 @@ namespace Tmpl8
 
          void Player::CheckCollision()
          {
-             int tileMinX = static_cast<int>(playerPosition.x / tileWidth);
-             int tileMinY = static_cast<int>(playerPosition.y / tileHeight);
-             int tileMaxX = static_cast<int>((playerPosition.x + playerSprite->GetWidth()) / tileWidth);
-             int tileMaxY = static_cast<int>((playerPosition.y + playerSprite->GetHeight()) / tileHeight);
+			 const Player::Rect player = { playerPosition.x, playerSprite->GetWidth(), playerPosition.y, playerSprite->GetHeight() };
 
-             int tileNew = static_cast<int>((playerPosition.y + playerSprite->GetHeight() / 2.0f) / tileHeight);
+			 // Calculate player bounding boxes for each side
+			 Player::Rect playerLeft = { playerPosition.x - 1.f, 1.f, playerPosition.y, playerSprite->GetHeight() };
+			 Player::Rect playerRight = { playerPosition.x + playerSprite->GetWidth(), 1.f, playerPosition.y, playerSprite->GetHeight() };
+			 Player::Rect playerTop = { playerPosition.x, playerSprite->GetWidth(), playerPosition.y - 1.f, 1.f };
+			 Player::Rect playerBottom = { playerPosition.x, playerSprite->GetWidth(), playerPosition.y + playerSprite->GetHeight(), 1.f };
 
-             int tileMinXNew = static_cast<int>(playerPosition.x / tileWidth) + 1;
-             int tileMaxXNew = static_cast<int>((playerPosition.x + playerSprite->GetWidth()) / tileWidth) + 1;
+			 // Calculate nearby tiles and the middle tile
+			 int tileMiddleX = static_cast<int>((playerPosition.x + playerSprite->GetWidth() / 2) / tileWidth);
+			 int tileMiddleY = static_cast<int>((playerPosition.y + playerSprite->GetHeight() / 2) / tileHeight);
 
-             int tileMaxYNew = static_cast<int>((playerPosition.y + playerSprite->GetHeight()) / tileHeight) - 1;
-             int tileMinYNew = static_cast<int>(playerPosition.y / tileHeight) + 1;
+			 std::vector<Location> locationsToCheck;
 
+			 for (int x = -1; x < 2; x++) {
+				 for (int y = -1; y < 2; y++) {
+					 if (collisionMap->map[0][(tileMiddleY + y)][(tileMiddleX + x)] == solidTile) {
+						 locationsToCheck.push_back(Location{ Rect{ static_cast<float>((tileMiddleX + x) * tileWidth), static_cast<float>(tileWidth), static_cast<float>((tileMiddleY + y) * tileHeight), static_cast<float>(tileHeight) }, (tileMiddleX + x), (tileMiddleY + y) });
+					 }
+				 }
+			 }
 
-             // Check collision on left side
-             if ((collisionMap->map[0][tileMaxY][tileMinX] == solidTile
-                 && collisionMap->map[0][tileNew][tileMinX] == solidTile)
-                 ||(collisionMap->map[0][tileMinY][tileMinX] == solidTile
-                 && collisionMap->map[0][tileNew][tileMinX] == solidTile))
-             {
-                 std::cout << "hit left" << std::endl;
-                 playerPosition.x = prevPlayerPosition.x;
-             }
-
-
-             // Check collision on right side
-             if ((collisionMap->map[0][tileMaxY][tileMaxX] == solidTile
-                 && collisionMap->map[0][tileNew][tileMaxX] == solidTile)
-                 ||(collisionMap->map[0][tileMinY][tileMaxX] == solidTile
-                 && collisionMap->map[0][tileNew][tileMaxX] == solidTile))
-             {
-                 std::cout << "hit right" << std::endl;
-                 playerPosition.x = prevPlayerPosition.x - 1.0f;
-             }
-
-
-             // Check collision on both bottom sides
-             if (collisionMap->map[0][tileMaxY][tileMinX] == solidTile
-                 && collisionMap->map[0][tileMaxY][tileMaxX] == solidTile)
-             {
-                 std::cout << "hit both bottom" << std::endl;
-                 playerPosition.y = prevPlayerPosition.y;
-                 playerVelocity.y = 0.0f;
-             }
-
-
-             // Check collision on either bottom side
-             else if (collisionMap->map[0][tileMaxY][tileMinX] == solidTile
-                 || collisionMap->map[0][tileMaxY][tileMaxX] == solidTile)
-             {
-                 if (collisionMap->map[0][tileMaxYNew][tileMinX] == solidTile)
-                 {
-                     playerPosition.x = prevPlayerPosition.x - 1.0f;
-                     std::cout << "update" << std::endl;
-                 }
-                 if (collisionMap->map[0][tileMaxYNew][tileMinX] == solidTile)
-                 {
-                     playerPosition.x = prevPlayerPosition.x + 1.0f;
-                     std::cout << "update" << std::endl;
-                 }
-                 std::cout << "hit either bottom" << std::endl;
-                 playerPosition.y = prevPlayerPosition.y;
-                 playerVelocity.y = 0.0f;
-             }
-
-
-
-
-             // Check collision on both top sides
-             if (collisionMap->map[0][tileMinY][tileMinX] == solidTile
-                 && collisionMap->map[0][tileMinY][tileMaxX] == solidTile)
-             {
-                 std::cout << "hit both top" << std::endl;
-                 playerPosition.y = prevPlayerPosition.y;
-                 playerVelocity.y = 0.0f;
-             }
-
-
-
-
-             // Check collision on either top side
-             else if ((collisionMap->map[0][tileMinY][tileMinX] == solidTile
-                 || collisionMap->map[0][tileMinY][tileMaxX] == solidTile)
-                 && collisionMap->map[0][tileMinYNew][tileMinX] != solidTile
-                 && collisionMap->map[0][tileMinYNew][tileMaxX] != solidTile)
-             {
-                 std::cout << "hit either top" << std::endl;
-                 playerPosition.y = prevPlayerPosition.y;
-                 playerVelocity.y = 0.0f;
-             }
+			 for (Location location : locationsToCheck) {
+				 if (intersects(playerLeft, location.rectangle)) {
+					 // Adjust player velocity or position to resolve collision
+					 playerPosition.x = location.rectangle.left + player.width;
+				 }
+				 if (intersects(playerRight, location.rectangle)) {
+					 playerPosition.x = location.rectangle.left - player.width;
+				 }
+				 if (intersects(playerTop, location.rectangle)) {
+					 playerPosition.y = location.rectangle.top + player.height;
+					 playerVelocity.y = 0.0f;
+				 }
+				 if (intersects(playerBottom, location.rectangle)) {
+					 playerPosition.y = location.rectangle.top - player.height;
+					 playerVelocity.y = 0.0f;
+				 }
+			 }
          }
 
 
@@ -155,4 +104,28 @@ namespace Tmpl8
 			  CheckCollision();
 		  }	
 
+
+		  bool Player::intersects(Rect& rectangle1, Rect& rectangle2)
+		  {
+			  float r1MinX = (_STD min)(rectangle1.left, static_cast<float>(rectangle1.left + rectangle1.width));
+			  float r1MaxX = (_STD max)(rectangle1.left, static_cast<float>(rectangle1.left + rectangle1.width));
+			  float r1MinY = (_STD min)(rectangle1.top, static_cast<float>(rectangle1.top + rectangle1.height));
+			  float r1MaxY = (_STD max)(rectangle1.top, static_cast<float>(rectangle1.top + rectangle1.height));
+
+			  float r2MinX = (_STD min)(rectangle2.left, static_cast<float>(rectangle2.left + rectangle2.width));
+			  float r2MaxX = (_STD max)(rectangle2.left, static_cast<float>(rectangle2.left + rectangle2.width));
+			  float r2MinY = (_STD min)(rectangle2.top, static_cast<float>(rectangle2.top + rectangle2.height));
+			  float r2MaxY = (_STD max)(rectangle2.top, static_cast<float>(rectangle2.top + rectangle2.height));
+
+			  float interLeft = (_STD max)(r1MinX, r2MinX);
+			  float interTop = (_STD max)(r1MinY, r2MinY);
+			  float interRight = (_STD min)(r1MaxX, r2MaxX);
+			  float interBottom = (_STD min)(r1MaxY, r2MaxY);
+
+			  if ((interLeft < interRight) && (interTop < interBottom))
+			  {
+				  return true;
+			  }
+			  return false;
+		  }
 };
