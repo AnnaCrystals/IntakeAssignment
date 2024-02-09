@@ -5,16 +5,16 @@ C:\dev\IntakeAssignmentBuas\bottle.h(23,42): warning C4244: '=': conversion from
 C:\dev\IntakeAssignmentBuas\bottle.h(24,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
   (compiling source file 'player.cpp')
   
-C:\dev\IntakeAssignmentBuas\player.cpp(55,75): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\dev\IntakeAssignmentBuas\player.cpp(55,75): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\dev\IntakeAssignmentBuas\player.cpp(55,120): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\dev\IntakeAssignmentBuas\player.cpp(55,120): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\dev\IntakeAssignmentBuas\player.cpp(58,103): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\dev\IntakeAssignmentBuas\player.cpp(58,103): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\dev\IntakeAssignmentBuas\player.cpp(59,125): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\dev\IntakeAssignmentBuas\player.cpp(59,125): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\dev\IntakeAssignmentBuas\player.cpp(54,75): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\dev\IntakeAssignmentBuas\player.cpp(54,75): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\dev\IntakeAssignmentBuas\player.cpp(54,120): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\dev\IntakeAssignmentBuas\player.cpp(54,120): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\dev\IntakeAssignmentBuas\player.cpp(57,75): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\dev\IntakeAssignmentBuas\player.cpp(57,75): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\dev\IntakeAssignmentBuas\player.cpp(58,97): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\dev\IntakeAssignmentBuas\player.cpp(58,97): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\dev\IntakeAssignmentBuas\player.cpp(59,131): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+C:\dev\IntakeAssignmentBuas\player.cpp(59,131): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 C:\dev\IntakeAssignmentBuas\player.cpp(60,72): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
 C:\dev\IntakeAssignmentBuas\player.cpp(60,72): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\dev\IntakeAssignmentBuas\player.cpp(61,75): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-C:\dev\IntakeAssignmentBuas\player.cpp(61,75): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   tmpl_2019-08.vcxproj -> C:\dev\IntakeAssignmentBuas\tmpl_2019-08_x64_debug.exe

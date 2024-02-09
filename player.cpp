@@ -50,15 +50,14 @@ namespace Tmpl8
 		  }
 
 
-         void Player::CheckCollision()
-         {
+		 void Player::CheckCollision() {
 			 const Player::Rect player = { playerPosition.x, playerSprite->GetWidth(), playerPosition.y, playerSprite->GetHeight() };
 
 			 // Calculate player bounding boxes for each side
-			 Player::Rect playerLeft = { playerPosition.x - 1.f, 1.f, playerPosition.y, playerSprite->GetHeight() };
-			 Player::Rect playerRight = { playerPosition.x + playerSprite->GetWidth(), 1.f, playerPosition.y, playerSprite->GetHeight() };
-			 Player::Rect playerTop = { playerPosition.x, playerSprite->GetWidth(), playerPosition.y - 1.f, 1.f };
 			 Player::Rect playerBottom = { playerPosition.x, playerSprite->GetWidth(), playerPosition.y + playerSprite->GetHeight(), 1.f };
+			 Player::Rect playerLeft = { playerPosition.x, 1.f, playerPosition.y, playerSprite->GetHeight() };
+			 Player::Rect playerRight = { playerPosition.x + playerSprite->GetWidth() - 1.f, 1.f, playerPosition.y, playerSprite->GetHeight() };
+			 Player::Rect playerTop = { playerPosition.x, playerSprite->GetWidth(), playerPosition.y - 1.f, 1.f };
 
 			 // Calculate nearby tiles and the middle tile
 			 int tileMiddleX = static_cast<int>((playerPosition.x + playerSprite->GetWidth() / 2) / tileWidth);
@@ -75,24 +74,23 @@ namespace Tmpl8
 			 }
 
 			 for (Location location : locationsToCheck) {
-				 if (intersects(playerLeft, location.rectangle)) {
-					 // Adjust player velocity or position to resolve collision
-					 playerPosition.x = location.rectangle.left + player.width;
-				 }
-				 if (intersects(playerRight, location.rectangle)) {
-					 playerPosition.x = location.rectangle.left - player.width;
-				 }
-				 if (intersects(playerTop, location.rectangle)) {
-					 playerPosition.y = location.rectangle.top + player.height;
-					 playerVelocity.y = 0.0f;
-				 }
 				 if (intersects(playerBottom, location.rectangle)) {
 					 playerPosition.y = location.rectangle.top - player.height;
 					 playerVelocity.y = 0.0f;
 				 }
+				 if (intersects(playerLeft, location.rectangle)) {
+					 // Adjust player position to resolve collision
+					 playerPosition.x = location.rectangle.left + location.rectangle.width + 1.f;
+				 }
+				 if (intersects(playerRight, location.rectangle)) {
+					 playerPosition.x = location.rectangle.left - player.width - 1.f;
+				 }
+				 if (intersects(playerTop, location.rectangle)) {
+					 playerPosition.y = location.rectangle.top + location.rectangle.height + 1.f;
+					 playerVelocity.y = 0.0f;
+				 }
 			 }
-         }
-
+		 }
 
 
 		  void Player::HandleCollision(float deltaTime)
