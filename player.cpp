@@ -75,18 +75,23 @@ namespace Tmpl8
 
 			 for (Location location : locationsToCheck) {
 				 if (intersects(playerBottom, location.rectangle)) {
+					 //std::cout << "bottom" << std::endl;
 					 playerPosition.y = location.rectangle.top - player.height;
 					 playerVelocity.y = 0.0f;
 				 }
-				 if (intersects(playerLeft, location.rectangle)) {
-					 // Adjust player position to resolve collision
-					 playerPosition.x = location.rectangle.left + location.rectangle.width + 1.f;
+				 else if (intersects(playerLeft, location.rectangle)) {
+					 std::cout << "left" << std::endl;
+					 std::cout << playerVelocity.y << std::endl;
+					 playerPosition.x = location.rectangle.left + location.rectangle.width + 1.0f;
 				 }
-				 if (intersects(playerRight, location.rectangle)) {
-					 playerPosition.x = location.rectangle.left - player.width - 1.f;
+				 else if (intersects(playerRight, location.rectangle)) {
+					 std::cout << "right" << std::endl;
+					 std::cout << playerVelocity.y << std::endl;
+					 playerPosition.x = location.rectangle.left - player.width - 1.0f;
 				 }
-				 if (intersects(playerTop, location.rectangle)) {
-					 playerPosition.y = location.rectangle.top + location.rectangle.height + 1.f;
+				 else if (intersects(playerTop, location.rectangle)) {
+					 std::cout << "top" << std::endl;
+					 playerPosition.y = location.rectangle.top + location.rectangle.height + 1.0f;
 					 playerVelocity.y = 0.0f;
 				 }
 			 }

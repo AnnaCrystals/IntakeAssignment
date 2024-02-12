@@ -75,7 +75,6 @@ namespace Tmpl8 {
 		Bottle* myBottle;
 		Bottle* newBottle;
 		Map* collisionMap;
-		//char(*map)[76];
 	};
 
 

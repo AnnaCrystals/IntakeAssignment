@@ -44,7 +44,6 @@ namespace Tmpl8
 
 	void Game::Init()
 	{
-		/*Map::FolderRead();*/
 		myMap.LoadMap("assets/tile/tilemap_Tilelaag_1.csv", 0);
 		collisionMap.LoadMap("assets/tile/tilemap_CollisionLaag.csv", 0);
 	}
