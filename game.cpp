@@ -15,37 +15,19 @@ namespace Tmpl8
 	Game::Game()
 	{
 		myBottle = new Bottle;
-
-
+		background = new Surface("assets/background.png");
+	
 	}
 
 	Surface tiles("assets/mediaval.png");
-	const int numRows = 16;
-	const int numColums = 76;
-	char map[numRows][numColums] = {
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXabX",
-		 "lc lc lc lc lc lc lc lc lc lc lc abXabXabXabXlc lc lc lc lc abXabXabXabXabX",
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc lc",
-		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc abXabXabXabXabXabXabXabXabXabX",
-		 "abXabXabXabXlc lc lc lc lc lc lc lc lc lc lc abXabXabXabXabXabXabXabXabXabX",
-	};
+	
 
 
 	void Game::Init()
 	{
 		myMap.LoadMap("assets/tile/tilemap_Tilelaag_1.csv", 0);
 		collisionMap.LoadMap("assets/tile/tilemap_CollisionLaag.csv", 0);
+
 	}
 
 	void Game::SetTarget(Surface* surface)
@@ -96,8 +78,9 @@ namespace Tmpl8
 		myPlayer->HandleCollision(deltaTime);
 		myBottle->HandleHit(myPlayer->playerPosition, myPlayer->screen, myBottle);
 
-		screen->Clear(0);
 
+		screen->Clear(0);
+		
 
 		for (int y = 0; y < 16; y++)
 		{
@@ -107,12 +90,13 @@ namespace Tmpl8
 				DrawTile(value, screen, x * 32, y * 32);
 			}
 		}
-
+		//screen->Resize(background);
 
 		myBottle->Draw(screen, myBottle->bottlePosition);
 		screen->Box(myBottle->bottlePosition.x, myBottle->bottlePosition.y, myBottle->bottlePosition.x + myBottle->bottleSprite->GetWidth(), myBottle->bottlePosition.y + myBottle->bottleSprite->GetHeight(), 0xffff00);
 		
 		myPlayer->playerSprite->Draw(screen, static_cast<int> (myPlayer->playerPosition.x), static_cast<int>(myPlayer->playerPosition.y));
+		//myPlayer->playerSpriteIdle->Draw(screen, static_cast<int> (myPlayer->playerPosition.x), static_cast<int>(myPlayer->playerPosition.y));
 		//screen->Box(myPlayer->playerVelocity.x + myPlayer->playerPosition.x, myPlayer->playerVelocity.y + myPlayer->playerPosition.y, myPlayer->playerVelocity.x + myPlayer->playerSprite->GetWidth() + myPlayer->playerPosition.x, myPlayer->playerVelocity.y + static_cast<float> (myPlayer->playerSprite->GetHeight()) + myPlayer->playerPosition.y, 0xffff00);
 		screen->Box(myPlayer->playerPosition.x, myPlayer->playerPosition.y, myPlayer->playerSprite->GetWidth() + myPlayer->playerPosition.x,  static_cast<float> (myPlayer->playerSprite->GetHeight()) + myPlayer->playerPosition.y, 0xffff00);
 	}

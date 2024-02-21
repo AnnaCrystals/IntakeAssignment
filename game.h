@@ -30,13 +30,17 @@ namespace Tmpl8 {
 		void KeyUp(int key) {}
 		void KeyDown(int key) {}
 
+
+		
 	private:
+
 		Surface* screen;
 		Player* myPlayer;
 		Bottle* myBottle;
 		Bottle* newBottle;
 		Map myMap;
 		Map collisionMap;
+		Surface* background;
 	};
 
 

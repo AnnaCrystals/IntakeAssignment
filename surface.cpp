@@ -364,7 +364,7 @@ Sprite::~Sprite()
 	delete[] m_Start;
 }
 
-void Sprite::Draw( Surface* a_Target, int a_X, int a_Y )
+void Sprite::Draw( Surface* a_Target, int a_X, int a_Y, bool flip )
 {
 	if ((a_X < -m_Width) || (a_X > (a_Target->GetWidth() + m_Width))) return;
 	if ((a_Y < -m_Height) || (a_Y > (a_Target->GetHeight() + m_Height))) return;
@@ -373,7 +373,7 @@ void Sprite::Draw( Surface* a_Target, int a_X, int a_Y )
 	Pixel* src = GetBuffer() + m_CurrentFrame * m_Width;
 	if (x1 < 0)
 	{
-		src += -x1;
+		src += flip ? x1 : -x1;
 		x1 = 0;
 	}
 	if (x2 > a_Target->GetWidth()) x2 = a_Target->GetWidth();
@@ -400,7 +400,7 @@ void Sprite::Draw( Surface* a_Target, int a_X, int a_Y )
 				xs = (lsx > x1)?lsx - x1:0;
 				for ( int x = xs; x < width; x++ )
 				{
-					const Pixel c1 = *(src + x);
+					const Pixel c1 = flip ? *(src + m_Width - x) : *(src + x);
 					if (c1 & 0xffffff) 
 					{
 						const Pixel c2 = *(dest + addr + x);
@@ -413,7 +413,7 @@ void Sprite::Draw( Surface* a_Target, int a_X, int a_Y )
 				xs = (lsx > x1)?lsx - x1:0;
 				for ( int x = xs; x < width; x++ )
 				{
-					const Pixel c1 = *(src + x);
+					const Pixel c1 = flip ? *(src + m_Width - x) : *(src + x);
 					if (c1 & 0xffffff) *(dest + addr + x) = c1;
 				}
 			}
@@ -422,6 +422,54 @@ void Sprite::Draw( Surface* a_Target, int a_X, int a_Y )
 		}
 	}
 }
+
+
+//void Sprite::Draw(Surface* target, int x, int y, bool flip)
+//{
+//	if (x < -width || x >(target->width + width)) return; // Bounds check
+//	if (y < -height || y >(target->height + height)) return; // Bounds check
+//	int x1 = x, x2 = x + width;
+//	int y1 = y, y2 = y + height;
+//	uint* src = GetBuffer() + currentFrame * width;
+//	int xStartOffset{ 0 }, xEndOffset{ 0 }; // Amount of out-of-bounds pixels
+//	if (x1 < 0) xStartOffset = -x1, x1 = 0; // Clamp drawing range (left)
+//	if (x2 > target->width) xEndOffset = x2 - target->width, x2 = target->width; // Clamp drawing range (right)
+//	if (y1 < 0) src += -y1 * width * numFrames, y1 = 0; // Clamp drawing range (top)
+//	if (y2 > target->height) y2 = target->height; // Clamp drawing range (bottom)
+//	uint* dest = target->pixels;
+//	int xs;
+//	if (x2 > x1 && y2 > y1)
+//	{
+//		unsigned int addr = y1 * target->width + x1;
+//		const int w = x2 - x1; // Horizontal range of pixels
+//		const int h = y2 - y1; // Vertical range of pixels
+//		for (int j = 0; j < h; j++) // Go over vertical range
+//		{
+//			if (flip) // Draw flipped
+//			{
+//				for (int i = 0; i < w; i++) // Go over horizontal range
+//				{
+//					const uint c1 = *(src + i + xEndOffset);
+//					if (c1 & 0xffffff) *(dest + addr + (w - 1) - i) = c1;
+//				}
+//			}
+//			else // Draw regularly
+//			{
+//				const int line = j + (y1 - y);
+//				const int lsx = start[currentFrame][line] + x;
+//				xs = (lsx > x1) ? lsx - x1 : 0;
+//				for (int i = xs; i < w; i++) // Go over horizontal range
+//				{
+//					const uint c1 = *(src + i + xStartOffset);
+//					if (c1 & 0xffffff) *(dest + addr + i) = c1;
+//				}
+//			}
+//			addr += target->width; // Increment destination
+//			src += width * numFrames; // Increment source
+//		}
+//	}
+//}
+
 
 void Sprite::DrawScaled( int a_X, int a_Y, int a_Width, int a_Height, Surface* a_Target )
 {

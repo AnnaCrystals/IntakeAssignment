@@ -16,14 +16,17 @@ namespace Tmpl8 {
 	public:
 		Player(Map* collisionMap, Surface* screen) : screen(screen), collisionMap(collisionMap)
 		{
-			playerSprite = new Sprite(new Surface("assets/ball.png"), 1);
+			playerSprite = new Sprite(new Surface("assets/player.tga"), 9);
+			playerSpriteIdle = new Sprite(new Surface("assets/playerIdle.tga"), 5);
+			//playerSprite = new Sprite(new Surface("assets/ball.png"), 1);
+			
 
 			playerSize.x = playerSprite->GetWidth() / 2.0f;
 			playerSize.y = playerSprite->GetHeight() / 2.0f;
 
 			//Initial player position
 			playerPosition.x = ScreenWidth / 2.0f;
-			playerPosition.y = ScreenHeight - static_cast<float>(playerSprite->GetHeight()) - 40.0f;
+			playerPosition.y = ScreenHeight - static_cast<float>(playerSprite->GetHeight()) - 1.0f;
 		}
 
 		struct Rect
@@ -47,6 +50,7 @@ namespace Tmpl8 {
 
 		Surface* screen;
 		Sprite* playerSprite;
+		Sprite* playerSpriteIdle;
 
 		vec2 playerPosition;
 		vec2 prevPlayerPosition{ playerPosition.x, playerPosition.y };
@@ -57,10 +61,19 @@ namespace Tmpl8 {
 		float prevGravity;
 		float playerSpeed = 150.0f;
 
+		bool hitLeft = false;
+		bool hitRight = false;
+
 		const int solidTile = 88;
 
 		const int tileWidth = 32;
 		const int tileHeight = 32;
+
+		float totalTime = 0.0f;
+		float FPS = 12.0f;
+
+
+
 
 		
 		void Player::UpdatePosition(float deltaTime);
@@ -70,7 +83,6 @@ namespace Tmpl8 {
 
 
 	private:
-		
 		Player* myPlayer;
 		Bottle* myBottle;
 		Bottle* newBottle;

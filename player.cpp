@@ -13,6 +13,7 @@ namespace Tmpl8
 {
 		 void Player::UpdatePosition(float deltaTime)
 		 {
+			 totalTime += deltaTime;
 			 static bool spacePressed = false;
 
 			 //SPACE can only be pressed if gravity = 0.0f
@@ -35,8 +36,23 @@ namespace Tmpl8
 			 }
 
 
-			 if (GetAsyncKeyState(VK_LEFT)) playerPosition.x -= playerSpeed * deltaTime;
-			 if (GetAsyncKeyState(VK_RIGHT)) playerPosition.x += playerSpeed * deltaTime;
+		
+				 if (GetAsyncKeyState(VK_LEFT))
+				 {
+					 playerPosition.x -= playerSpeed * deltaTime;
+					 
+				 }
+			
+				 if (GetAsyncKeyState(VK_RIGHT)) 
+				 {
+					playerPosition.x += playerSpeed * deltaTime;
+					int frame = (int)(totalTime * FPS) % playerSprite->Frames();
+					playerSprite->SetFrame(frame);					
+				 }
+				 
+				 int frame = (int)(totalTime * FPS) % playerSpriteIdle->Frames();
+				 playerSpriteIdle->SetFrame(frame);
+				 
 
 			 playerPosition.y += playerVelocity.y * deltaTime;
 			 playerPosition.x += playerVelocity.x * deltaTime;
@@ -45,6 +61,7 @@ namespace Tmpl8
 			 {
 				 playerVelocity.y += gravity * deltaTime;
 				 playerVelocity.y += 9.81f;
+				
 			 }
 
 		  }
@@ -79,21 +96,25 @@ namespace Tmpl8
 					 playerPosition.y = location.rectangle.top - player.height;
 					 playerVelocity.y = 0.0f;
 				 }
+				 else if (intersects(playerTop, location.rectangle)) {
+					 //std::cout << "top" << std::endl;
+					 playerPosition.y = location.rectangle.top + location.rectangle.height + 1.0f;
+					 playerVelocity.y = 0.0f;
+				 }
 				 else if (intersects(playerLeft, location.rectangle)) {
 					 std::cout << "left" << std::endl;
 					 std::cout << playerVelocity.y << std::endl;
-					 playerPosition.x = location.rectangle.left + location.rectangle.width + 1.0f;
+					 playerPosition.x = location.rectangle.left + location.rectangle.width;
+					 hitLeft = true;
 				 }
 				 else if (intersects(playerRight, location.rectangle)) {
 					 std::cout << "right" << std::endl;
 					 std::cout << playerVelocity.y << std::endl;
-					 playerPosition.x = location.rectangle.left - player.width - 1.0f;
+					 playerPosition.x = location.rectangle.left - player.width;
+					 hitRight = true;
 				 }
-				 else if (intersects(playerTop, location.rectangle)) {
-					 std::cout << "top" << std::endl;
-					 playerPosition.y = location.rectangle.top + location.rectangle.height + 1.0f;
-					 playerVelocity.y = 0.0f;
-				 }
+				 
+				 
 			 }
 		 }
 
